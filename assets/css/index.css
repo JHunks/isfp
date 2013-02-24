@@ -1,0 +1,221 @@
+
+html {
+	min-width:985px;
+}
+body{
+	color: #000000;
+	text-align: center;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	background-image: url("/assets/images/main-bg.jpg");
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.09, rgb(25,74,138)),
+		color-stop(0.46, rgb(79,151,219)),
+		color-stop(0.9, rgb(14,50,97))
+	);
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+	padding-bottom: 100px;
+}
+table{
+	border-spacing: 0px;
+	padding: 0px;
+	border: 0px;
+}
+td{
+	border-spacing: 0px;
+	padding: 0px;
+	border: 0px;
+	vertical-align: top;
+}
+a{
+	color: #a1a0a0;
+    -webkit-transition: color 0.6s ease;
+    -moz-transition: color 0.6s ease;
+    -o-transition: color 0.6s ease;
+    transition: color 0.6s ease;
+    text-decoration: none;
+}
+form{
+	display: inline;
+}
+a:hover{
+	color: #000000;
+}
+#list_container{ 
+	list-style:none;
+}
+#list_links{
+	list-style-image:url('/assets/images/arrow.gif');
+}
+#container{
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+	border: none;
+}
+#header{
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+	border: 1px solid white;
+}
+#content{
+	margin-top: 8px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+	border: none;
+}
+#login{
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	border: 1px solid white;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+}
+#login_title{
+	background-color: #000000;
+	color: #FFFFFF;
+	height: 40px;
+	margin-top: 0px;
+	text-transform: uppercase;
+	overflow: hidden;
+	font-size: small;
+	line-height: 2.8;
+	-moz-border-radius-topright: 20px;
+  	-webkit-border-top-right-radius: 20px;
+  	-moz-border-radius-topleft: 20px;
+  	-webkit-border-top-left-radius: 20px;
+}
+#login_content{
+	text-align: left;
+}
+#navigation{
+	margin-top: 8px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	border: 1px solid white;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+}
+#nav_title{
+	background-color: #000000;
+	color: #FFFFFF;
+	height: 40px;
+	margin-top: 0px;
+	text-transform: uppercase;
+	overflow: hidden;
+	font-size: small;
+	line-height: 2.8;
+	-moz-border-radius-topright: 20px;
+  	-webkit-border-top-right-radius: 20px;
+  	-moz-border-radius-topleft: 20px;
+  	-webkit-border-top-left-radius: 20px;
+}
+#nav_content{
+	text-align: left;
+}
+#inner_content{
+	margin-left: 8px;
+	margin-right: auto;
+	width: 750px;
+	border: 1px solid white;
+	border-collapse: separate;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+}
+#cont_calendar{
+	margin-top: 8px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	height: 200px;
+	border: 1px solid white;
+	border-collapse: separate;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+}
+#cal_title{
+	background-color: #000000;
+	color: #FFFFFF;
+	height: 40px;
+	margin-top: 0px;
+	text-transform: uppercase;
+	overflow: hidden;
+	font-size: small;
+	line-height: 2.8;
+	-moz-border-radius-topright: 20px;
+  	-webkit-border-top-right-radius: 20px;
+  	-moz-border-radius-topleft: 20px;
+  	-webkit-border-top-left-radius: 20px;
+}
+#error{
+	color: #b56b47;
+}
+#footer{
+	padding: 20px;	
+	background-color:rgba(0,0,0,0.6);
+	color: #fff;
+	font-size: 11px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#photo_container {
+	width: 960px;
+	height: 400px;
+	background-color: #000;
+}
+
+#cp_links{
+	margin-left: auto;
+	margin-right: auto;
+}
+table.alinks {
+	border: none;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 700px;
+}
+td.alinks{
+	text-align: center;
+	font-size: small;
+	width: 100px;
+}
+table.edit_data{
+	width: 700px;
+	border: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+td.edit_data{
+	font-size: small;
+	text-align: center;
+}
+#align_left{
+	text-align: left;
+}
+#margin{
+	margin: 20px;
+}
+#custom_page{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+#small_text{
+	font-size: small;
+	text-transform: uppercase;
+	color: #666565;
+}
+#t_c_page{
+	width: 100%;
+}
