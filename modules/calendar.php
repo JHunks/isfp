@@ -18,14 +18,14 @@ $(document).ready(function() {
 	    			if($row['end_time']!="0000-00-00"){
 	    				echo "end : '".$row['end_time']."',";
 	    			}
-	    			echo "url : 'index.php?op=events&id=".$row['event_id']."'},";
+	    			echo "url : 'index.php?op=calendar&id=".$row['event_id']."'},";
 	    		}
 	    		
 	    	?>
 	        ],
 	        eventClick: function(event) {
 				if (event.url) {
-		            window.open(event.url);
+		            window.location.href = event.url;
 		            return false;
 		        }
 			}    
