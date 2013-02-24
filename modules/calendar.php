@@ -33,3 +33,16 @@ $(document).ready(function() {
 	});
 </script>
 <div id='calendar'></div>
+
+<?php
+if(isset($_GET['id'])){
+	$connection_cal = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+	mysql_select_db(DB_NAME, $connection_cal) or die(mysql_error());
+	$q = "SELECT * FROM events WHERE event_id='".$_GET['id']."'";
+	$result = mysql_query($q, $connection_cal);
+	$infoarray = mysql_fetch_array($result);
+
+	echo $infoarray['event_title'];
+}
+
+?>
