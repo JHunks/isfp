@@ -2,6 +2,7 @@
 ## Eclipse
 #################
 
+includes/login/include/constants.php
 *.pydevproject
 .project
 .metadata
