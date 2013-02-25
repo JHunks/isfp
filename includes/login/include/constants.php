@@ -28,8 +28,8 @@
 } else {
 	//if in local development
 	define("DB_SERVER", "localhost");
-	define("DB_USER", "sheila");//enter your database username
-	define("DB_PASS", "sheila");//databse password
+	define("DB_USER", "website");//enter your database username
+	define("DB_PASS", "9doggy9");//databse password
 	define("DB_NAME", "isfp");//database name
 }
 
