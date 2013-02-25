@@ -203,6 +203,9 @@ td.edit_data{
 #align_left{
 	text-align: left;
 }
+#centered{
+	text-align: center;
+}
 #margin{
 	margin: 20px;
 }
@@ -219,4 +222,30 @@ td.edit_data{
 }
 #t_c_page{
 	width: 100%;
+}
+#calendar_display{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+table.calendar_table{
+	width: 100%;
+}
+td.calendar_table{
+	text-align: left;
+}
+td.calendar_table_headers{
+	width: 150px;
+	text-align: left;
+	font-weight: bold;
+}
+td.celendar_table_button{
+	width: 250px;
+	margin-top: auto;
+	margin-bottom: auto;
+	vertical-align: middle;
+	text-align: center;
+}
+th.calendar_table{
+	text-decoration: underline;
 }

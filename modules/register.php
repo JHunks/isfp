@@ -1,30 +1,9 @@
 <?php
-/**
- * Register.php
- * 
- * Displays the registration form if the user needs to sign-up,
- * or lets the user know, if he's already logged in, that he
- * can't register another name.
- *
- * Please subscribe to our feeds at http://blog.geotitles.com for more such tutorials
- */
-//include("login/include/session.php");
-?>
-
-<?php
-/**
- * The user is already logged in, not allowed to register.
- */
 if($session->logged_in){
    echo "<h1>Registered</h1>";
    echo "<p>We're sorry <b>$session->username</b>, but you've already registered. "
        ."<a href=\"/index.php\">Home</a>.</p>";
-}
-/**
- * The user has submitted the registration form and the
- * results have been processed.
- */
-else if(isset($_SESSION['regsuccess'])){
+} else if(isset($_SESSION['regsuccess'])){
    /* Registration was successful */
    if($_SESSION['regsuccess']){
       echo "<h1>Registered!</h1>";
@@ -40,12 +19,6 @@ else if(isset($_SESSION['regsuccess'])){
    unset($_SESSION['regsuccess']);
    unset($_SESSION['reguname']);
 }
-/**
- * The user has not filled out the registration form yet.
- * Below is the page with the sign-up form, the names
- * of the input fields are important and should not
- * be changed.
- */
 else{
 ?>
 <h1>Register</h1>
@@ -55,7 +28,7 @@ else{
   }
 ?>
 <form action="includes/login/process.php" method="POST">
-  <table align="left" border="0" cellspacing="0" cellpadding="3">
+  <table>
     <tr>
       <td>Username:</td>
       <td><input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"></td>
@@ -72,10 +45,7 @@ else{
       <td><?php echo $form->error("email"); ?></td>
     </tr>
     <tr>
-      <td colspan="2" align="right"><input type="hidden" name="subjoin" value="1"><input type="submit" value="Register!"></td>
-    </tr>
-    <tr>
-      <td colspan="1" align="left"><a href="/index.php">Back to Login page</a></td>
+      <td colspan="3" align="right"><input type="hidden" name="subjoin" value="1"><input type="submit" value="Register!"></td>
     </tr>
   </table>
 </form>
@@ -83,5 +53,3 @@ else{
 <?php
 }
 ?> 
-</body>
-</html>
