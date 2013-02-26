@@ -11,6 +11,7 @@ if($session->isAdmin()){
 		<td class="alinks"><a href="index.php?op=control_panel&page=general">Site Settings</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel&page=stats">List Users</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel&page=users">Manage Users</a></td><td> | </td>
+	    <td class="alinks"><a href="index.php?op=control_panel&page=useful_links">Useful Links</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel&page=manage_pages">Manage Pages</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel&page=manage_events">Manage Events</a></td>
 	</tr>

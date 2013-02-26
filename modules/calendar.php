@@ -128,7 +128,7 @@ if(isset($_GET['id'])){
 				Enterance Fee:
 			</td>
 			<td class="calendar_table">
-				<?php if(isset($infoarray['enterance_fee']) && $infoarray['enterance_fee'] != null) {echo "$".$infoarray['enterance_fee'];} else { echo"Free";} ?>
+				<?php if(isset($infoarray['enterance_fee']) && $infoarray['enterance_fee'] != null && $infoarray['enterance_fee'] != 0 ) {echo "$".$infoarray['enterance_fee'];} else { echo"Free";} ?>
 			</td>
 		</tr>
 	</table>
