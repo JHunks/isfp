@@ -32,6 +32,41 @@ $(document).ready(function() {
 		})
 	});
 </script>
+
+<?php if(isset($dbarray['calendar_op']) && $dbarray['calendar_op']==1){
+	$connection_cal = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+	mysql_select_db(DB_NAME, $connection_cal) or die(mysql_error());
+	$q = "SELECT * FROM events";
+	$result = mysql_query($q, $connection_cal);
+	?>
+	<table>
+
+	<?php
+
+
+
+	while($infoarray = mysql_fetch_array($result)){
+		?>
+			<tr>
+				<td><?php echo $infoarray['event_title']; ?></td>
+				<td><?php echo $infoarray['event_description']; ?></td>
+				<td><?php echo $infoarray['event_host']; ?></td>
+				<td><?php echo $infoarray['event_location']; ?></td>
+				<td><?php echo $infoarray['start_time']; ?></td>
+				<td><?php echo $infoarray['end_time']; ?></td>
+				<td><?php echo $infoarray['guest_list']; ?></td>
+				<td><?php echo $infoarray['enterance_fee']; ?></td>
+			</tr>
+
+		<?php
+	}
+	?>
+	</table>
+	<?php
+
+} else { 
+?>
+
 <div id='calendar'></div>
 
 <?php
@@ -134,5 +169,6 @@ if(isset($_GET['id'])){
 	</table>
 </div>
 <?php 
+	}
 }
 ?>
