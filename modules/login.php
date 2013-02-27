@@ -27,7 +27,7 @@
 									</td>
 									<td>
 										<input type="hidden" name="sublogin" value="1">
-										<input type="submit" value="Login">
+										<a href="#" class="login_button" onclick="document.login_request.submit()">Login</a>
 									</td>
 								</tr>
 								<tr>

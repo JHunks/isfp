@@ -1,22 +1,14 @@
 <?php
+$connection_ul = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+mysql_select_db(DB_NAME, $connection_ul) or die(mysql_error());
+
 if(isset($_POST['edit_this_link'])){
-	//$_POST['edit_site_page'];
-	if ($_POST['page_enabled'] == "yes"){
-		$vbl = 1;
-	} elseif ($_POST['page_enabled'] == "no"){
-		$vbl = 0;
-	}
-	$q = "UPDATE useful_links SET page_title = '".$_POST['page_title']."', page_content = '".$_POST['page_content']."', date_modified = '".date('Y-m-d h:m:s')."', modified_by = '".$session->username."', is_visible = '".$vbl."' WHERE page_id='".$_POST['edit_site_page']."'";
+	$q = "UPDATE useful_links SET link_title = '".$_POST['link_title']."', link_description = '".$_POST['link_description']."', link_url = '".$_POST['link_url']."' WHERE link_id='".$_POST['edit_this_link']."'";
 	if(mysql_query($q, $connection_ul)){echo"success";} else {echo"failure";}
 }
 
 if(isset($_POST['create_new_link'])){
-	if ($_POST['page_enabled'] == "yes"){
-		$vbl = 1;
-	} elseif ($_POST['page_enabled'] == "no"){
-		$vbl = 0;
-	}
-	$q = "INSERT INTO useful_links SET page_title = '".$_POST['page_title']."', page_content = '".$_POST['page_content']."', date_created = '".date('Y-m-d h:m:s')."', author = '".$session->username."', is_visible = '".$vbl."'";
+	$q = "INSERT INTO useful_links SET link_title = '".$_POST['link_title']."', link_description = '".$_POST['link_description']."', link_url = '".$_POST['link_url']."'";
 	if(mysql_query($q, $connection_ul)){echo"success";} else {echo"failure";}
 }
 
@@ -31,7 +23,7 @@ if(isset($_POST['delete_this_link'])){
 		<td>Title</td><td> | </td>
 		<td>Description</td><td> | </td>
 		<td>URL</td><td> | </td>
-		<td>Action</td>
+		<td width="105">Action</td>
 	</tr>
 	<?php 
 		$connection_ul = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
@@ -66,3 +58,64 @@ if(isset($_POST['delete_this_link'])){
 		</td>
 	</tr>
 </table><br/>
+
+
+
+<?php
+if(isset($_POST['edit_link'])){
+	$l_id = $_POST['edit_link'];
+	$connection_pg = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+	mysql_select_db(DB_NAME, $connection_pg) or die(mysql_error());
+	$q = "SELECT * FROM useful_links WHERE link_id='".$l_id."'";
+	$result = mysql_query($q, $connection_pg);
+	$row = mysql_fetch_array($result)
+?>
+<form action="" method="post">
+	<table class="edit_data">
+		<tr>
+			<td class="edit_data">Title: </td>
+			<td class="edit_data"><input type="text" name="link_title" value="<?php echo $row['link_title']; ?>"></td>
+		</tr>
+		<tr>
+			<td class="edit_data">Description: </td>
+			<td class="edit_data"><input type="text" name="link_description" value="<?php echo $row['link_description']; ?>"></td>
+		</tr>
+		<tr>
+			<td class="edit_data">URL: </td>
+			<td class="edit_data"><input type="text" name="link_url" value="<?php echo $row['link_url']; ?>"></td>
+		</tr>
+		<tr>
+			<td colspan="100%">
+				<input type="hidden" name="edit_this_link" value='1'>
+				<input type="submit" value="Save">
+			</td>
+		</tr>
+	</table>
+</form>
+<?php } 
+
+if(isset($_POST['create_link'])){
+?>
+<form action="" method="post">
+	<table class="edit_data">
+		<tr>
+			<td class="edit_data">Title: </td>
+			<td class="edit_data"><input type="text" name="link_title" placeholder="title"></td>
+		</tr>
+		<tr>
+			<td class="edit_data">Description: </td>
+			<td class="edit_data"><input type="text" name="link_description" placeholder="description"></td>
+		</tr>
+		<tr>
+			<td class="edit_data">URL: </td>
+			<td class="edit_data"><input type="text" name="link_url" placeholder="url starting with http://"></td>
+		</tr>
+		<tr>
+			<td colspan="100%">
+				<input type="hidden" name="create_new_link" value="1">
+				<input type="submit" value="Create">
+			</td>
+		</tr>
+	</table>
+</form>
+<?php } ?>

@@ -4,7 +4,6 @@ mysql_select_db(DB_NAME, $connection_cal) or die(mysql_error());
 $q = "SELECT * FROM events";
 $result = mysql_query($q, $connection_cal);
 ?>
-<link rel="stylesheet" type="text/css" media="screen" href="assets/css/buttons.css">
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#calendar').fullCalendar({

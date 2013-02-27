@@ -249,3 +249,16 @@ td.celendar_table_button{
 th.calendar_table{
 	text-decoration: underline;
 }
+table.useful_links{
+	width: 100%;
+}
+td.useful_links{
+	text-align: left;
+}
+td.useful_links_url{
+	width:150px;
+	text-align: left;
+}
+th.useful_links{
+	text-align: left;
+}

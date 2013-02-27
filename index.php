@@ -11,12 +11,13 @@ $dbarray = mysql_fetch_array($result);
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>International Student Friendship Program</title>
+		<title> <?php echo $dbarray['site_title'] ?></title>
 		<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"> 
 		<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon"> 
 		<link rel="stylesheet" type="text/css" media="screen" href="assets/css/index.css">
 		<link rel="stylesheet" href="includes/jQuery.isc/jQuery.isc.css" type="text/css" media="screen" charset="utf-8">
 		<link rel="stylesheet" type="text/css" media="screen" href="includes/fullcalendar/fullcalendar.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="assets/css/buttons.css">
 		<script src="http://www.google.com/jsapi"></script>
 		<script>google.load("jquery", "1");</script>
 		<script type="text/javascript">
@@ -85,7 +86,7 @@ $dbarray = mysql_fetch_array($result);
 										<li id="list_links"><a href="index.php?op=register">Register</a></li>
 										<li id="list_links"><a href="index.php?op=activities">Activities</a></li>
 										<li id="list_links"><a href="index.php?op=program">Program</a></li>
-										<li id="list_links"><a href="index.php?op=links">Useful Links</a></li>
+										<li id="list_links"><a href="index.php?op=useful_links">Useful Links</a></li>
 										<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>
 										<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>
 										<li id="list_links"><a href="index.php?op=contact">Contact Us</a></li>
@@ -139,7 +140,7 @@ $dbarray = mysql_fetch_array($result);
 			</div>
 		</div>
 		<div id="footer">
-			&copy; Kirill Afanasenko 2013. All Rights Reserved.
+			&copy; <?php echo $dbarray['copyright'] ?>
 		</div>
 	</body>
 </html>
