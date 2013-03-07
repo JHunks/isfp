@@ -1,22 +1,11 @@
 <?php
-/**
- * UserEdit.php
- *
- * This page is for users to edit their account information
- * such as their password, email address, etc. Their
- * usernames can not be edited. When changing their
- * password, they must first confirm their current password.
- *
- */
 	include_once("includes/login/include/session.php");
 ?>
-
+<table class="edit_links">
+	<tr>
+		<td class="edit_links">
 <p>
 	<?php
-		/**
-		 * User has submitted form without errors and user's
-		 * account has been edited successfully.
-		 */
 		if(isset($_SESSION['useredit'])){
 		   unset($_SESSION['useredit']);
 		   
@@ -25,12 +14,6 @@
 		} else {
 	?>
   <?php
-		/**
-		 * If user is not logged in, then do not display anything.
-		 * If user is logged in, then display the form to edit
-		 * account information, with the current email address
-		 * already in the field.
-		 */
 		if($session->logged_in){
 	?>
 </p>
@@ -42,36 +25,39 @@
 	   echo "<td><font size=\"2\" color=\"#ff0000\">".$form->num_errors." error(s) found</font></td>";
 	}
 ?>
-<form action="includes/login/process.php" method="POST">
-	<table align="left" border="0" cellspacing="0" cellpadding="3">
-		<tr>
-			<td></td>
-			<td>Current Password:</td>
-			<td><input type="password" name="curpass" maxlength="30" value="<?php echo $form->value("curpass"); ?>"></td>
-			<td><?php echo $form->error("curpass"); ?></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>New Password:</td>
-			<td><input type="password" name="newpass" maxlength="30" value="<?php echo $form->value("newpass"); ?>"></td>
-			<td><?php echo $form->error("newpass"); ?></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>Email:</td>
-			<td><input type="text" name="email" maxlength="50" value="<?php if($form->value("email") == ""){ echo $session->userinfo['email']; }else{echo $form->value("email");}?>"></td>
-			<td><?php echo $form->error("email"); ?></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="right">
-				<input type="hidden" name="subedit" value="1">
-				<input type="submit" value="Edit Account">
-			</td>
-		</tr>
-		<tr><td colspan="2" align="left"></td></tr>
-	</table>
-</form>
+		<form action="includes/login/process.php" method="POST">
+			<table>
+				<tr>
+					<td></td>
+					<td>Current Password:</td>
+					<td><input type="password" name="curpass" maxlength="30" value="<?php echo $form->value("curpass"); ?>"></td>
+					<td><?php echo $form->error("curpass"); ?></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>New Password:</td>
+					<td><input type="password" name="newpass" maxlength="30" value="<?php echo $form->value("newpass"); ?>"></td>
+					<td><?php echo $form->error("newpass"); ?></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>Email:</td>
+					<td><input type="text" name="email" maxlength="50" value="<?php if($form->value("email") == ""){ echo $session->userinfo['email']; }else{echo $form->value("email");}?>"></td>
+					<td><?php echo $form->error("email"); ?></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right">
+						<input type="hidden" name="subedit" value="1">
+						<input type="submit" value="Edit Account">
+					</td>
+				</tr>
+				<tr><td colspan="2" align="left"></td></tr>
+			</table>
+		</form>
 <?php
 		}
 	}
 ?>
+</td>
+</tr>
+</table>

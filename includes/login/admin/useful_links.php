@@ -59,8 +59,6 @@ if(isset($_POST['delete_this_link'])){
 	</tr>
 </table><br/>
 
-
-
 <?php
 if(isset($_POST['edit_link'])){
 	$l_id = $_POST['edit_link'];

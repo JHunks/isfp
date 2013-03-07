@@ -15,22 +15,22 @@
 	      return;
 	   }
 	   /* Display table contents */
-	   echo "<table align=\"left\" border=\"1\" cellspacing=\"0\" cellpadding=\"3\">\n";
-	   echo "<tr><td><b>Username</b></td><td><b>Level</b></td><td><b>Email</b></td><td><b>Last Active</b></td></tr>\n";
+	   echo "<table class='edit_data'>\n";
+	   echo "<tr><td class='edit_data'><b>Username</b></td><td></td><td class='edit_data'><b>Level</b></td><td></td><td class='edit_data'><b>Email</b></td><td></td><td class='edit_data'><b>Last Active</b></td></tr>\n";
 	   for($i=0; $i<$num_rows; $i++){
 	      $uname  = mysql_result($result,$i,"username");
 	      $ulevel = mysql_result($result,$i,"userlevel");
 	      $email  = mysql_result($result,$i,"email");
 	      $time   = mysql_result($result,$i,"timestamp");
 
-	      echo "<tr><td>$uname</td><td>$ulevel</td><td>$email</td><td>$time</td></tr>\n";
+	      echo "<tr><td class='edit_data'>$uname</td><td> | </td><td class='edit_data'>$ulevel</td><td> | </td><td class='edit_data'>$email</td><td> | </td><td class='edit_data'>$time</td></tr>\n";
 	   }
 	   echo "</table><br>\n";
 	}
 	?>
 
-<table>
+<table class="edit_data">
 	<tr>
-		<td><?php displayUsers(); ?></td>
+		<td class="edit_data"><?php displayUsers(); ?></td>
 	</tr>
 </table>
