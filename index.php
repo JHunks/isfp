@@ -25,6 +25,7 @@ $dbarray = mysql_fetch_array($result);
 				document.write(unescape("%3Cscript src='includes/jQuery.js' type='text/javascript'%3e%3C/script%3E"));
 			}
 		</script>
+		regdfgg
 		<script src="includes/jquery.ez-pinned-footer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="includes/jQuery.isc/jquery-image-scale-carousel.js" type="text/javascript" charset="utf-8"></script>
 		<script src="includes/ckeditor/ckeditor.js" type="text/javascript" ></script>
