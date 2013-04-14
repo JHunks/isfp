@@ -1,4 +1,4 @@
-<table>
+<table id="login_table">
 	<tr>
   		<td>
 			<?php
@@ -25,24 +25,26 @@
 										<?php echo $form->error("user"); ?>
 										<input type="text" name="user" maxlength="30" size="18" value="<?php echo $form->value("user"); ?>">
 									</td>
-									<td>
+									<td rowspan="2" id="login_button_table_cell" class="login_table_c_cell">
 										<input type="hidden" name="sublogin" value="1">
 										<a href="#" class="login_button" onclick="document.login_request.submit()">Login</a>
 									</td>
 								</tr>
 								<tr>
-									<td>
+									<td class="login_table_c_cell">
 										<?php echo $form->error("pass"); ?>
-										<input type="password" name="pass" maxlength="30" size="18" value="<?php echo $form->value("pass"); ?>">
-									</td>
-									<td>
-										<input type="checkbox" name="remember" <?php if($form->value("remember") != ""){ echo "checked"; } ?>>
-										<font size="1">Rmbr</font>
+										<input type="password" name="pass" maxlength="40" size="18" value="<?php echo $form->value("pass"); ?>">
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2" align="left">
-										<ol id="list_container"><li id="list_links"><a class='menu' href="index.php?op=forgotpass">Forgot Password?</a></li></ol>
+									<td colspan="100%" class="login_table_c_cell">
+										<input type="checkbox" name="remember" <?php if($form->value("remember") != ""){ echo "checked"; } ?>>
+										<font size="1">Remember Me</font>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="login_table_password_cell">
+										<a href="index.php?op=forgotpass">Forgot Password?</a>
 									</td>
 								</tr>
 							</table>

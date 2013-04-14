@@ -61,7 +61,7 @@ $dbarray = mysql_fetch_array($result);
 	</head>
 	<body>
 		<div id="container">
-			<div id="title_logo"><a href="index.php"><img src="assets/images/logo.png"></a><h1><?php echo $dbarray['site_name'] ?></h1></div>
+			<div id="title_logo"><a href="index.php"><img src="assets/images/logo.png"></a><h1><?php echo $dbarray['site_name']; ?></h1></div>
 			<div id="header">
 				<div id="photo_container"></div> 
 			</div>
@@ -73,9 +73,11 @@ $dbarray = mysql_fetch_array($result);
 								<div id="login_title">
 									<?php if($session->logged_in){ echo "<b>$session->username</b> - Online";} else {echo "Member";} ?>
 								</div>
+								<div id="login_content">
 								<?php
 									include("modules/login.php"); 
 								?>
+								</div>
 							</div>
 							<div id="navigation">
 								<div id="nav_title">
@@ -86,14 +88,14 @@ $dbarray = mysql_fetch_array($result);
 									<ol id="list_container">
 										
 										<li id="list_links"><a href="index.php?op=home">Home</a></li>
-										<li id="list_links"><a href="index.php?op=about">About Us</a></li>
+										<li id="list_links"><a href="index.php?op=about_us">About Us</a></li>
 										<li id="list_links"><a href="index.php?op=register">Register</a></li>
 										<li id="list_links"><a href="index.php?op=activities">Activities</a></li>
 										<li id="list_links"><a href="index.php?op=program">Program</a></li>
 										<li id="list_links"><a href="index.php?op=useful_links">Useful Links</a></li>
 										<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>
-										<!--<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>-->
-										<li id="list_links"><a href="index.php?op=contact">Contact Us</a></li>
+										<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>
+										<li id="list_links"><a href="index.php?op=contact_us">Contact Us</a></li>
 
 										<?php
 											if($dbarray['custom_pages'] == 1){
@@ -138,7 +140,7 @@ $dbarray = mysql_fetch_array($result);
 						<td>
 							<div id="inner_content">
 								<div id="container_title">
-							        <?php echo $_GET['op']; ?>
+							        <?php if (!isset($_GET['op']) || $_GET['op'] == ""){echo "Home";}else{echo str_replace('_', ' ', $_GET['op']);}?>
 								</div>
 								<div id="margin">
 									<?php

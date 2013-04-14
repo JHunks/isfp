@@ -73,7 +73,7 @@
             $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
             $m->From( "Kirill;kirka121@gmail.com" ); // от кого Можно использовать имя, отделяется точкой с запятой
             $m->To( $contact_email );   // кому, в этом поле так же разрешено указывать имя
-            $m->Subject( "[Quote Request]:  ".$contact_name );
+            $m->Subject( "[ISFP: Contact Us]:  ".$contact_subject );
             $m->Body("From: ".$contact_name." (".$contact_email.")"."\nSubject: ".$contact_subject."\nBody: ".$contact_content);
             $m->Priority(4) ;   // установка приоритета
             $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); // используя эу команду отправка пойдет через smtp
@@ -109,7 +109,7 @@
                     <p id="submit_button">
                         <input type="hidden" name="si_contact_action" value="send" />
                         <input type="hidden" name="si_contact_form_id" value="1" />
-                        <input type="submit" value="Send" class="login_button"/>
+                        <input type="submit" value="Send" class="register_button"/>
                     </p>
                 </filedset>
             </form>
