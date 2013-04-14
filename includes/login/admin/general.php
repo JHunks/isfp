@@ -12,7 +12,7 @@ if(isset($_POST['edit_site_settings'])){
 	} elseif ($_POST['custom_pages'] == "no"){
 		$cpg = 0;
 	}
-	$k = "UPDATE settings SET site_title = '".$_POST['s_title']."', site_name = '".$_POST['s_name']."', copyright='".$_POST['s_copyright']."', custom_pages = '".$cpg."' WHERE site_id=1";
+	$k = "UPDATE settings SET site_title = '".$_POST['s_title']."', site_name = '".$_POST['s_name']."', copyright='".$_POST['s_copyright']."', custom_pages = '".$cpg."', site_email = '".$_POST['s_email']."' WHERE site_id=1";
 	if(mysql_query($k, $connection_gr)) {echo"success";}else {echo"failure";}
 }
 
@@ -27,6 +27,10 @@ mysql_close($connection_gr);
 		<tr>
 			<td>Site name:</td>
 			<td><input type="text" name="s_name" value="<?php echo $dbarray['site_name']; ?>"></td>
+		</tr>
+		<tr>
+			<td>Contact email:</td>
+			<td><input type="text" name="s_email" value="<?php echo $dbarray['site_email']; ?>"></td>
 		</tr>
 		<tr>
 			<td>Show custom pages:</td>

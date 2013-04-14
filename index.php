@@ -25,11 +25,11 @@ $dbarray = mysql_fetch_array($result);
 				document.write(unescape("%3Cscript src='includes/jQuery.js' type='text/javascript'%3e%3C/script%3E"));
 			}
 		</script>
-		regdfgg
 		<script src="includes/jquery.ez-pinned-footer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="includes/jQuery.isc/jquery-image-scale-carousel.js" type="text/javascript" charset="utf-8"></script>
 		<script src="includes/ckeditor/ckeditor.js" type="text/javascript" ></script>
 		<script type='text/javascript' src='includes/fullcalendar/fullcalendar.js'></script>
+		<script src="includes/jquery.validate.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			<?php
 				if ($dir = opendir('assets/carousel/')) {
@@ -61,6 +61,7 @@ $dbarray = mysql_fetch_array($result);
 	</head>
 	<body>
 		<div id="container">
+			<div id="title_logo"><a href="index.php"><img src="assets/images/logo.png"></a><h1><?php echo $dbarray['site_name'] ?></h1></div>
 			<div id="header">
 				<div id="photo_container"></div> 
 			</div>
@@ -81,7 +82,9 @@ $dbarray = mysql_fetch_array($result);
 									navigation
 								</div>
 								<div id="nav_content">
+									
 									<ol id="list_container">
+										
 										<li id="list_links"><a href="index.php?op=home">Home</a></li>
 										<li id="list_links"><a href="index.php?op=about">About Us</a></li>
 										<li id="list_links"><a href="index.php?op=register">Register</a></li>
@@ -89,8 +92,9 @@ $dbarray = mysql_fetch_array($result);
 										<li id="list_links"><a href="index.php?op=program">Program</a></li>
 										<li id="list_links"><a href="index.php?op=useful_links">Useful Links</a></li>
 										<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>
-										<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>
+										<!--<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>-->
 										<li id="list_links"><a href="index.php?op=contact">Contact Us</a></li>
+
 										<?php
 											if($dbarray['custom_pages'] == 1){
 												$connecti = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
@@ -106,18 +110,36 @@ $dbarray = mysql_fetch_array($result);
 											}
 										?>
 									</ol>
+
 								</div>
 							</div>
 							<div id="cont_calendar">
 								<div id="cal_title">
-									calendar
+									Events
 								</div>
+								<?php
+								$connecte = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+								mysql_select_db(DB_NAME, $connecte) or die(mysql_error());
+								$q = "SELECT * FROM events";
+								$result = mysql_query($q, $connecte);
+								?>
+
+								<table>
+									<?php
+									while($row = mysql_fetch_array($result)){
+										echo "<tr><td>".$row['event_title']."</td></tr>";
+									}
+									?>
+								</table>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<div id="inner_content">
+								<div id="container_title">
+							        <?php echo $_GET['op']; ?>
+								</div>
 								<div id="margin">
 									<?php
 										if (!isset($_GET['op'])) { 

@@ -56,3 +56,35 @@
 	position:relative;
 	top:1px;
 }
+.register_button {
+    -moz-box-shadow:inset 0px 1px 0px 0px #b8bee6;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #b8bee6;
+    box-shadow: inset 0px 1px 0px 0px #b8bee6;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #68c791), color-stop(1, #4d9490) );
+    background:-moz-linear-gradient( center top, #68c791 5%, #4d9490 100% );
+    background-color:#68c791;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border:1px solid #224a2b;
+    display: inline-block;
+    color: #081333;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 10px 60px;
+    text-decoration: none;
+    text-shadow: 1px 1px 0px #a6c5e6;
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 13px;
+}
+
+.register_button:hover {
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4d9490), color-stop(1, #68c791) );
+    background: -moz-linear-gradient( center top, #4d9490 5%, #68c791 100% );
+    background-color: #4d9490;
+    color: #081333;
+}
+.register_button:active {
+    position: relative;
+    top: 1px;
+}

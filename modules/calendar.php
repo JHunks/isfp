@@ -68,6 +68,7 @@ $(document).ready(function() {
 
 <div id='calendar'></div>
 
+
 <?php
 if(isset($_GET['id'])&& $_GET['id'] != null){
 	$connection_cal = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());

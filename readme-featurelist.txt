@@ -1,0 +1,15 @@
+- if submitting an email address, phone number doesnt matter
+- sort by last name
+- email verification for attending event
+- 1 year inactive user buffer
+- if there is more than X amount of users, delete inactive automatically
+- you do not have to be auser to be able to register for event
+- easy registration for events, and guests (quick)
+- volunteer or attendee (are you going to help?)
+- form to print out for each event (easy from admin panel)
+- registered user can see who is going to attend an event
+- guests can not see who is attending events
+- school attending - drop down for different schools in ottawa
+- fix footer overlay
+- reigstration should have email confirmation
+- allow registration requests every 5min.

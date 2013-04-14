@@ -1,16 +1,78 @@
+<link rel="stylesheet" href="assets/css/registration.css">
+<script>
+  $(document).ready(function(){
+    $("#signupForm").validate({
+      rules: {
+        firstname: "required",
+        lastname: "required",
+        username: {
+          required: true,
+          minlength: 5
+        },
+        password: {
+          required: true,
+          minlength: 5
+        },
+        confirm_password: {
+          required: true,
+          minlength: 5,
+          equalTo: "#password"
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        topic: {
+          required: "#newsletter:checked",
+          minlength: 2
+        },
+        agree: "required"
+      },
+      messages: {
+        firstname: "Please enter your firstname",
+        lastname: "Please enter your lastname",
+        username: {
+          required: "Please enter a username",
+          minlength: "Your username must consist of at least 5 characters"
+        },
+        password: {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        },
+        confirm_password: {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long",
+          equalTo: "Please enter the same password as above"
+        },
+        email: "Please enter a valid email address",
+        agree: "Please accept our policy"
+      }
+    });
+    // propose username by combining first- and lastname
+    $("#username").focus(function() {
+      var firstname = $("#firstname").val();
+      var lastname = $("#lastname").val();
+      if(firstname && lastname && !this.value) {
+        this.value = firstname + "." + lastname;
+      }
+    });
+
+  });
+</script>
 <?php
+//The user is already logged in, not allowed to register.
 if($session->logged_in){
    echo "<h1>Registered</h1>";
-   echo "<p>We're sorry <b>$session->username</b>, but you've already registered. "
-       ."<a href=\"/index.php\">Home</a>.</p>";
-} else if(isset($_SESSION['regsuccess'])){
-   /* Registration was successful */
+   echo "<p>We're sorry <b>$session->username</b>, but you've already registered. ";
+}
+//The user has submitted the registration form and theresults have been processed.
+else if(isset($_SESSION['regsuccess'])){
+   // Registration was successful
    if($_SESSION['regsuccess']){
       echo "<h1>Registered!</h1>";
-      echo "<p>Thank you <b>".$_SESSION['reguname']."</b>, your information has been added to the database, "
-          ."you may now <a href=\"/index.php\">log in</a>.</p>";
+      echo "<p>Thank you <b>".$_SESSION['reguname']."</b>, your information has been added to the database.";
    }
-   /* Registration failed */
+   // Registration failed
    else{
       echo "<h1>Registration Failed</h1>";
       echo "<p>We're sorry, but an error has occurred and your registration for the username <b>".$_SESSION['reguname']."</b>, "
@@ -19,37 +81,86 @@ if($session->logged_in){
    unset($_SESSION['regsuccess']);
    unset($_SESSION['reguname']);
 }
+/*
+  The user has not filled out the registration form yet.
+  Below is the page with the sign-up form, the names
+  of the input fields are important and should not
+  be changed.
+ */
 else{
 ?>
-<h1>Register</h1>
-<?php
-  if($form->num_errors > 0){
-     echo "<td><font size=\"2\" color=\"#ff0000\">".$form->num_errors." error(s) found</font></td>";
-  }
-?>
-<form action="includes/login/process.php" method="POST">
-  <table>
-    <tr>
-      <td>Username:</td>
-      <td><input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"></td>
-      <td><?php echo $form->error("user"); ?></td>
-    </tr>
-    <tr>
-      <td>Password:</td>
-      <td><input type="password" name="pass" maxlength="30" value="<?php echo $form->value("pass"); ?>"></td>
-      <td><?php echo $form->error("pass"); ?></td>
-    </tr>
-    <tr>
-      <td>Email:</td>
-      <td><input type="text" name="email" maxlength="50" value="<?php echo $form->value("email"); ?>"></td>
-      <td><?php echo $form->error("email"); ?></td>
-    </tr>
-    <tr>
-      <td colspan="3" align="right"><input type="hidden" name="subjoin" value="1"><input type="submit" value="Register!"></td>
-    </tr>
-  </table>
-</form>
-
+<table id="register_table">
+  <tr>
+    <td>
+      <form class="cmxform" id="signupForm" action="includes/login/process.php" method="POST">
+        <fieldset>
+          <?php if($form->error("firstname")){ ?>
+            <p>
+              <label><font size="2" color="#ff0000">Error</font></label>
+              <?php echo $form->error("firstname"); ?>
+            </p>
+          <?php } ?>
+          <p>
+            <label for="firstname">First name</label>
+            <input id="firstname" name="firstname" type="text" placeholder="First Name" />
+          </p>
+          <?php if($form->error("lastname")){ ?>
+            <p>
+              <label><font size="2" color="#ff0000">Error</font></label>
+              <?php echo $form->error("lastname"); ?>
+            </p>
+          <?php } ?>
+          <p>
+            <label for="lastname">Last name</label>
+            <input id="lastname" name="lastname" type="text" placeholder="Last Name" />
+          </p>
+          <?php if($form->error("user")){ ?>
+            <p>
+              <label><font size="2" color="#ff0000">Error</font></label>
+              <?php echo $form->error("user"); ?>
+            </p>
+          <?php } ?>
+          <p>
+            <label for="username">User name</label>
+            <input id="username" name="username" type="text" placeholder="Username" />
+          </p>
+          <?php if($form->error("pass")){ ?>
+            <p>
+              <label><font size="2" color="#ff0000">Error</font></label>
+              <?php echo $form->error("pass"); ?>
+            </p>
+          <?php } ?>
+          <p>
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="Password"/>
+          </p>
+          <p>
+            <label for="confirm_password">Confirm password</label>
+            <input id="confirm_password" name="confirm_password" type="password" placeholder="Confirm" />
+          </p>
+          <?php if($form->error("email")){ ?>
+            <p>
+              <label><font size="2" color="#ff0000">Error</font></label>
+              <?php echo $form->error("email"); ?>
+            </p>
+          <?php } ?>
+          <p>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="E-Mail"/>
+          </p>
+          <p>
+            <label for="agree">Please agree to <a href="#" class="inner_link">our policy</a></label>
+            <input type="checkbox" class="checkbox" id="agree" name="agree" />
+          </p>
+          <p id="submit_button">
+            <input type="hidden" name="subjoin" value="1">
+            <input class="register_button" type="submit" value="Register">
+          </p>
+        </fieldset>
+      </form>
+    </td>
+  </tr>
+</table>
 <?php
 }
-?> 
+?>
