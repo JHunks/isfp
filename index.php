@@ -73,20 +73,16 @@ $dbarray = mysql_fetch_array($result);
 								<div id="login_title">
 									<?php if($session->logged_in){ echo "<b>$session->username</b> - Online";} else {echo "Member";} ?>
 								</div>
-								<div id="login_content">
 								<?php
 									include("modules/login.php"); 
 								?>
-								</div>
 							</div>
 							<div id="navigation">
 								<div id="nav_title">
 									navigation
 								</div>
 								<div id="nav_content">
-									
 									<ol id="list_container">
-										
 										<li id="list_links"><a href="index.php?op=home">Home</a></li>
 										<li id="list_links"><a href="index.php?op=about_us">About Us</a></li>
 										<li id="list_links"><a href="index.php?op=register">Register</a></li>
@@ -94,9 +90,8 @@ $dbarray = mysql_fetch_array($result);
 										<li id="list_links"><a href="index.php?op=program">Program</a></li>
 										<li id="list_links"><a href="index.php?op=useful_links">Useful Links</a></li>
 										<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>
-										<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>
+										<!--<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>-->
 										<li id="list_links"><a href="index.php?op=contact_us">Contact Us</a></li>
-
 										<?php
 											if($dbarray['custom_pages'] == 1){
 												$connecti = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
@@ -112,24 +107,22 @@ $dbarray = mysql_fetch_array($result);
 											}
 										?>
 									</ol>
-
 								</div>
 							</div>
 							<div id="cont_calendar">
 								<div id="cal_title">
-									Events
+									Upcoming Events
 								</div>
 								<?php
-								$connecte = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
-								mysql_select_db(DB_NAME, $connecte) or die(mysql_error());
-								$q = "SELECT * FROM events";
-								$result = mysql_query($q, $connecte);
+									$connecte = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+									mysql_select_db(DB_NAME, $connecte) or die(mysql_error());
+									$q = "SELECT * FROM events order by start_time";
+									$result = mysql_query($q, $connecte);
 								?>
-
 								<table>
 									<?php
 									while($row = mysql_fetch_array($result)){
-										echo "<tr><td>".$row['event_title']."</td></tr>";
+										echo "<tr><td class='event_row'>[".$row['start_time']."]</td><td class='event_row'><a href='index.php?op=calendar&id=".$row['event_id']."'>".$row['event_title']."</a></td></tr>";
 									}
 									?>
 								</table>

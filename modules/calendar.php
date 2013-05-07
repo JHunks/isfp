@@ -32,7 +32,14 @@ $(document).ready(function() {
 	});
 </script>
 
-<?php if(isset($dbarray['calendar_op']) && $dbarray['calendar_op']==1){
+<?php 
+if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 1){
+	echo "sometihng: " + $session->username + "is king";
+}
+
+
+
+if(isset($dbarray['calendar_op']) && $dbarray['calendar_op']==1){
 	$connection_cal = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 	mysql_select_db(DB_NAME, $connection_cal) or die(mysql_error());
 	$q = "SELECT * FROM events";
@@ -66,7 +73,7 @@ $(document).ready(function() {
 } else { 
 ?>
 
-<div id='calendar'></div>
+<!--<div id='calendar'></div>-->
 
 
 <?php
@@ -81,7 +88,7 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 	<table class="calendar_table">
 		<tr>
 			<th colspan="3" class="calendar_table">
-				<h1>Event - <?php echo $infoarray['event_title']; ?></h1>
+				<h1><?php echo $infoarray['event_title']; ?></h1>
 			</th>
 		</tr>
 		<?php
@@ -110,7 +117,13 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 				<?php echo $infoarray['event_host']; ?>
 			</td>
 			<td class="celendar_table_button" rowspan="100%">
-				<a href="#" class="button1">Attend</a>
+				<?php if ($session->logged_in){ ?>
+					<form method="post" name="register_attendant" class="register_attendant_form" action="">
+						<input type="hidden" name="attendee_username" value="<?php echo $session->username; ?>">
+						<input type="hidden" name="register_attendee_now" value="1">
+						<input type="submit" class="button1">
+					</form>
+				<?php }?>
 			</td>
 		</tr>
 		<?php } 

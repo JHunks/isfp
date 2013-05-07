@@ -95,6 +95,9 @@ a:hover{
 	margin-left: 9px;
 	margin-top: 5px;
 }
+#login_content_logged_in{
+	text-align: left;
+}
 #login_button_table_cell{
 	padding-top: 2px;
 }
@@ -138,11 +141,11 @@ a:hover{
 	margin-left: auto;
 	margin-right: auto;
 	width: 200px;
-	height: 200px;
 	border: 1px solid white;
 	border-collapse: separate;
     border-radius: 20px;
     background-color: #FFFFFF;
+    padding-bottom: 10px;
 }
 #cal_title{
 	background-color: #000000;
@@ -195,9 +198,8 @@ td.alinks{
 }
 table.edit_data{
 	width: 700px;
+	text-align: left;
 	border: none;
-	margin-left: auto;
-	margin-right: auto;
 }
 td.edit_data{
 	font-size: small;
@@ -321,4 +323,10 @@ th.useful_links{
 	margin: 5px;
 	padding-left: 20px;
 	padding-bottom: 3px;
+}
+td.event_row{
+	font-size: small;
+	text-align: left;
+	padding-top: 4px;
+	padding-left: 15px;
 }

@@ -3,7 +3,7 @@
 - email verification for attending event
 - 1 year inactive user buffer
 - if there is more than X amount of users, delete inactive automatically
-- you do not have to be auser to be able to register for event
+- you do not have to be a user to be able to register for event
 - easy registration for events, and guests (quick)
 - volunteer or attendee (are you going to help?)
 - form to print out for each event (easy from admin panel)
