@@ -101,8 +101,8 @@
                         <input type="text" id="si_contact_ex_field1_3" name="si_contact_ex_field3" placeholder="Subject" size="100" />
                     </p>
                     <p>
-                        <label for="si_contact_ex_field1_13">Body</label>
-                        <textarea id="si_contact_ex_field1_4" name="si_contact_ex_field4" cols="40" rows="15" placeholder="Comments"></textarea>
+                        <label for="si_contact_ex_field1_13">Body</label><br/>
+                        <textarea id="si_contact_ex_field1_4" name="si_contact_ex_field4" cols="80" rows="15" placeholder="Comments"></textarea>
                     </p>
                     <p id="submit_button">
                         <input type="hidden" name="si_contact_action" value="send" />

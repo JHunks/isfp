@@ -237,7 +237,7 @@ class Session
     * 1. If no errors were found, it registers the new user and
     * returns 0. Returns 2 if registration failed.
     */
-   function register($subuser, $subpass, $subemail){
+   function register($firstname, $lastname, $subuser, $subpass, $subemail){
       global $database, $form, $mailer;  //The database, form and mailer object
       
       /* Username error checking */
@@ -270,6 +270,27 @@ class Session
          else if($database->usernameBanned($subuser)){
             $form->setError($field, "* Username banned");
          }
+      }
+      /* first name error checking */
+      $field = "firstname";
+      if (!$firstname){
+        $form->setError($field, "* First Name not entered");
+      } else {
+        $firstname = stripslashes($firstname);
+        if(strlen($firstname) < 4){
+          $form->setError($field, "* First Name too short");
+        }
+      } 
+
+      /* last name error checking */
+      $field = "lastname";
+      if (!$lastname){
+        $form->setError($field, "* Last Name not entered");
+      } else {
+        $lastname = stripslashes($lastname);
+        if(strlen($lastname) < 4){
+          $form->setError($field, "* Last Name too short");
+        }
       }
 
       /* Password error checking */
@@ -317,7 +338,7 @@ class Session
       }
       /* No errors, add the new account to the */
       else{
-         if($database->addNewUser($subuser, md5($subpass), $subemail)){
+         if($database->addNewUser($firstname, $lastname, $subuser, md5($subpass), $subemail)){
             if(EMAIL_WELCOME){
                $mailer->sendWelcome($subuser,$subemail,$subpass);
             }

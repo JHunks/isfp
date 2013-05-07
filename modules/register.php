@@ -3,8 +3,14 @@
   $(document).ready(function(){
     $("#signupForm").validate({
       rules: {
-        firstname: "required",
-        lastname: "required",
+        firstname: {
+          required: true,
+          minlength: 4
+        },
+        lastname: {
+          required: true,
+          minlength: 4
+        },
         username: {
           required: true,
           minlength: 5
@@ -29,8 +35,14 @@
         agree: "required"
       },
       messages: {
-        firstname: "Please enter your firstname",
-        lastname: "Please enter your lastname",
+        firstname: {
+            required: "Please enter your first name",
+            minlength: "Must be at least 4 characters long"
+        },
+        lastname: {
+            required: "Please enter your last name",
+            minlength: "Must be at least 4 characters long"
+        },
         username: {
           required: "Please enter a username",
           minlength: "Your username must consist of at least 5 characters"
