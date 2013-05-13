@@ -33,30 +33,57 @@ $(document).ready(function() {
 </script>
 
 <?php 
-if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 1){
 
-    $contact_name=$_POST['si_contact_ex_field1'];
-    $contact_email=$_POST['si_contact_ex_field2'];
-    $contact_subject=$_POST['si_contact_ex_field3'];
-    $contact_content=$_POST['si_contact_ex_field4'];
+if(isset($_GET['verify'])&& $_GET['verify'] != null){
+//check if the entered url is confirmation reervatio url
+	$connection_cal = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+	mysql_select_db(DB_NAME, $connection_cal) or die(mysql_error());
+	$q = "SELECT * FROM registered_to_event_buffer";
+	$result = mysql_query($q, $connection_cal);
+
+	while($row = mysql_fetch_array($result)){
+		if($_GET['verify'] == $row['random_hash']){
+			$usernooom = $row['username'];
+			$connection_gr = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+			mysql_select_db(DB_NAME, $connection_gr) or die(mysql_error());
+			$k = "DELETE FROM registered_to_event_buffer WHERE username = '$usernooom'";
+			if(mysql_query($k, $connection_gr)) {echo"success";}else {echo"failure";}
+			$myidis = $_GET['id'];
+			$time = time();
+			$k = "INSERT INTO registered_to_event VALUES ('$usernooom', '$myidis', '$time', 0)";
+			if(mysql_query($k, $connection_gr)) {echo"success";}else {echo"failure";}
+		}
+	}
+
+	
+
+}
+
+if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 1){
+//make a reservation
     $time = time();
+    $random_n = sha1(uniqid(mt_rand(), true));
+    echo "random number is: ".$random_n."<br/> | time is".$time. "<br/> | username is: ".$session->username;
+
+    $connection_gr = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+	mysql_select_db(DB_NAME, $connection_gr) or die(mysql_error());
+    $k = "INSERT INTO registered_to_event_buffer VALUES ('$session->username', '$time', '$random_n', 0)";
+    if(mysql_query($k, $connection_gr)) {echo"<br/>success";}else {echo"<br/>failure";}
 
     include "includes/libmail.php";
     $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
     $m->From( "Kirill;kirka121@gmail.com" ); // от кого Можно использовать имя, отделяется точкой с запятой
     $m->To( $session->userinfo['email'] );   // кому, в этом поле так же разрешено указывать имя
     $m->Subject( "[ISFP: Reservation Confirmation] ".$session->userinfo['username']);
-    $m->Body("From: ".$contact_name." (".$contact_email.")"."\nSubject: ".$contact_subject."\nBody: ".$contact_content);
+    $m->Body(
+		    	"Good afternoon. \n\nIt has come to our attention that you are trying to attend an event. \nPlease click the link below to confirm that you indeed are going to attend this event\n\n"
+		    	."http://127.0.0.1:3000/index.php?op=calendar&id=".$_POST['register_attendee_to_this_event'] ."&verify=".$random_n.
+		    	"\n\nThank You, ISFP."
+			);
     $m->Priority(4) ;   // установка приоритета
     $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); // используя эу команду отправка пойдет через smtp
     $m->Send(); // отправка
-    echo "Confirmation email has been sent. Please check your inbox to confirm your attendance.";
-
-    //insert info into the database.
-    mysql_query("INSERT INTO `restered_to_event_buffer` VALUES ($session->userinfo['username'], $time;");
-        
-
-
+    echo "<br/>Confirmation email has been sent. Please check your inbox to confirm your attendance.";
 
 
 }
@@ -141,9 +168,25 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 				<?php echo $infoarray['event_host']; ?>
 			</td>
 			<td class="celendar_table_button" rowspan="100%">
-				<?php if ($session->logged_in){ ?>
+				<?php 
+				$therewasanerror = false;
+				if ($session->logged_in){ 
+					$connection_cal = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+					mysql_select_db(DB_NAME, $connection_cal) or die(mysql_error());
+					$q = "SELECT * FROM registered_to_event WHERE user_id ='".$session->username."'";
+					$result = mysql_query($q, $connection_cal);
+					while($infoarray = mysql_fetch_array($result)){
+						if($infoarray['event_id'] == $_GET['id']){
+							echo $session->username." is already attending this event.";
+							$therewasanerror = true;
+						}
+					}
+				}
+				if(!$therewasanerror){
+					?>
 					<form method="post" name="register_attendant" class="register_attendant_form" action="">
 						<input type="hidden" name="register_attendee_now" value="1">
+						<input type="hidden" name="register_attendee_to_this_event" value="<?php echo $_GET['id'];?>">
 						<input type="submit" value="Attend" class="button1">
 					</form>
 				<?php }?>
