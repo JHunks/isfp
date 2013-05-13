@@ -97,9 +97,9 @@ class Session
          /* Confirm that username and userid are valid */
          if($database->confirmUserID($_SESSION['username'], $_SESSION['userid']) != 0){
             /* Variables are incorrect, user not logged in */
-            unset($_SESSION['username']);
-            unset($_SESSION['userid']);
-            return false;
+			unset($_SESSION['username']);
+			unset($_SESSION['userid']);
+			return false;
          }
 
          /* User is logged in, set class variables */
@@ -169,7 +169,7 @@ class Session
       /* Username and password correct, register session variables */
       $this->userinfo  = $database->getUserInfo($subuser);
       $this->username  = $_SESSION['username'] = $this->userinfo['username'];
-      $this->userid    = $_SESSION['userid']   = $this->generateRandID();
+      $this->userid    = $_SESSION['userid']   = $this->userinfo['userid'];
       $this->userlevel = $this->userinfo['userlevel'];
       
       /* Insert userid into database and update active users table */
