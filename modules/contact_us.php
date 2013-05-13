@@ -49,9 +49,7 @@
 </script>
 
 <?php
-    $email_from = "kirka121@gmail.com";
-
-    if(isset($_POST['si_contact_form_id']) || $_POST['si_contact_form_id'] != 0){
+    if(isset($_POST['si_contact_form_id'])){
         $contact_name=$_POST['si_contact_ex_field1'];
         $contact_email=$_POST['si_contact_ex_field2'];
         $contact_subject=$_POST['si_contact_ex_field3'];
@@ -69,7 +67,7 @@
         } else {
             include "includes/libmail.php";
             $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
-            $m->From( "Kirill;kirka121@gmail.com" ); // от кого Можно использовать имя, отделяется точкой с запятой
+            $m->From( $site_settings['site_email'] ); // от кого Можно использовать имя, отделяется точкой с запятой
             $m->To( $contact_email );   // кому, в этом поле так же разрешено указывать имя
             $m->Subject( "[ISFP: Contact Us]  ".$contact_subject );
             $m->Body("From: ".$contact_name." (".$contact_email.")"."\nSubject: ".$contact_subject."\nBody: ".$contact_content);

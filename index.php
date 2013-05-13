@@ -5,13 +5,13 @@ $connect = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 mysql_select_db(DB_NAME, $connect) or die(mysql_error());
 $q = "SELECT * FROM settings";
 $result = mysql_query($q, $connect);
-$dbarray = mysql_fetch_array($result);
+$site_settings = mysql_fetch_array($result);
 ?>
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title> <?php echo $dbarray['site_title'] ?></title>
+		<title> <?php echo $site_settings['site_title'] ?></title>
 		<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"> 
 		<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon"> 
 		<link rel="stylesheet" type="text/css" media="screen" href="assets/css/index.css">
@@ -61,7 +61,7 @@ $dbarray = mysql_fetch_array($result);
 	</head>
 	<body>
 		<div id="container">
-			<div id="title_logo"><a href="index.php"><img src="assets/images/logo.png"></a><h1><?php echo $dbarray['site_name']; ?></h1></div>
+			<div id="title_logo"><a href="index.php"><img src="assets/images/logo.png"></a><h1><?php echo $site_settings['site_name']; ?></h1></div>
 			<div id="header">
 				<div id="photo_container"></div> 
 			</div>
@@ -86,14 +86,16 @@ $dbarray = mysql_fetch_array($result);
 										<li id="list_links"><a href="index.php?op=home">Home</a></li>
 										<li id="list_links"><a href="index.php?op=about_us">About Us</a></li>
 										<li id="list_links"><a href="index.php?op=register">Register</a></li>
+										<!--
 										<li id="list_links"><a href="index.php?op=activities">Activities</a></li>
 										<li id="list_links"><a href="index.php?op=program">Program</a></li>
+										-->
 										<li id="list_links"><a href="index.php?op=useful_links">Useful Links</a></li>
 										<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>
 										<!--<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>-->
 										<li id="list_links"><a href="index.php?op=contact_us">Contact Us</a></li>
 										<?php
-											if($dbarray['custom_pages'] == 1){
+											if($site_settings['custom_pages'] == 1){
 												$connecti = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 												mysql_select_db(DB_NAME, $connecti) or die(mysql_error());
 												$q = "SELECT * FROM pages";
@@ -158,7 +160,7 @@ $dbarray = mysql_fetch_array($result);
 			</div>
 		</div>
 		<div id="footer">
-			&copy; <?php echo $dbarray['copyright'] ?>
+			&copy; <?php echo $site_settings['copyright'] ?>
 		</div>
 	</body>
 </html>

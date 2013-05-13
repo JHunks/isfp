@@ -12,7 +12,7 @@ if(isset($_POST['edit_site_settings'])){
 	} elseif ($_POST['custom_pages'] == "no"){
 		$cpg = 0;
 	}
-	$k = "UPDATE settings SET site_title = '".$_POST['s_title']."', site_name = '".$_POST['s_name']."', copyright='".$_POST['s_copyright']."', custom_pages = '".$cpg."', site_email = '".$_POST['s_email']."' WHERE site_id=1";
+	$k = "UPDATE settings SET site_title = '".$_POST['s_title']."', site_name = '".$_POST['s_name']."', copyright='".$_POST['s_copyright']."', custom_pages = '".$cpg."', site_email = '".$_POST['s_email']."', site_url = '".$_POST['s_site_url']."' WHERE site_id=1";
 	if(mysql_query($k, $connection_gr)) {echo"success";}else {echo"failure";}
 }
 
@@ -48,6 +48,10 @@ mysql_close($connection_gr);
 		<tr>
 			<td style="padding-left: 10px;" >Copyright:</td>
 			<td><input type="text" name="s_copyright" value="<?php echo $dbarray['copyright']; ?>" size="40" ></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 10px;" >Site URL:</td>
+			<td><input type="text" name="s_site_url" value="<?php echo $dbarray['site_url']; ?>" size="40" ></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
