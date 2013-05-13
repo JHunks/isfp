@@ -1,3 +1,30 @@
+<script>
+  $(document).ready(function(){
+    $("#login_request").validate({
+      rules: {
+        username: {
+          required: true,
+          minlength: 5
+        },
+        password: {
+          required: true,
+          minlength: 5
+        }
+      },
+      messages: {
+        username: {
+          required: "Enter a username",
+          minlength: "Minimum 5 characters"
+        },
+        password: {
+          required: "Provide a password",
+          minlength: "Minimum 5 characters"
+        }
+      }
+    });
+  });
+</script>
+
 <table id="login_table">
 	<tr>
   		<td>
@@ -15,22 +42,24 @@
 				} else {
 					?>
 					<div id="login_content">
-						<form action="includes/login/process.php" method="post" name="login_request">
+						<form action="includes/login/process.php" method="post" name="login_request" id="login_request">
 							<table>
 								<tr>
 									<td>
 										<?php echo $form->error("username"); ?>
-										<input type="text" name="username" maxlength="30" size="18" value="<?php echo $form->value("username"); ?>">
+										<label for="username"></label>
+										<input type="text" name="username" maxlength="30" size="18" value="<?php echo $form->value("username"); ?>" placeholder="username">
 									</td>
-									<td rowspan="2" style="padding-left: 4px; padding-top: 4px;">
+									<td rowspan="2" style="padding-left: 4px; padding-top: 1px;">
 										<input type="hidden" name="sublogin" value="1">
-										<a href="#" class="login_button" onclick="document.login_request.submit()">Login</a>
+										<input type="submit" value="Login" class="login_button"/>
 									</td>
 								</tr>
 								<tr>
 									<td >
 										<?php echo $form->error("password"); ?>
-										<input type="password" name="password" maxlength="40" size="18" value="<?php echo $form->value("password"); ?>">
+										<label for="password"></label>
+										<input type="password" name="password" maxlength="40" size="18" value="<?php echo $form->value("password"); ?>" placeholder="password">
 									</td>
 								</tr>
 								<tr>

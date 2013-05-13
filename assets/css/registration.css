@@ -11,6 +11,7 @@
 	width: auto;
 	display: inline;
 	color: red;
+	font-size: 12px;
 }
 form.cmxform input[type=text], form.cmxform input[type=password], form.cmxform input[type=email] {
     font-family: Calibri, Arial, sans-serif;

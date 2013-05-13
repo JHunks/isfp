@@ -34,7 +34,31 @@ $(document).ready(function() {
 
 <?php 
 if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 1){
-	echo "sometihng: " + $session->username + "is king";
+
+    $contact_name=$_POST['si_contact_ex_field1'];
+    $contact_email=$_POST['si_contact_ex_field2'];
+    $contact_subject=$_POST['si_contact_ex_field3'];
+    $contact_content=$_POST['si_contact_ex_field4'];
+    $time = time();
+
+    include "includes/libmail.php";
+    $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
+    $m->From( "Kirill;kirka121@gmail.com" ); // от кого Можно использовать имя, отделяется точкой с запятой
+    $m->To( $session->userinfo['email'] );   // кому, в этом поле так же разрешено указывать имя
+    $m->Subject( "[ISFP: Reservation Confirmation] ".$session->userinfo['username']);
+    $m->Body("From: ".$contact_name." (".$contact_email.")"."\nSubject: ".$contact_subject."\nBody: ".$contact_content);
+    $m->Priority(4) ;   // установка приоритета
+    $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); // используя эу команду отправка пойдет через smtp
+    $m->Send(); // отправка
+    echo "Confirmation email has been sent. Please check your inbox to confirm your attendance.";
+
+    //insert info into the database.
+    mysql_query("INSERT INTO `restered_to_event_buffer` VALUES ($session->userinfo['username'], $time;");
+        
+
+
+
+
 }
 
 
@@ -119,9 +143,8 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 			<td class="celendar_table_button" rowspan="100%">
 				<?php if ($session->logged_in){ ?>
 					<form method="post" name="register_attendant" class="register_attendant_form" action="">
-						<input type="hidden" name="attendee_username" value="<?php echo $session->username; ?>">
 						<input type="hidden" name="register_attendee_now" value="1">
-						<input type="submit" class="button1">
+						<input type="submit" value="Attend" class="button1">
 					</form>
 				<?php }?>
 			</td>

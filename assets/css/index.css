@@ -163,6 +163,11 @@ a:hover{
 }
 #error{
 	color: #b56b47;
+	font-size: 12px;
+}
+#login_request label.error{
+	color: red;
+	font-size: 12px;
 }
 #footer{
 	padding: 20px;	

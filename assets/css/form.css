@@ -11,7 +11,7 @@
     width: auto;
     display: inline;
     color: red;
-
+    font-size: 12px;
 }
 form.si_contact_form1 input[type=text], form.si_contact_form1 input[type=password], form.si_contact_form1 input[type=email] {
     font-family: Calibri, Arial, sans-serif;

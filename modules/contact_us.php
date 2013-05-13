@@ -51,7 +51,7 @@
 <?php
     $email_from = "kirka121@gmail.com";
 
-    if($_POST){
+    if(isset($_POST['si_contact_form_id']) || $_POST['si_contact_form_id'] != 0){
         $contact_name=$_POST['si_contact_ex_field1'];
         $contact_email=$_POST['si_contact_ex_field2'];
         $contact_subject=$_POST['si_contact_ex_field3'];
