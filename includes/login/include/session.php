@@ -125,7 +125,7 @@ class Session
       global $database, $form;  //The database and form object
 
       /* Username error checking */
-      $field = "user";  //Use field name for username
+      $field = "username";  //Use field name for username
       if(!$subuser || strlen($subuser = trim($subuser)) == 0){
          $form->setError($field, "* Username not entered");
       }
@@ -137,7 +137,7 @@ class Session
       }
 
       /* Password error checking */
-      $field = "pass";  //Use field name for password
+      $field = "password";  //Use field name for password
       if(!$subpass){
          $form->setError($field, "* Password not entered");
       }
@@ -153,11 +153,11 @@ class Session
 
       /* Check error codes */
       if($result == 1){
-         $field = "user";
+         $field = "username";
          $form->setError($field, "* Username not found");
       }
       else if($result == 2){
-         $field = "pass";
+         $field = "password";
          $form->setError($field, "* Invalid password");
       }
       

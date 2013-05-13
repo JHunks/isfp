@@ -57,7 +57,7 @@ class Process
    function procLogin(){
       global $session, $form;
       /* Login attempt */
-      $retval = $session->login($_POST['user'], $_POST['pass'], isset($_POST['remember']));
+      $retval = $session->login($_POST['username'], $_POST['password'], isset($_POST['remember']));
       
       /* Login successful */
       if($retval){
