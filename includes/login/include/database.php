@@ -140,7 +140,7 @@ class MySQLDB
     * info into the database. Appropriate user level is set.
     * Returns true on success, false otherwise.
     */
-   function addNewUser($firstname, $lastname, $username, $password, $email){
+   function addNewUser($firstname, $lastname, $username, $password, $email, $school){
       $time = time();
       /* If admin sign up, give admin user level */
       if(strcasecmp($username, ADMIN_NAME) == 0){
@@ -148,7 +148,7 @@ class MySQLDB
       }else{
          $ulevel = USER_LEVEL;
       }
-      $q = "INSERT INTO ".TBL_USERS." VALUES ('$username', '$password', '0', $ulevel, '$email', $time, '$firstname', '$lastname')";
+      $q = "INSERT INTO ".TBL_USERS." VALUES ('$username', '$password', '0', $ulevel, '$email', $time, '$firstname', '$lastname', '$school')";
       return mysql_query($q, $this->connection);
    }
    

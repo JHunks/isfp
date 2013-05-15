@@ -8,7 +8,7 @@
  *
  * Please subscribe to our feeds at http://blog.geotitles.com for more such tutorials
  */
-include("includes/login/include/session.php");
+include_once("includes/login/include/session.php");
 
 class AdminProcess
 {
@@ -60,12 +60,12 @@ class AdminProcess
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         header("Location: ".$session->referrer);
+         echo "failure" . $form->error("upduser");
       }
       /* Update user level */
       else{
          $database->updateUserField($subuser, "userlevel", (int)$_POST['updlevel']);
-         header("Location: ".$session->referrer);
+         echo "success";
       }
    }
    
@@ -82,13 +82,13 @@ class AdminProcess
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         header("Location: ".$session->referrer);
+         echo "failure" . $form->error("deluser");
       }
       /* Delete user from database */
       else{
          $q = "DELETE FROM ".TBL_USERS." WHERE username = '$subuser'";
          $database->query($q);
-         header("Location: ".$session->referrer);
+         echo "success";
       }
    }
    
@@ -104,7 +104,7 @@ class AdminProcess
       $q = "DELETE FROM ".TBL_USERS." WHERE timestamp < $inact_time "
           ."AND userlevel != ".ADMIN_LEVEL;
       $database->query($q);
-      header("Location: ".$session->referrer);
+      echo "success";
    }
    
    /**
@@ -122,7 +122,7 @@ class AdminProcess
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         header("Location: ".$session->referrer);
+         echo "failure" . $form->error("banuser");
       }
       /* Ban user from member system */
       else{
@@ -131,7 +131,7 @@ class AdminProcess
 
          $q = "INSERT INTO ".TBL_BANNED_USERS." VALUES ('$subuser', $session->time)";
          $database->query($q);
-         header("Location: ".$session->referrer);
+         echo "success";
       }
    }
    
@@ -149,13 +149,13 @@ class AdminProcess
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         header("Location: ".$session->referrer);
+         echo "failure" . $form->error("delbanuser");
       }
       /* Delete user from database */
       else{
          $q = "DELETE FROM ".TBL_BANNED_USERS." WHERE username = '$subuser'";
          $database->query($q);
-         header("Location: ".$session->referrer);
+         echo "success";
       }
    }
    
@@ -176,7 +176,7 @@ class AdminProcess
          /* Make sure username is in database */
          $subuser = stripslashes($subuser);
          if(strlen($subuser) < 5 || strlen($subuser) > 30 ||
-            !eregi("^([0-9a-z])+$", $subuser) ||
+            !preg_match("/^([0-9a-z])*$/i", $subuser) ||
             (!$ban && !$database->usernameTaken($subuser))){
             $form->setError($field, "* Username does not exist<br>");
          }

@@ -65,7 +65,7 @@ $site_settings = mysql_fetch_array($result);
 			<div id="header">
 				<div id="photo_container"></div> 
 			</div>
-			<div id="content">
+			<div id="content" <?php if(isset($_GET['page'])){if($_GET['page'] == "manage_pages"){echo 'style="margin-bottom: 500px;"';}} ?>>
 				<table>
 					<tr>
 						<td rowspan="3">
@@ -146,7 +146,7 @@ $site_settings = mysql_fetch_array($result);
 									      	if (is_file("modules/".$op.".php")) {
 									      		include("modules/".$op.".php");
 									      	} else {	
-												echo ("<div id='error'>Module could not be found!<br/></div>");
+												echo ("<div id='red_notification_message_box'>Module could not be found.</div>");
 									      	}
 										} 
 									?>

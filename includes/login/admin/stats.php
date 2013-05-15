@@ -23,7 +23,7 @@
 	      $email  = mysql_result($result,$i,"email");
 	      $time   = mysql_result($result,$i,"timestamp");
 
-	      echo "<tr><td class='edit_data'>$uname</td><td> | </td><td class='edit_data'>$ulevel</td><td> | </td><td class='edit_data'>$email</td><td> | </td><td class='edit_data'>$time</td></tr>\n";
+	      echo "<tr><td class='edit_data'>$uname</td><td> | </td><td class='edit_data'>$ulevel</td><td> | </td><td class='edit_data'>$email</td><td> | </td><td class='edit_data'>".date('[Y-m-d]', $time)."</td></tr>\n";
 	   }
 	   echo "</table><br>\n";
 	}

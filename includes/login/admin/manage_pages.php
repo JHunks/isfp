@@ -12,7 +12,11 @@ if(isset($_POST['edit_site_page'])){
 	} elseif ($_POST['page_enabled'] == "no"){
 		$vbl = 0;
 	}
-	$q = "UPDATE pages SET page_title = '".$_POST['page_title']."', page_content = '".$_POST['page_content']."', date_modified = '".date('Y-m-d h:m:s')."', modified_by = '".$session->username."', is_visible = '".$vbl."' WHERE page_id='".$_POST['edit_site_page']."'";
+
+	$p_title = str_replace("'", "\'", $_POST['page_title']);
+	$p_content = str_replace("'", "\'", $_POST['page_content']);
+
+	$q = "UPDATE pages SET page_title = '".$p_title."', page_content = '".$p_content."', date_modified = '".date('Y-m-d h:m:s')."', modified_by = '".$session->username."', is_visible = '".$vbl."' WHERE page_id='".$_POST['edit_site_page']."'";
 	if(mysql_query($q, $connection_pg)){echo"success";} else {echo"failure";}
 }
 
@@ -22,7 +26,11 @@ if(isset($_POST['add_site_page'])){
 	} elseif ($_POST['page_enabled'] == "no"){
 		$vbl = 0;
 	}
-	$q = "INSERT INTO pages SET page_title = '".$_POST['page_title']."', page_content = '".$_POST['page_content']."', date_created = '".date('Y-m-d h:m:s')."', author = '".$session->username."', is_visible = '".$vbl."'";
+
+	$p_title = str_replace("'", "\'", $_POST['page_title']);
+	$p_content = str_replace("'", "\'", $_POST['page_content']);
+
+	$q = "INSERT INTO pages SET page_title = '".$p_title."', page_content = '".$p_content."', date_created = '".date('Y-m-d h:m:s')."', author = '".$session->username."', is_visible = '".$vbl."'";
 	if(mysql_query($q, $connection_pg)){echo"success";} else {echo"failure";}
 }
 

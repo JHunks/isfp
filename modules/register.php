@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="assets/css/registration.css">
+<script src="includes/calendar-date-input.js" type="text/javascript" charset="utf-8"></script>
 <script>
   $(document).ready(function(){
     $("#signupForm").validate({
@@ -65,7 +66,7 @@
       var firstname = $("#firstname").val();
       var lastname = $("#lastname").val();
       if(firstname && lastname && !this.value) {
-        this.value = firstname + "." + lastname;
+        this.value = firstname + lastname;
       }
     });
 
@@ -74,8 +75,7 @@
 <?php
 //The user is already logged in, not allowed to register.
 if($session->logged_in){
-   echo "<h1>Registered</h1>";
-   echo "<p>We're sorry <b>$session->username</b>, but you've already registered. ";
+   echo "<div id='red_notification_message_box'>You are already registered, $session->username";
 }
 //The user has submitted the registration form and theresults have been processed.
 else if(isset($_SESSION['regsuccess'])){
@@ -156,6 +156,27 @@ else{
               <?php echo $form->error("email"); ?>
             </p>
           <?php } ?>
+          <p>
+            <label for="school">School</label>
+            <select id="school" name="school" width="20" style="
+                    width: 175px;
+                    height: 34px;
+                    font-family: Calibri, Arial, sans-serif;
+                    font-size: 13px;
+                    font-weight: 400;
+                    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+                    padding: 10px 18px 10px 10px;
+                    border: none;
+                    border-radius: 5px;
+                    background: #f9f9f9;
+                    color: #777;
+                     ">
+              <option>Ottawa University</option>
+              <option>Carleton University</option>
+              <option>Algonquin College</option>
+              <option>Other</option>
+            </select>
+          </p>
           <p>
             <label for="email">Email</label>
             <input id="email" name="email" type="email" placeholder="E-Mail"/>

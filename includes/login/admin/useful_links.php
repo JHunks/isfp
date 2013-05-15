@@ -3,12 +3,20 @@ $connection_ul = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error()
 mysql_select_db(DB_NAME, $connection_ul) or die(mysql_error());
 
 if(isset($_POST['edit_this_link'])){
-	$q = "UPDATE useful_links SET link_title = '".$_POST['link_title']."', link_description = '".$_POST['link_description']."', link_url = '".$_POST['link_url']."' WHERE link_id='".$_POST['edit_this_link']."'";
+	$l_title = str_replace("'", "\'", $_POST['link_title']);
+	$l_desc = str_replace("'", "\'", $_POST['link_description']);
+	$l_url = str_replace("'", "\'", $_POST['link_url']);
+
+	$q = "UPDATE useful_links SET link_title = '".$l_title."', link_description = '".$l_desc."', link_url = '".$l_url."' WHERE link_id='".$_POST['edit_this_link']."'";
 	if(mysql_query($q, $connection_ul)){echo"success";} else {echo"failure";}
 }
 
 if(isset($_POST['create_new_link'])){
-	$q = "INSERT INTO useful_links SET link_title = '".$_POST['link_title']."', link_description = '".$_POST['link_description']."', link_url = '".$_POST['link_url']."'";
+	$l_title = str_replace("'", "\'", $_POST['link_title']);
+	$l_desc = str_replace("'", "\'", $_POST['link_description']);
+	$l_url = str_replace("'", "\'", $_POST['link_url']);
+
+	$q = "INSERT INTO useful_links SET link_title = '".$l_title."', link_description = '".$l_desc ."', link_url = '".$l_url."'";
 	if(mysql_query($q, $connection_ul)){echo"success";} else {echo"failure";}
 }
 
@@ -18,7 +26,7 @@ if(isset($_POST['delete_this_link'])){
 }
 ?>
 
-<table class="edit_data">
+<table>
 	<tr>
 		<td>Title</td><td> | </td>
 		<td>Description</td><td> | </td>
@@ -33,9 +41,9 @@ if(isset($_POST['delete_this_link'])){
 		while($row = mysql_fetch_array($result)){ 
 	?>
 	<tr>
-		<td class="edit_data"><?php echo $row['link_title']; ?></td><td> | </td>
-		<td class="edit_data"><?php echo $row['link_description']; ?></td><td> | </td>
-		<td class="edit_data"><a href='<?php echo $row['link_url']; ?>' target="_blank"><?php echo $row['link_url']; ?></a></td><td> | </td>
+		<td class="edit_data" style="text-align: left;"><?php echo $row['link_title']; ?></td><td> | </td>
+		<td class="edit_data" style="text-align: left; padding-left: 5px; font-size: 10px;"><?php echo $row['link_description']; ?></td><td> | </td>
+		<td class="edit_data" style="text-align: left; padding-left: 5px;"><a href='<?php echo $row['link_url']; ?>' target="_blank"><?php echo $row['link_url']; ?></a></td><td> | </td>
 		<td class="edit_data">
 			<form action="" method="post">
 				<input type="hidden" name="edit_link" value='<?php echo $row['link_id']; ?>'>
@@ -69,7 +77,7 @@ if(isset($_POST['edit_link'])){
 	$row = mysql_fetch_array($result)
 ?>
 <form action="" method="post">
-	<table class="edit_data">
+	<table>
 		<tr>
 			<td class="edit_data">Title: </td>
 			<td class="edit_data"><input type="text" name="link_title" value="<?php echo $row['link_title']; ?>"></td>
@@ -95,7 +103,7 @@ if(isset($_POST['edit_link'])){
 if(isset($_POST['create_link'])){
 ?>
 <form action="" method="post">
-	<table class="edit_data">
+	<table align="center">
 		<tr>
 			<td class="edit_data">Title: </td>
 			<td class="edit_data"><input type="text" name="link_title" placeholder="title"></td>

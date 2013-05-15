@@ -1,3 +1,5 @@
+<script src="includes/calendar-date-input.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="assets/css/calendar-date-input.css">
 <?php
    
 $connection_ev = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
@@ -6,12 +8,28 @@ $q = "SELECT * FROM pages";
 $result = mysql_query($q, $connection_ev);
 
 if(isset($_POST['edit_this_event'])){
-	$q = "UPDATE events SET event_title = '".$_POST['event_title']."', event_host = '".$_POST['event_host']."', event_location = '".$_POST['event_location']."', start_time = '".$_POST['start_time']."', end_time = '".$_POST['end_time']."', guest_list = '".$_POST['guest_list']."',enterance_fee = '".$_POST['enterance_fee']."', event_description = '".$_POST['event_description']."' WHERE event_id='".$_POST['edit_this_event']."'";
+	$e_title = str_replace("'", "\'", $_POST['event_title']);
+	$e_host = str_replace("'", "\'", $_POST['event_host']);
+	$e_location = str_replace("'", "\'", $_POST['event_location']);
+	$s_time = str_replace("'", "\'", $_POST['start_time']);
+	$e_time = str_replace("'", "\'", $_POST['end_time']);
+	$e_fee = str_replace("'", "\'", $_POST['enterance_fee']);
+	$e_description = str_replace("'", "\'", $_POST['event_description']);
+
+	$q = "UPDATE events SET event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."' WHERE event_id='".$_POST['edit_this_event']."'";
 	if(mysql_query($q, $connection_ev)){echo"success";} else {echo"failure";}
 }
 
 if(isset($_POST['create_new_event'])){
-	$q = "INSERT INTO events SET event_title = '".$_POST['event_title']."', event_host = '".$_POST['event_host']."', event_location = '".$_POST['event_location']."', start_time = '".$_POST['start_time']."', end_time = '".$_POST['end_time']."', guest_list = '".$_POST['guest_list']."',enterance_fee = '".$_POST['enterance_fee']."', event_description = '".$_POST['event_description']."'";
+	$e_title = str_replace("'", "\'", $_POST['event_title']);
+	$e_host = str_replace("'", "\'", $_POST['event_host']);
+	$e_location = str_replace("'", "\'", $_POST['event_location']);
+	$s_time = str_replace("'", "\'", $_POST['start_time']);
+	$e_time = str_replace("'", "\'", $_POST['end_time']);
+	$e_fee = str_replace("'", "\'", $_POST['enterance_fee']);
+	$e_description = str_replace("'", "\'", $_POST['event_description']);
+
+	$q = "INSERT INTO events SET event_id = 0, event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."'";
 	if(mysql_query($q, $connection_ev)){echo"success";} else {echo"failure";}
 }
 
@@ -86,21 +104,31 @@ if(isset($_POST['edit_event'])){
 		<tr>
 			<td>Description:</td>
 			<td>
-				<textarea name="event_description"><?php echo $row['event_description']; ?></textarea>
+				<textarea name="event_description" cols="60" rows="10"><?php echo $row['event_description']; ?></textarea>
 			</td>
 		</tr>
 		<tr>
 			<td>Hosted by:</td>
-			<td><input type="text" name="event_host" value="<?php echo $row['event_host']; ?>">At location: <input type="text" name="event_location" value="<?php echo $row['event_location']; ?>"></td>
+			<td>
+				<input type="text" name="event_host" value="<?php echo $row['event_host']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td>At location: </td>
+			<td><input type="text" name="event_location" value="<?php echo $row['event_location']; ?>"></td>
 		</tr>
 		<tr>
 			<td>Starts at:</td>
-			<td><input type="text" name="start_time" value="<?php echo $row['start_time']; ?>">Ends at: <input type="text" name="end_time" value="<?php echo $row['end_time']; ?>"></td>
+			<td>
+				<input type="text" name="start_time" value="<?php echo $row['start_time']; ?>">
+				<input type="button" value="select" onclick="displayDatePicker('start_time', false, 'ymd', '-');" />
+			</td>
 		</tr>
 		<tr>
-			<td>Guests:</td>
+			<td>Ends at: </td>
 			<td>
-				<textarea name="guest_list"><?php echo $row['guest_list']; ?></textarea>
+				<input type="text" name="end_time" value="<?php echo $row['end_time']; ?>">
+				<input type="button" value="select" onclick="displayDatePicker('end_time', false, 'ymd', '-');" />
 			</td>
 		</tr>
 		<tr>
@@ -123,31 +151,41 @@ if(isset($_POST['create_event'])){
 	<table class="edit_data">
 		<tr>
 			<td>Title:</td>
-			<td><input type="text" name="event_title" placeholder="title"></td>
+			<td><input type="text" name="event_title" value="<?php echo $row['event_title']; ?>"></td>
 		</tr>
 		<tr>
 			<td>Description:</td>
 			<td>
-				<textarea name="event_description" placeholder="description"></textarea>
+				<textarea name="event_description" cols="60" rows="10"><?php echo $row['event_description']; ?></textarea>
 			</td>
 		</tr>
 		<tr>
 			<td>Hosted by:</td>
-			<td><input type="text" name="event_host" placeholder="person">At location: <input type="text" name="event_location" placeholder="place"></td>
+			<td>
+				<input type="text" name="event_host" value="<?php echo $row['event_host']; ?>">
+			</td>
+		</tr>
+		<tr>
+			<td>At location: </td>
+			<td><input type="text" name="event_location" value="<?php echo $row['event_location']; ?>"></td>
 		</tr>
 		<tr>
 			<td>Starts at:</td>
-			<td><input type="text" name="start_time">Ends at: <input type="text" name="end_time"></td>
+			<td>
+				<input type="text" name="start_time" value="<?php echo $row['start_time']; ?>">
+				<input type="button" value="select" onclick="displayDatePicker('start_time', false, 'ymd', '-');" />
+			</td>
 		</tr>
 		<tr>
-			<td>Guests:</td>
+			<td>Ends at: </td>
 			<td>
-				<textarea name="guest_list"></textarea>
+				<input type="text" name="end_time" value="<?php echo $row['end_time']; ?>">
+				<input type="button" value="select" onclick="displayDatePicker('end_time', false, 'ymd', '-');" />
 			</td>
 		</tr>
 		<tr>
 			<td>Enterance fee:</td>
-			<td><input type="text" name="enterance_fee" placeholder="$2.00"></td>
+			<td><input type="text" name="enterance_fee" value="<?php echo $row['enterance_fee']; ?>"></td>
 		</tr>
 		<tr>
 			<td colspan="2">

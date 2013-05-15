@@ -237,7 +237,7 @@ class Session
     * 1. If no errors were found, it registers the new user and
     * returns 0. Returns 2 if registration failed.
     */
-   function register($firstname, $lastname, $subuser, $subpass, $subemail){
+   function register($firstname, $lastname, $subuser, $subpass, $subemail, $school){
       global $database, $form, $mailer;  //The database, form and mailer object
       
       /* Username error checking */
@@ -338,7 +338,7 @@ class Session
       }
       /* No errors, add the new account to the */
       else{
-         if($database->addNewUser($firstname, $lastname, $subuser, md5($subpass), $subemail)){
+         if($database->addNewUser($firstname, $lastname, $subuser, md5($subpass), $subemail, $school)){
             if(EMAIL_WELCOME){
                $mailer->sendWelcome($subuser,$subemail,$subpass);
             }

@@ -57,13 +57,13 @@
         
         //server side validation
         if ($contact_name == "" || !$contact_name){
-            echo "contact name left blank";
+            echo "<div id='red_notification_message_box'>contact name left blank</div>";
         } elseif ($contact_email == "" || !$contact_email){
-            echo "contact email left blank";
+            echo "<div id='red_notification_message_box'>contact email left blank</div>";
         } elseif ($contact_subject == "" || !$contact_subject){
-            echo "phone number left blank";
+            echo "<div id='red_notification_message_box'>phone number left blank</div>";
         } elseif ($contact_content == "" || !$contact_content){
-            echo "original language left blank";
+            echo "<div id='red_notification_message_box'>original language left blank</div>";
         } else {
             include "includes/libmail.php";
             $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
@@ -74,7 +74,7 @@
             $m->Priority(4) ;   // установка приоритета
             $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); // используя эу команду отправка пойдет через smtp
             $m->Send(); // отправка
-            echo "Contact us form Sent";
+            echo "<div id='blue_notification_message_box'>Your email has been sent.</div>";
 
             //insert info into the database.
             mysql_query("INSERT INTO `contact_us` VALUES ('', '$contact_name','$contact_subject','$contact_content','$contact_email');");
