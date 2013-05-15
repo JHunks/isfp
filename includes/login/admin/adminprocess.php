@@ -60,12 +60,12 @@ class AdminProcess
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         echo "failure" . $form->error("upduser");
+         echo "<div id='red_notification_message_box'>Failure ".$form->error("upduser")."</div>";
       }
       /* Update user level */
       else{
          $database->updateUserField($subuser, "userlevel", (int)$_POST['updlevel']);
-         echo "success";
+         echo "<div id='blue_notification_message_box'>Success</div>";
       }
    }
    
@@ -82,13 +82,13 @@ class AdminProcess
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         echo "failure" . $form->error("deluser");
+         echo "<div id='red_notification_message_box'>Failure ".$form->error("deluser")."</div>";
       }
       /* Delete user from database */
       else{
          $q = "DELETE FROM ".TBL_USERS." WHERE username = '$subuser'";
          $database->query($q);
-         echo "success";
+         echo "<div id='blue_notification_message_box'>Success</div>";
       }
    }
    
@@ -104,7 +104,7 @@ class AdminProcess
       $q = "DELETE FROM ".TBL_USERS." WHERE timestamp < $inact_time "
           ."AND userlevel != ".ADMIN_LEVEL;
       $database->query($q);
-      echo "success";
+      echo "<div id='blue_notification_message_box'>Success</div>";
    }
    
    /**
@@ -122,7 +122,7 @@ class AdminProcess
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         echo "failure" . $form->error("banuser");
+         echo "<div id='red_notification_message_box'>Failure ".$form->error("banuser")."</div>";
       }
       /* Ban user from member system */
       else{
@@ -131,7 +131,7 @@ class AdminProcess
 
          $q = "INSERT INTO ".TBL_BANNED_USERS." VALUES ('$subuser', $session->time)";
          $database->query($q);
-         echo "success";
+         echo "<div id='blue_notification_message_box'>Success</div>";
       }
    }
    
@@ -149,13 +149,13 @@ class AdminProcess
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         echo "failure" . $form->error("delbanuser");
+         echo "<div id='red_notification_message_box'>Failure ".$form->error("delbanuser")."</div>";
       }
       /* Delete user from database */
       else{
          $q = "DELETE FROM ".TBL_BANNED_USERS." WHERE username = '$subuser'";
          $database->query($q);
-         echo "success";
+         echo "<div id='blue_notification_message_box'>Success</div>";
       }
    }
    
@@ -170,7 +170,7 @@ class AdminProcess
       $subuser = $_POST[$uname];
       $field = $uname;  //Use field name for username
       if(!$subuser || strlen($subuser = trim($subuser)) == 0){
-         $form->setError($field, "* Username not entered<br>");
+         $form->setError($field, " username not entered.");
       }
       else{
          /* Make sure username is in database */
@@ -178,7 +178,7 @@ class AdminProcess
          if(strlen($subuser) < 5 || strlen($subuser) > 30 ||
             !preg_match("/^([0-9a-z])*$/i", $subuser) ||
             (!$ban && !$database->usernameTaken($subuser))){
-            $form->setError($field, "* Username does not exist<br>");
+            $form->setError($field, " username does not exist.");
          }
       }
       return $subuser;

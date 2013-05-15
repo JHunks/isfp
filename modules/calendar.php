@@ -78,7 +78,7 @@ if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 
 	    $m->To( $session->userinfo['email'] );   // кому, в этом поле так же разрешено указывать имя
 	    $m->Subject( "[ISFP: Reservation Confirmation] ".$session->userinfo['username']);
 	    $m->Body(
-			    	"Good afternoon. \n\nIt has come to our attention that you are trying to attend an event. \nPlease click the link below to confirm that you indeed are going to attend this event\n\n"
+			    	"Good day. \n\nIt has come to our attention that you are trying to attend an event. \nPlease click the link below to confirm that you indeed are going to attend this event\n\n"
 			    	.$site_settings['site_url']."/index.php?op=calendar&id=".$_POST['register_attendee_to_this_event'] ."&verify=".$random_n.
 			    	"\n\nThank You, ISFP."
 				);

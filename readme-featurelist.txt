@@ -1,3 +1,3 @@
 - registration requires to confirm email address
 - guests can bring food / volunteer to do activities
-- user control panel allows to modify all parameters in the base, which are assosiated with the user
+- user control panel allows to modify all parameters, which are assosiated with the user

@@ -46,9 +46,6 @@ if(isset($_GET['user'])){
 	 */
 
 	/* If logged in user viewing own account, give link to edit */
-	if(strcmp($session->username,$req_user) == 0){
-	   echo "<br><a href=\"index.php?op=useredit\">Edit Account Information</a><br>";
-	}
 	} else {
 		echo("No username specified");
 	}

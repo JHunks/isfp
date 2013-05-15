@@ -34,6 +34,25 @@
 }
 
 /**
+*kirka constants
+*
+*
+*
+*
+*/
+define("EMAIL_SENT_FROM", "kirka121@gmail.com");
+define("EMAIL_SSL", "ssl://smtp.gmail.com");
+define("EMAIL_SSL_LOGIN", "kirka121@gmail.com");
+define("EMAIL_SSL_PASS", "C45tt6KL32");
+
+
+
+
+
+
+
+
+/**
  * Database Table Constants - these constants
  * hold the names of all the database tables used
  * in the script.

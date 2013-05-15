@@ -17,7 +17,7 @@ if(isset($_POST['edit_this_event'])){
 	$e_description = str_replace("'", "\'", $_POST['event_description']);
 
 	$q = "UPDATE events SET event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."' WHERE event_id='".$_POST['edit_this_event']."'";
-	if(mysql_query($q, $connection_ev)){echo"success";} else {echo"failure";}
+	if(mysql_query($q, $connection_ev)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 if(isset($_POST['create_new_event'])){
@@ -30,12 +30,12 @@ if(isset($_POST['create_new_event'])){
 	$e_description = str_replace("'", "\'", $_POST['event_description']);
 
 	$q = "INSERT INTO events SET event_id = 0, event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."'";
-	if(mysql_query($q, $connection_ev)){echo"success";} else {echo"failure";}
+	if(mysql_query($q, $connection_ev)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 if(isset($_POST['delete_this_event'])){
 	$q = "DELETE FROM events WHERE event_id=".$_POST['delete_this_event'];
-	if(mysql_query($q, $connection_ev)){echo"success";} else {echo"failure";}
+	if(mysql_query($q, $connection_ev)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 mysql_close($connection_ev);

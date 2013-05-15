@@ -8,7 +8,7 @@ if(isset($_POST['edit_this_link'])){
 	$l_url = str_replace("'", "\'", $_POST['link_url']);
 
 	$q = "UPDATE useful_links SET link_title = '".$l_title."', link_description = '".$l_desc."', link_url = '".$l_url."' WHERE link_id='".$_POST['edit_this_link']."'";
-	if(mysql_query($q, $connection_ul)){echo"success";} else {echo"failure";}
+	if(mysql_query($q, $connection_ul)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 if(isset($_POST['create_new_link'])){
@@ -17,12 +17,12 @@ if(isset($_POST['create_new_link'])){
 	$l_url = str_replace("'", "\'", $_POST['link_url']);
 
 	$q = "INSERT INTO useful_links SET link_title = '".$l_title."', link_description = '".$l_desc ."', link_url = '".$l_url."'";
-	if(mysql_query($q, $connection_ul)){echo"success";} else {echo"failure";}
+	if(mysql_query($q, $connection_ul)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 if(isset($_POST['delete_this_link'])){
 	$q = "DELETE FROM useful_links WHERE link_id=".$_POST['delete_this_link'];
-	if(mysql_query($q, $connection_ul)){echo"success";} else {echo"failure";}
+	if(mysql_query($q, $connection_ul)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 ?>
 

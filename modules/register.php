@@ -81,14 +81,11 @@ if($session->logged_in){
 else if(isset($_SESSION['regsuccess'])){
    // Registration was successful
    if($_SESSION['regsuccess']){
-      echo "<h1>Registered!</h1>";
-      echo "<p>Thank you <b>".$_SESSION['reguname']."</b>, your information has been added to the database.";
+      echo "<div id='blue_notification_message_box'>Success, Your information has been added to the database.";
    }
    // Registration failed
    else{
-      echo "<h1>Registration Failed</h1>";
-      echo "<p>We're sorry, but an error has occurred and your registration for the username <b>".$_SESSION['reguname']."</b>, "
-          ."could not be completed.<br>Please try again at a later time.</p>";
+      echo "<div id='red_notification_message_box'>Registration has failed.";
    }
    unset($_SESSION['regsuccess']);
    unset($_SESSION['reguname']);

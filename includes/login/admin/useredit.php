@@ -18,7 +18,7 @@
 	?>
 </p>
 
-<h1>User Account Edit : <?php echo $session->username; ?></h1>
+
 
 <?php
 	if($form->num_errors > 0){

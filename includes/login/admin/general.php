@@ -13,7 +13,7 @@ if(isset($_POST['edit_site_settings'])){
 		$cpg = 0;
 	}
 	$k = "UPDATE settings SET site_title = '".$_POST['s_title']."', site_name = '".$_POST['s_name']."', copyright='".$_POST['s_copyright']."', custom_pages = '".$cpg."', site_email = '".$_POST['s_email']."', site_url = '".$_POST['s_site_url']."' WHERE site_id=1";
-	if(mysql_query($k, $connection_gr)) {echo"success";}else {echo"failure";}
+	if(mysql_query($k, $connection_gr)) {echo"<div id='blue_notification_message_box'>Success</div>";}else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 mysql_close($connection_gr);
@@ -81,20 +81,16 @@ if(isset($_FILES['fileup']) && strlen($_FILES['fileup']['name']) > 1) {
   $err = '';         // to store the errors
 
   // Checks if the file has allowed type, size, width and height (for images)
-  if(!in_array($type, $allowtype)) $err .= 'The file: <b>'. $_FILES['fileup']['name']. '</b> not has the allowed extension type.';
-  if($_FILES['fileup']['size'] > $max_size*1000) $err .= '<br/>Maximum file size must be: '. $max_size. ' KB.';
-  if(isset($width) && isset($height) && ($width >= $alwidth || $height >= $alheight)) $err .= '<br/>The maximum Width x Height must be: '. $alwidth. ' x '. $alheight;
+  if(!in_array($type, $allowtype)) $err .= '<div id="red_notification_message_box">The file: <b>'. $_FILES['fileup']['name']. '</b> is not of allowed extension type.</div>';
+  if($_FILES['fileup']['size'] > $max_size*1000) $err .= '<div id="red_notification_message_box">Maximum file size must be: '. $max_size. ' KB.</div>';
+  if(isset($width) && isset($height) && ($width >= $alwidth || $height >= $alheight)) $err .= '<div id="red_notification_message_box">The maximum Width x Height must be: '. $alwidth. ' x '. $alheight.'</div>';
 
   // If no errors, upload the image, else, output the errors
   if($err == '') {
     if(move_uploaded_file($_FILES['fileup']['tmp_name'], $uploadpath)) { 
-      echo 'File: <b>'. basename( $_FILES['fileup']['name']). '</b> successfully uploaded:';
-      echo '<br/>File type: <b>'. $_FILES['fileup']['type'] .'</b>';
-      echo '<br />Size: <b>'. number_format($_FILES['fileup']['size']/1024, 3, '.', '') .'</b> KB';
-      if(isset($width) && isset($height)) echo '<br/>Image Width x Height: '. $width. ' x '. $height;
-      echo '<br/><br/>Image address: <b>http://'.$_SERVER['HTTP_HOST'].rtrim(dirname($_SERVER['REQUEST_URI']), '\\/').'/'.$uploadpath.'</b>';
+      echo "<div id='blue_notification_message_box'>Image Uploaded</div>";
   } else {
-    echo '<b>Unable to upload the file.</b>';
+    echo  "<div id='red_notification_message_box'>Failure</div>";
   }
 } else {
   echo $err;
@@ -104,9 +100,9 @@ if(isset($_FILES['fileup']) && strlen($_FILES['fileup']['name']) > 1) {
 
 if(isset($_POST['deletethispicture']) && $_POST['deletethispicture'] != ""){
 	if(unlink( $_POST['deletethispicture'])){
-		echo "file deleted";
+		echo "<div id='blue_notification_message_box'>Image Deleted</div>";
 	} else {
-		echo "file failed to delete";
+		echo "<div id='red_notification_message_box'>Failure</div>";
 	}
 }
 ?> 

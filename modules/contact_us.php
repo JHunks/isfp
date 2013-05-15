@@ -72,7 +72,7 @@
             $m->Subject( "[ISFP: Contact Us]  ".$contact_subject );
             $m->Body("From: ".$contact_name." (".$contact_email.")"."\nSubject: ".$contact_subject."\nBody: ".$contact_content);
             $m->Priority(4) ;   // установка приоритета
-            $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); // используя эу команду отправка пойдет через smtp
+            $m->smtp_on(EMAIL_SSL,EMAIL_SSL_LOGIN,EMAIL_SSL_PASS, 465, 10); // используя эу команду отправка пойдет через smtp
             $m->Send(); // отправка
             echo "<div id='blue_notification_message_box'>Your email has been sent.</div>";
 
