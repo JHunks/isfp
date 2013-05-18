@@ -277,7 +277,7 @@ class Session
         $form->setError($field, "* First Name not entered");
       } else {
         $firstname = stripslashes($firstname);
-        if(strlen($firstname) < 4){
+        if(strlen($firstname) < 1){
           $form->setError($field, "* First Name too short");
         }
       } 
@@ -288,7 +288,7 @@ class Session
         $form->setError($field, "* Last Name not entered");
       } else {
         $lastname = stripslashes($lastname);
-        if(strlen($lastname) < 4){
+        if(strlen($lastname) < 1){
           $form->setError($field, "* Last Name too short");
         }
       }
@@ -301,7 +301,7 @@ class Session
       else{
          /* Spruce up password and check length*/
          $subpass = stripslashes($subpass);
-         if(strlen($subpass) < 4){
+         if(strlen($subpass) < 5){
             $form->setError($field, "* Password too short");
          }
          /* Check if password is not alphanumeric */

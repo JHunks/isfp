@@ -187,13 +187,13 @@ class Process
       /* Account edit successful */
       if($retval){
          $_SESSION['useredit'] = true;
-         header("Location: ".$session->referrer."?op=useredit");
+         header("Location: ".$session->referrer."?op=control_panel&page=useredit");
       }
       /* Error found with form */
       else{
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         header("Location: ".$session->referrer."?op=useredit");
+         header("Location: ".$session->referrer."?op=control_panel&page=usereditt");
       }
    }
 };

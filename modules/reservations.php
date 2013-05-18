@@ -10,7 +10,7 @@ while($all_events = mysql_fetch_array($result)){
 ?>
 	<table style="width: 100%; text-align: left; margin: 10px;">
 		<tr>
-			<th style="width: 300px; font-size: 20px; vertical-align: top;"><?php echo "[".$all_events['start_time']."] - ".$all_events['event_title']; ?></th>
+			<th style="width: 300px; font-size: 20px; vertical-align: top;"><a href="index.php?op=calendar&id=<?php echo $all_events['event_id']; ?>"><?php echo "[".$all_events['start_time']."] - ".$all_events['event_title']; ?></a></th>
 			<td>
 				<?php  
 					if($session->logged_in){

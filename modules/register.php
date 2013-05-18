@@ -6,15 +6,15 @@
       rules: {
         firstname: {
           required: true,
-          minlength: 4
+          minlength: 1
         },
         lastname: {
           required: true,
-          minlength: 4
+          minlength: 1
         },
         username: {
           required: true,
-          minlength: 5
+          minlength: 4
         },
         password: {
           required: true,
@@ -38,11 +38,11 @@
       messages: {
         firstname: {
             required: "Please enter your first name",
-            minlength: "Must be at least 4 characters long"
+            minlength: "Must be at least 1 character long"
         },
         lastname: {
             required: "Please enter your last name",
-            minlength: "Must be at least 4 characters long"
+            minlength: "Must be at least 1 character long"
         },
         username: {
           required: "Please enter a username",

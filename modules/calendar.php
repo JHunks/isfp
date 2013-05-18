@@ -197,6 +197,8 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 			</td>
 			<td class="calendar_table">
 				<?php echo $infoarray['start_time']; ?>
+				&nbsp;&nbsp;
+				[<?php echo $infoarray['start_hour']; ?>]
 			</td>
 		</tr>
 		<?php } 
@@ -208,6 +210,8 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 			</td>
 			<td class="calendar_table">
 				<?php echo $infoarray['end_time']; ?>
+				&nbsp;&nbsp;
+				[<?php echo $infoarray['end_hour']; ?>]
 			</td>
 		</tr>
 		<?php } 

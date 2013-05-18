@@ -73,6 +73,11 @@
 										<a href="index.php?op=forgotpass">Forgot Password?</a>
 									</td>
 								</tr>
+								<tr>
+									<td colspan="2">
+										<a href="index.php?op=register">Register</a>
+									</td>
+								</tr>
 							</table>
 						</form>
 					</div>

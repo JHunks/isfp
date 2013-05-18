@@ -85,7 +85,6 @@ $site_settings = mysql_fetch_array($result);
 									<ol id="list_container">
 										<li id="list_links"><a href="index.php?op=home">Home</a></li>
 										<li id="list_links"><a href="index.php?op=about_us">About Us</a></li>
-										<li id="list_links"><a href="index.php?op=register">Register</a></li>
 										<!--
 										<li id="list_links"><a href="index.php?op=activities">Activities</a></li>
 										<li id="list_links"><a href="index.php?op=program">Program</a></li>
