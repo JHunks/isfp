@@ -29,6 +29,12 @@
           required: true,
           email: true
         },
+        pnumber: {
+          required: true,
+          number: true,
+          minlength: 10,
+          maxlength: 10
+        },
         topic: {
           required: "#newsletter:checked",
           minlength: 2
@@ -58,6 +64,12 @@
           equalTo: "Please enter the same password as above"
         },
         email: "Please enter a valid email address",
+        pnumber: {
+          required: "Please provide a phone number",
+          minlength: "Must be 10 digits long",
+          maxlength: "Must be 10 digits long",
+          number: "Must be digits"
+        },
         agree: "Please accept our policy"
       }
     });
@@ -173,6 +185,10 @@ else{
               <option>Algonquin College</option>
               <option>Other</option>
             </select>
+          </p>
+          <p>
+            <label for="pnumber">Phone Number</label>
+            <input id="pnumber" name="pnumber" type="tel" placeholder="0000000000"/>
           </p>
           <p>
             <label for="email">Email</label>

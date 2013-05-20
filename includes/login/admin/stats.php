@@ -1,4 +1,7 @@
-<?php 
+<?php
+if(!$session->isAdmin()){
+	die("you should not be here. ip recorded, errors logged.");
+} 
 	function displayUsers(){
 	   global $database;
 	   $q = "SELECT username,userlevel,email,timestamp "

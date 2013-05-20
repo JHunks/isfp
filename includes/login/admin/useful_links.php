@@ -1,4 +1,7 @@
 <?php
+if(!$session->isAdmin()){
+	die("you should not be here. ip recorded, errors logged.");
+}
 $connection_ul = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 mysql_select_db(DB_NAME, $connection_ul) or die(mysql_error());
 
@@ -92,7 +95,7 @@ if(isset($_POST['edit_link'])){
 		</tr>
 		<tr>
 			<td colspan="100%">
-				<input type="hidden" name="edit_this_link" value='1'>
+				<input type="hidden" name="edit_this_link" value="<?php echo $row['link_id']; ?>">
 				<input type="submit" value="Save">
 			</td>
 		</tr>

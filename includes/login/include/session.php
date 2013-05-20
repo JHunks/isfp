@@ -237,7 +237,7 @@ class Session
     * 1. If no errors were found, it registers the new user and
     * returns 0. Returns 2 if registration failed.
     */
-   function register($firstname, $lastname, $subuser, $subpass, $subemail, $school){
+   function register($firstname, $lastname, $subuser, $subpass, $subemail, $school, $pnumber){
       global $database, $form, $mailer;  //The database, form and mailer object
       
       /* Username error checking */
@@ -332,15 +332,38 @@ class Session
          $subemail = stripslashes($subemail);
       }
 
+      /* phone number error checking */
+      $field = "pnumber";
+      if (!$pnumber){
+        $form->setError($field, "* Phone Number not entered");
+      } else {
+        $pnumber = stripslashes($pnumber);
+        if(strlen($pnumber) != 10){
+          $form->setError($field, "* Phone number must be 10 digits long.");
+        }
+      }
+
       /* Errors exist, have user correct them */
       if($form->num_errors > 0){
          return 1;  //Errors with form
       }
       /* No errors, add the new account to the */
       else{
-         if($database->addNewUser($firstname, $lastname, $subuser, md5($subpass), $subemail, $school)){
+         if($database->addNewUser($firstname, $lastname, $subuser, md5($subpass), $subemail, $school, $pnumber)){
             if(EMAIL_WELCOME){
-               $mailer->sendWelcome($subuser,$subemail,$subpass);
+              include "../../includes/libmail.php";
+              $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
+              $m->From( EMAIL_SENT_FROM ); // от кого Можно использовать имя, отделяется точкой с запятой
+              $m->To( $subemail );   // кому, в этом поле так же разрешено указывать имя
+              $m->Subject( "[ISFP: Welcome Aboard]  ".$firstname." ".$lastname );
+              $m->Body(
+                        "Good day. \n\nThank you for registering with the International Student Friendship Program - Ottawa. \nYour account credentials are as follows:\n\nUsername: "
+                        .$subuser."\nPassword: ".$subpass."\n\nWe recomend you save these details some place safe for future reference.".
+                        "\n\nThank You, ISFP."
+                        );
+              $m->Priority(4) ;   // установка приоритета
+              $m->smtp_on(EMAIL_SSL,EMAIL_SSL_LOGIN,EMAIL_SSL_PASS, 465, 10); // используя эу команду отправка пойдет через smtp
+              $m->Send();
             }
             return 0;  //New user added succesfully
          }else{

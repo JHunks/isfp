@@ -41,15 +41,17 @@ body{
 	color: #000000;
 	text-align: center;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	background-image: url("/assets/images/main-bg.jpg");
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0.09, rgb(25,74,138)),
-		color-stop(0.46, rgb(79,151,219)),
-		color-stop(0.9, rgb(14,50,97))
-	);
+	background: #194a8a; /* Old browsers */
+	background: -moz-linear-gradient(top,  #194a8a 9%, #4f97db 46%, #0e3261 90%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(9%,#194a8a), color-stop(46%,#4f97db), color-stop(90%,#0e3261)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #194a8a 9%,#4f97db 46%,#0e3261 90%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #194a8a 9%,#4f97db 46%,#0e3261 90%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #194a8a 9%,#4f97db 46%,#0e3261 90%); /* IE10+ */
+	background: linear-gradient(to bottom,  #194a8a 9%,#4f97db 46%,#0e3261 90%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#194a8a', endColorstr='#0e3261',GradientType=0 ); /* IE6-9 */
+
+
+	background-color: blue;
 	margin: 0px;
 	padding: 0px;
 	overflow: auto;
@@ -121,10 +123,9 @@ a:hover{
 	overflow: hidden;
 	font-size: small;
 	line-height: 2.8;
-	-moz-border-radius-topright: 20px;
-  	-webkit-border-top-right-radius: 20px;
-  	-moz-border-radius-topleft: 20px;
-  	-webkit-border-top-left-radius: 20px;
+	-webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;  
 }
 #login_content{
 	margin-left: 9px;
@@ -154,10 +155,9 @@ a:hover{
 	overflow: hidden;
 	font-size: small;
 	line-height: 2.8;
-	-moz-border-radius-topright: 20px;
-  	-webkit-border-top-right-radius: 20px;
-  	-moz-border-radius-topleft: 20px;
-  	-webkit-border-top-left-radius: 20px;
+	-webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;  
 }
 #nav_content{
 	text-align: left;
@@ -192,10 +192,10 @@ a:hover{
 	overflow: hidden;
 	font-size: small;
 	line-height: 2.8;
-	-moz-border-radius-topright: 20px;
-  	-webkit-border-top-right-radius: 20px;
-  	-moz-border-radius-topleft: 20px;
-  	-webkit-border-top-left-radius: 20px;
+	-webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;  
+
 }
 #error{
 	color: #b56b47;
@@ -317,10 +317,9 @@ th.useful_links{
 	overflow: hidden;
 	font-size: small;
 	line-height: 2.8;
-	-moz-border-radius-topright: 20px;
-  	-webkit-border-top-right-radius: 20px;
-  	-moz-border-radius-topleft: 20px;
-  	-webkit-border-top-left-radius: 20px;
+	-webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;  
 }
 #title_logo{
 	width: 100%;

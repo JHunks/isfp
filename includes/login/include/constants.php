@@ -112,7 +112,7 @@ define("COOKIE_PATH", "/");  //Avaible in whole domain
  */
 define("EMAIL_FROM_NAME", "Kirill Afanasenko");
 define("EMAIL_FROM_ADDR", "kirka121@gmail.com");
-define("EMAIL_WELCOME", false);//set this false if you do not want your users to receive a welcome Email after registration
+define("EMAIL_WELCOME", true);//set this false if you do not want your users to receive a welcome Email after registration
 
 /**
  * This constant forces all users to have

@@ -18,8 +18,6 @@ $site_settings = mysql_fetch_array($result);
 		<link rel="stylesheet" href="includes/jQuery.isc/jQuery.isc.css" type="text/css" media="screen" charset="utf-8">
 		<link rel="stylesheet" type="text/css" media="screen" href="includes/fullcalendar/fullcalendar.css">
 		<link rel="stylesheet" type="text/css" media="screen" href="assets/css/buttons.css">
-		<script src="http://www.google.com/jsapi"></script>
-		<script>google.load("jquery", "1");</script>
 		<script type="text/javascript">
 		if (typeof jQuery == 'undefined'){
 				document.write(unescape("%3Cscript src='includes/jQuery.js' type='text/javascript'%3e%3C/script%3E"));

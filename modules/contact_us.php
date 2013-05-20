@@ -73,8 +73,7 @@
             $m->Body("From: ".$contact_name." (".$contact_email.")"."\nSubject: ".$contact_subject."\nBody: ".$contact_content);
             $m->Priority(4) ;   // установка приоритета
             $m->smtp_on(EMAIL_SSL,EMAIL_SSL_LOGIN,EMAIL_SSL_PASS, 465, 10); // используя эу команду отправка пойдет через smtp
-            $m->Send(); // отправка
-            echo "<div id='blue_notification_message_box'>Your email has been sent.</div>";
+            if($m->Send()){echo "<div id='blue_notification_message_box'>Your email has been sent.</div>";} else {"<div id='red_notification_message_box'>Failure sending email.</div>";}
 
             //insert info into the database.
             mysql_query("INSERT INTO `contact_us` VALUES ('', '$contact_name','$contact_subject','$contact_content','$contact_email');");

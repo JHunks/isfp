@@ -1,5 +1,7 @@
 <?php
-   
+if(!$session->isAdmin()){
+	die("you should not be here. ip recorded, errors logged.");
+} 
 $connection_pg = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 mysql_select_db(DB_NAME, $connection_pg) or die(mysql_error());
 $q = "SELECT * FROM pages";

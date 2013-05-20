@@ -1,5 +1,7 @@
 <?php
-   
+if(!$session->isAdmin()){
+	die("you should not be here. ip recorded, errors logged.");
+}
 $connection_gr = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 mysql_select_db(DB_NAME, $connection_gr) or die(mysql_error());
 $q = "SELECT * FROM settings";
@@ -12,8 +14,13 @@ if(isset($_POST['edit_site_settings'])){
 	} elseif ($_POST['custom_pages'] == "no"){
 		$cpg = 0;
 	}
-	$k = "UPDATE settings SET site_title = '".$_POST['s_title']."', site_name = '".$_POST['s_name']."', copyright='".$_POST['s_copyright']."', custom_pages = '".$cpg."', site_email = '".$_POST['s_email']."', site_url = '".$_POST['s_site_url']."' WHERE site_id=1";
-	if(mysql_query($k, $connection_gr)) {echo"<div id='blue_notification_message_box'>Success</div>";}else {echo"<div id='red_notification_message_box'>Failure</div>";}
+	if ($_POST['display_calendar'] == "yes"){
+		$sdp = 1;
+	} elseif ($_POST['display_calendar'] == "no"){
+		$sdp = 0;
+	}
+	$k = "UPDATE settings SET site_title = '".$_POST['s_title']."', site_name = '".$_POST['s_name']."', copyright='".$_POST['s_copyright']."', custom_pages = '".$cpg."', site_email = '".$_POST['s_email']."', site_url = '".$_POST['s_site_url']."', display_calendar = '".$sdp."' WHERE site_id=1";
+	if(mysql_query($k, $connection_gr)) {echo"<div id='blue_notification_message_box'>Success, refresh the page for changes to take effect.</div>";}else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 mysql_close($connection_gr);
@@ -52,6 +59,13 @@ mysql_close($connection_gr);
 		<tr>
 			<td style="padding-left: 10px;" >Site URL:</td>
 			<td><input type="text" name="s_site_url" value="<?php echo $dbarray['site_url']; ?>" size="40" ></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 10px;" >Display Calendar?:</td>
+			<td>
+				<input type="radio" name="display_calendar" value="yes" <?php if($dbarray['display_calendar'] == 1){echo "checked";}?>>yes
+				<input type="radio" name="display_calendar" value="no" <?php if($dbarray['display_calendar'] == 0){echo "checked";}?>>no
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">

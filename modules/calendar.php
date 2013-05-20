@@ -90,9 +90,11 @@ if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 
 		echo"<div id='red_notification_message_box'>ERROR - Action Terminated</div>";
 	}
 }
+if ($site_settings['display_calendar'] == 1){
 ?>
 <div style="margin-top: 10px;" id='calendar'></div>
 <?php
+}
 if(isset($_GET['id'])&& $_GET['id'] != null){
 	$connection_cal = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 	mysql_select_db(DB_NAME, $connection_cal) or die(mysql_error());
