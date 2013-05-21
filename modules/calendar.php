@@ -123,16 +123,17 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 				<br/>
 			</td>
 		</tr>
-		<?php } 
-			if(isset($infoarray['event_host']) && $infoarray['event_host']!=null){
-		?>
 		<tr>
+			<?php } 
+				if(isset($infoarray['event_host']) && $infoarray['event_host']!=null){
+			?>
 			<td class="calendar_table_headers">
 				Hosted by:
 			</td>
 			<td class="calendar_table">
 				<?php echo $infoarray['event_host']; ?>
 			</td>
+			<?php } ?>
 			<td class="celendar_table_button" rowspan="100%">
 				<?php 
 				$therewasanerror = false;
@@ -179,7 +180,7 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 				}?>
 			</td>
 		</tr>
-		<?php } 
+		<?php 
 			if(isset($infoarray['event_location']) && $infoarray['event_location']!=null){
 		?>
 		<tr>

@@ -21,9 +21,23 @@ if(isset($_POST['edit_this_event'])){
 	$e_time = str_replace("'", "\'", $_POST['end_time']);
 	$e_fee = str_replace("'", "\'", $_POST['enterance_fee']);
 	$e_description = str_replace("'", "\'", $_POST['event_description']);
+	$errrrrrrur = false;
 
-	$q = "UPDATE events SET event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."', start_hour = '".$_POST['start_hour']."', end_hour = '".$_POST['end_hour']."' WHERE event_id='".$_POST['edit_this_event']."'";
-	if(mysql_query($q, $connection_ev)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
+	$g = "DELETE FROM bring_to_event WHERE event_id = '".$_POST['edit_this_event']."'";
+	if(mysql_query($g, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
+
+	for($i = 1; $i <= $_POST['num_of_items_to_bring']; $i++){
+		if(isset($_POST['bring_this_item_'.strval($i)])){
+			$i_to_bring = str_replace("'", "\'", $_POST['bring_this_item_'.strval($i)]);
+			$i_quantity = str_replace("'", "\'", $_POST['bring_this_item_amount_'.strval($i)]);
+			$q = "INSERT INTO bring_to_event SET randomPK = 0, event_id='".$_POST['edit_this_event']."', item_name = '".$i_to_bring."', quantity = '".$i_quantity."'";
+			if(mysql_query($q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
+		}
+	}
+
+	$z = "UPDATE events SET event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."', start_hour = '".$_POST['start_hour']."', end_hour = '".$_POST['end_hour']."' WHERE event_id='".$_POST['edit_this_event']."'";
+	if(mysql_query($z, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
+	if(!$errrrrrrur){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 if(isset($_POST['create_new_event'])){
@@ -35,13 +49,58 @@ if(isset($_POST['create_new_event'])){
 	$e_fee = str_replace("'", "\'", $_POST['enterance_fee']);
 	$e_description = str_replace("'", "\'", $_POST['event_description']);
 
+/*
+	echo "<br/>items to bring: ";
+	echo $_POST['num_of_items_to_bring'];
+	$c = "bring_this_item_";
+	$c = $c.strval(1);
+	echo "<br/>selecting index: ";
+	echo $c;
+	echo "<br/>displaying value of index: ";
+	echo $_POST[$c];
+*/
+	$errrrrrrur = false;
+
 	$q = "INSERT INTO events SET event_id = 0, event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."', start_hour = '".$_POST['start_hour']."', end_hour = '".$_POST['end_hour']."'";
-	if(mysql_query($q, $connection_ev)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
+	if(mysql_query($q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
+
+	$q = "SELECT event_id FROM events WHERE event_title ='".$e_title."'";
+	
+	$resultttt = mysql_query($q,$connection_ev);
+	$event_id_selector = mysql_fetch_array($resultttt);
+	//echo "<br/>this event id is: ";
+	//echo $event_id_selector['event_id'];
+	
+	for($i = 1; $i <= $_POST['num_of_items_to_bring']; $i++){
+		if(isset($_POST['bring_this_item_'.strval($i)])){
+			//echo "<br/>bring item: ";
+			//echo $_POST['bring_this_item_'.strval($i)];
+			//echo " | amount: ";
+			//echo $_POST['bring_this_item_amount_'.strval($i)];
+			$i_to_bring = str_replace("'", "\'", $_POST['bring_this_item_'.strval($i)]);
+			$i_quantity = str_replace("'", "\'", $_POST['bring_this_item_amount_'.strval($i)]);
+			$q = "INSERT INTO bring_to_event SET randomPK = 0, event_id='".$event_id_selector['event_id']."', item_name = '".$i_to_bring."', quantity = '".$i_quantity."'";
+			if(mysql_query($q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
+		}
+	}
+
+	if(!$errrrrrrur){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
+	
 }
 
 if(isset($_POST['delete_this_event'])){
+	$errruurrr = false;
+
 	$q = "DELETE FROM events WHERE event_id=".$_POST['delete_this_event'];
-	if(mysql_query($q, $connection_ev)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
+	if(mysql_query($q, $connection_ev)){$errruurrr = false;}else{$errruurrr = true;}
+	$z = "DELETE FROM registered_to_event WHERE event_id=".$_POST['delete_this_event'];
+	if(mysql_query($z, $connection_ev)){$errruurrr = false;}else{$errruurrr = true;}
+	$x = "DELETE FROM registered_to_event_buffer WHERE event_id=".$_POST['delete_this_event'];
+	if(mysql_query($x, $connection_ev)){$errruurrr = false;}else{$errruurrr = true;}
+	$y = "DELETE FROM bring_to_event WHERE event_id=".$_POST['delete_this_event'];
+	if(mysql_query($y, $connection_ev)){$errruurrr = false;}else{$errruurrr = true;}
+	
+	if(!$errruurrr){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 mysql_close($connection_ev);
@@ -99,7 +158,10 @@ if(isset($_POST['edit_event'])){
 	mysql_select_db(DB_NAME, $connection_ev) or die(mysql_error());
 	$q = "SELECT * FROM events WHERE event_id='".$e_id."'";
 	$result = mysql_query($q, $connection_ev);
-	$row = mysql_fetch_array($result)
+	$row = mysql_fetch_array($result);
+
+	$w = "SELECT * FROM bring_to_event WHERE event_id='".$e_id."'";
+	$resul = mysql_query($w, $connection_ev);
 ?>
 <form action="" method="post">
 	<table class="edit_data">
@@ -140,6 +202,33 @@ if(isset($_POST['edit_event'])){
 		<tr>
 			<td>Enterance fee:</td>
 			<td colspan="2"><input type="text" name="enterance_fee" value="<?php echo $row['enterance_fee']; ?>"></td>
+		</tr>
+		<tr>
+			<td>Bring Items:</td>
+			<td>
+				<script language="JavaScript">
+					var kriaaaa = <?php echo mysql_num_rows($resul)+1;?>;
+					function add(){
+					    $('#inputList').append('<div id="item_'+ kriaaaa +'"><input placeholder="item #'+kriaaaa+'" name="bring_this_item_'+kriaaaa+'" type="text"/><input type="text" size="4" placeholder="amount" name="bring_this_item_amount_'+kriaaaa+'"/><input type="image" src="assets/images/minus-button-md.png" onclick="rem('+kriaaaa+')"/></div>');
+					    $('#num_of_items_to_bring').val(kriaaaa);
+					    kriaaaa++;
+					}
+					function rem(kk){
+					    $('#item_'+kk).remove();
+					}
+				</script>
+				<div id="inputList">
+					<?php
+					$kria = 1; 
+						while($bring = mysql_fetch_array($resul)){
+							echo '<div id="item_'.strval($kria).'"><input value="'.$bring['item_name'].'" name="bring_this_item_'.strval($kria).'" type="text"/><input type="text" size="4" value="'.$bring['quantity'].'" name="bring_this_item_amount_'.strval($kria).'"/><input type="image" src="assets/images/minus-button-md.png" onclick="rem('.strval($kria).')"/></div>';
+							$kria++;
+						}
+					?>
+					<input type="hidden" id="num_of_items_to_bring" name="num_of_items_to_bring" value="<?php echo mysql_num_rows($resul)+1;?>">
+				</div>
+				<img type="button" src="assets/images/button_add_01.png" onclick="add()">
+			</td>
 		</tr>
 		<tr>
 			<td colspan="4">
@@ -190,6 +279,26 @@ if(isset($_POST['create_event'])){
 		<tr>
 			<td>Enterance fee:</td>
 			<td><input type="text" name="enterance_fee" value="<?php echo $row['enterance_fee']; ?>"></td>
+		</tr>
+		<tr>
+			<td>Bring Items:</td>
+			<td>
+				<script language="JavaScript">
+					var kriaaaa = 1;
+					function add(){
+					    $('#inputList').append('<div id="item_'+ kriaaaa +'"><input placeholder="item #'+kriaaaa+'" name="bring_this_item_'+kriaaaa+'" type="text"/><input type="text" size="4" placeholder="amount" name="bring_this_item_amount_'+kriaaaa+'"/><input type="image" src="assets/images/minus-button-md.png" onclick="rem('+kriaaaa+')"/></div>');
+					    $('#num_of_items_to_bring').val(kriaaaa);
+					    kriaaaa++;
+					}
+					function rem(kk){
+					    $('#item_'+kk).remove();
+					}
+				</script>
+				<div id="inputList">
+					<input type="hidden" id="num_of_items_to_bring" name="num_of_items_to_bring" value="0">
+				</div>
+				<img type="button" src="assets/images/button_add_01.png" onclick="add()">
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
