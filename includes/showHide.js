@@ -7,16 +7,15 @@
 
 (function ($) {
     $.fn.showHide = function (options) {
-
 		//default vars for the plugin
         var defaults = {
             speed: 1000,
 			easing: '',
 			changeText: 0,
 			showText: 'Show',
-			hideText: 'Hide'
-			
+			hideText: 'Hide'	
         };
+        
         var options = $.extend(defaults, options);
 
         $(this).click(function () {	
@@ -32,10 +31,7 @@
 			     	$(toggleDiv).is(":visible") ? toggleClick.text(options.hideText) : toggleClick.text(options.showText);
 				 }
             });
-		   
-		  return false;
-		   	   
+		  return false;  
         });
-
     };
 })(jQuery);
