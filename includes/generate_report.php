@@ -43,7 +43,7 @@ $pdf->Ln();
 $pdf->SetFont('Arial','',14);
 $pdf->Cell(80,7,'Number of attendees: '.$total_number_of_attendees);
 $pdf->Ln();
-$pdf->Cell(80,7,'Number of geuests: '.$total_number_of_guests);
+$pdf->Cell(80,7,'Number of guests: '.$total_number_of_guests);
 $pdf->Ln();
 $pdf->Cell(80,7,'Total people coming: '.$total);
 $pdf->Ln();
