@@ -163,8 +163,8 @@ if(isset($_POST['edit_event'])){
 	$w = "SELECT * FROM bring_to_event WHERE event_id='".$e_id."'";
 	$resul = mysql_query($w, $connection_ev);
 ?>
-<form action="" method="post">
 	<table class="edit_data">
+		<form action="" method="post">
 		<tr>
 			<td>Title:</td>
 			<td colspan="2"><input type="text" name="event_title" value="<?php echo $row['event_title']; ?>"></td>
@@ -236,8 +236,16 @@ if(isset($_POST['edit_event'])){
 				<input type="submit" value="Save">
 			</td>
 		</tr>
+		</form>
+		<form action="includes/generate_report.php" method="post">
+			<tr>
+				<td colspan="4">
+					<input type="hidden" name="generate_a_report" value='<?php echo $e_id; ?>'>
+					<input type="submit" value="Generate Report">
+				</td>
+			</tr>
+		</form>
 	</table>
-</form>
 <?php } 
 
 if(isset($_POST['create_event'])){
