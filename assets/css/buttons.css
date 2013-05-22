@@ -28,6 +28,36 @@
 	top:1px;
 }
 
+.button2 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #b8bee6;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #b8bee6;
+	box-shadow:inset 0px 1px 0px 0px #b8bee6;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #83deae), color-stop(1, #5fa37d) );
+	background:-moz-linear-gradient( center top, #83deae 5%, #5fa37d 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#83deae', endColorstr='#5fa37d');
+	background-color:#83deae;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #083316;
+	display:inline-block;
+	color:#083316;
+	font-family:Trebuchet MS;
+	font-size:12px;
+	font-weight:normal;
+	padding:25px 76px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #a6c5e6;
+}.button2:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #5fa37d), color-stop(1, #83deae) );
+	background:-moz-linear-gradient( center top, #5fa37d 5%, #83deae 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5fa37d', endColorstr='#83deae');
+	background-color:#5fa37d;
+}.button2:active {
+	position:relative;
+	top:1px;
+}
+
 .uninvite_button {
 	-moz-box-shadow:inset 0px 1px 0px 0px #b8bee6;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #b8bee6;

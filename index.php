@@ -63,7 +63,7 @@ $site_settings = mysql_fetch_array($result);
 			<div id="header">
 				<div id="photo_container"></div> 
 			</div>
-			<div id="content" <?php if(isset($_GET['page'])){if($_GET['page'] == "manage_pages" || $_GET['page'] == "manage_events"){echo 'style="margin-bottom: 500px;"';}} ?>>
+			<div id="content" <?php if(isset($_GET['page'])){if($_GET['page'] == "manage_pages" || $_GET['page'] == "manage_events"){echo 'style="margin-bottom: 500px;"';}}elseif(isset($_GET['op']) && $_GET['op'] == "calendar"){echo 'style="margin-bottom: 200px;"';} ?>>
 				<table>
 					<tr>
 						<td rowspan="3">
