@@ -89,6 +89,7 @@ if(isset($_GET['verify'])&& $_GET['verify'] != null){
 }
 if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 1){
 //make a reservation
+    $fatal_error = false;
     $time = time();
     $random_n = sha1(uniqid(mt_rand(), true));
     
@@ -99,24 +100,58 @@ if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 
 	$this_item_random_pk = mysql_fetch_array(mysql_query("SELECT randomPK from bring_to_event where item_name = '".$_POST['actual_item_you_will_bring']."' AND event_id = ".$this_eventtt_id, $connection_cal));
     $this_item_rand_pk = $this_item_random_pk['randomPK'];
     $item_ammmount = $_POST['amount_of_item'];
-    $guessst_ammount = $_POST['amount_of_guests'];
-    $k = "INSERT INTO registered_to_event_buffer VALUES ('$session->username', '$time', '$random_n', 0, '$this_eventtt_id', '$this_item_rand_pk', $item_ammmount, $guessst_ammount)";
-    if(mysql_query($k, $connection_gr)) {
-	    include "includes/libmail.php";
-	    $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
-	    $m->From( $site_settings['site_email'] ); // от кого Можно использовать имя, отделяется точкой с запятой
-	    $m->To( $session->userinfo['email'] );   // кому, в этом поле так же разрешено указывать имя
-	    $m->Subject( "[ISFP: Reservation Confirmation] ".$session->userinfo['username']);
-	    $m->Body(
-			    	"Good day. \n\nIt has come to our attention that you are trying to attend an event. \nPlease click the link below to confirm that you indeed are going to attend this event\n\n"
-			    	.$site_settings['site_url']."/index.php?op=calendar&id=".$_POST['register_attendee_to_this_event'] ."&verify=".$random_n.
-			    	"\n\nThank You, ISFP."
-				);
-	    $m->Priority(4) ;   // установка приоритета
-	    $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); // используя эу команду отправка пойдет через smtp
-	    if($m->Send()){echo "<div id='blue_notification_message_box'>Confirmation email has been sent. Please check your inbox to confirm your attendance.</div>";}
+
+    $gg = "SELECT * FROM bring_to_event WHERE event_id ='".$this_eventtt_id."'";
+	$res = mysql_query($gg, $connection_cal);
+	$be = array();
+	while($b_t_ee = mysql_fetch_array($res)){
+		$be[] = $b_t_ee;
+	}
+	$tt = "SELECT * FROM registered_to_event WHERE event_id ='".$this_eventtt_id."'";
+	$rez = mysql_query($tt, $connection_cal);
+	$re = array();
+	while($r_t_ee = mysql_fetch_array($rez)){
+		$re[] = $r_t_ee;
+	}
+				
+	foreach($be as $bee){
+		$we_need = $bee['quantity'];
+		foreach($re as $ree){
+			if($bee['randomPK'] == $ree['bring_item_PK']){
+				$we_need = $bee['quantity'] - $ree['bring_item_amount'];
+			} 
+		}
+		if($this_item_rand_pk == $bee['randomPK']){
+			if($item_ammmount > $we_need){
+				$fatal_error = true;
+				break;
+			}	
+		}
+	}
+
+    if(!$fatal_error){
+    	$guessst_ammount = $_POST['amount_of_guests'];
+    	$k = "INSERT INTO registered_to_event_buffer VALUES ('$session->username', '$time', '$random_n', 0, '$this_eventtt_id', '$this_item_rand_pk', $item_ammmount, $guessst_ammount)";
+    
+	    if(mysql_query($k, $connection_gr)) {
+		    include "includes/libmail.php";
+		    $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
+		    $m->From( $site_settings['site_email'] ); // от кого Можно использовать имя, отделяется точкой с запятой
+		    $m->To( $session->userinfo['email'] );   // кому, в этом поле так же разрешено указывать имя
+		    $m->Subject( "[ISFP: Reservation Confirmation] ".$session->userinfo['username']);
+		    $m->Body(
+				    	"Good day. \n\nIt has come to our attention that you are trying to attend an event. \nPlease click the link below to confirm that you indeed are going to attend this event\n\n"
+				    	.$site_settings['site_url']."/index.php?op=calendar&id=".$_POST['register_attendee_to_this_event'] ."&verify=".$random_n.
+				    	"\n\nThank You, ISFP."
+					);
+		    $m->Priority(4) ;   // установка приоритета
+		    $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); // используя эу команду отправка пойдет через smtp
+		    if($m->Send()){echo "<div id='blue_notification_message_box'>Confirmation email has been sent. Please check your inbox to confirm your attendance.</div>";}
+		} else {
+			echo"<div id='red_notification_message_box'>ERROR - Action Terminated</div>";
+		}
 	} else {
-		echo"<div id='red_notification_message_box'>ERROR - Action Terminated</div>";
+		echo"<div id='red_notification_message_box'>We need ".$we_need." ".$_POST['actual_item_you_will_bring'].", and you want to bring ".$item_ammmount.". this is a problem. Fix this.</div>";
 	}
 }
 if ($site_settings['display_calendar'] == 1){
@@ -244,8 +279,16 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 		<?php
 			$gg = "SELECT * FROM bring_to_event WHERE event_id ='".$infoarray['event_id']."'";
 			$res = mysql_query($gg, $connection_cal);
+			$b_t_e = array();
+			while($b_t_ee = mysql_fetch_array($res)){
+				$b_t_e[] = $b_t_ee;
+			}
 			$tt = "SELECT * FROM registered_to_event WHERE event_id ='".$infoarray['event_id']."'";
 			$rez = mysql_query($tt, $connection_cal);
+			$r_t_e = array();
+			while($r_t_ee = mysql_fetch_array($rez)){
+				$r_t_e[] = $r_t_ee;
+			}
 			if(mysql_num_rows($res)>0){
 		?>
 		<tr>
@@ -254,17 +297,16 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 			</td>
 			<td class="calendar_table">
 				<?php
-					while($b_t_e = mysql_fetch_array($res)){
-						while($r_t_e = mysql_fetch_array($rez)){
-							if($b_t_e['randomPK'] == $r_t_e['bring_item_PK']){
-								$new_quantity = $b_t_e['quantity'] - $r_t_e['bring_item_amount'];
-							} else {
-								$new_quantity = $b_t_e['quantity'];
+					foreach($b_t_e as $b_tt){
+						$new_quantity = $b_tt['quantity'];
+						foreach($r_t_e as $r_tt){
+							if($b_tt['randomPK'] == $r_tt['bring_item_PK']){
+								$new_quantity = $b_tt['quantity'] - $r_tt['bring_item_amount'];
 							}
 						}
 						echo $new_quantity;
 						echo " - ";
-						echo $b_t_e['item_name'];
+						echo $b_tt['item_name'];
 						echo "<br/>";
 					}
 				?>
