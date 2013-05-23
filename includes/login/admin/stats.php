@@ -1,7 +1,7 @@
 <?php
-if(!$session->isAdmin()){
-	die("you should not be here. ip recorded, errors logged.");
-} 
+if(!$session->isAdmin() || !$session->logged_in){
+	die("<div id='red_notification_message_box'>you should not be here. ip recorded, errors logged.</div>");
+}
 	function displayUsers(){
 	   global $database;
 	   $q = "SELECT username,userlevel,email,timestamp "

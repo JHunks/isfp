@@ -27,7 +27,7 @@ if($session->isAdmin()){
 	<tr>
 	    <td class="alinks"><?php echo "<a href=\"index.php?op=control_panel&page=userinfo&user=$session->username\">My Account</a>"; ?></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel&page=useredit">Update Info</a></td><td> | </td>
-	    <td class="alinks"><a href="index.php?op=control_panel">Placeholder</a></td><td> | </td>
+	    <td class="alinks"><a href="index.php?op=control_panel&page=reservations">My Reservations</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel">Placeholder</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel">Placeholder</a></td>
 	</tr>
@@ -47,6 +47,7 @@ if($session->isAdmin()){
 	}
 } else {
 	if(!isset($_GET['page'])){
+		$_GET['user'] = $session->username;
 		include("includes/login/admin/userinfo.php"); 
 	} else {
 		$req_page = trim($_GET['page']);

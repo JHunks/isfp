@@ -1,6 +1,6 @@
 <?php
 if(!$session->isAdmin()){
-	die("you should not be here. ip recorded, errors logged.");
+	die("<div id='red_notification_message_box'>you should not be here. ip recorded, errors logged.</div>");
 }
 function displayBannedUsers(){
 	   global $database;

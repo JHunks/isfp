@@ -96,10 +96,10 @@ if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 
     $connection_gr = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 	mysql_select_db(DB_NAME, $connection_gr) or die(mysql_error());
 	$this_eventtt_id = $_POST['register_attendee_to_this_event'];
-
-	$this_item_random_pk = mysql_fetch_array(mysql_query("SELECT randomPK from bring_to_event where item_name = '".$_POST['actual_item_you_will_bring']."' AND event_id = ".$this_eventtt_id, $connection_cal));
+	if(isset($_POST['actual_item_you_will_bring'])){$nameofitemtobring = $_POST['actual_item_you_will_bring'];}else{$nameofitemtobring = "";}
+	$this_item_random_pk = mysql_fetch_array(mysql_query("SELECT randomPK from bring_to_event where item_name = '".$nameofitemtobring."' AND event_id = ".$this_eventtt_id, $connection_cal));
     $this_item_rand_pk = $this_item_random_pk['randomPK'];
-    $item_ammmount = $_POST['amount_of_item'];
+    if(isset($_POST['amount_of_item'])){$item_ammmount = $_POST['amount_of_item'];}else{$item_ammmount=0;}
 
     $gg = "SELECT * FROM bring_to_event WHERE event_id ='".$this_eventtt_id."'";
 	$res = mysql_query($gg, $connection_cal);

@@ -1,6 +1,6 @@
 <?php
 if(!$session->isAdmin()){
-	die("you should not be here. ip recorded, errors logged.");
+	die("<div id='red_notification_message_box'>you should not be here. ip recorded, errors logged.</div>");
 }
 $connection_gr = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 mysql_select_db(DB_NAME, $connection_gr) or die(mysql_error());

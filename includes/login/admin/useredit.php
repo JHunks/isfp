@@ -86,6 +86,9 @@
 </script>
 
 <?php
+if(!$session->logged_in){
+	die("<div id='red_notification_message_box'>you should not be here. ip recorded, errors logged.</div>");
+}
 if(isset($_POST['update_user_information_now'])){
 	$connection_cal = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 	mysql_select_db(DB_NAME, $connection_cal) or die(mysql_error());
@@ -107,8 +110,7 @@ if(isset($_POST['update_user_information_now'])){
 				<?php
 					if(isset($_SESSION['useredit'])){
 					   unset($_SESSION['useredit']);
-					   echo "<h1>User Account Edit Success!</h1>";
-					   echo "<p> <b>$session->username</b>, your account has been successfully updated. ";
+					   echo "<div id='blue_notification_message_box'>Success</div>";
 					} else {
 				?>
 				<?php
@@ -117,7 +119,7 @@ if(isset($_POST['update_user_information_now'])){
 			</p>
 			<?php
 				if($form->num_errors > 0){
-	   				echo "<td> <font size=\"2\" color=\"#ff0000\">".$form->num_errors." error(s) found</font></td>";
+	   				echo "<div id='red_notification_message_box'>Failure - ".$form->num_errors." errors found</div>";
 				}
 			?>
 			<form action="includes/login/process.php" method="POST" id="update_pass_form" class="update_pass_form_class">
