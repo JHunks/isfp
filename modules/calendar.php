@@ -358,7 +358,7 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 													$fes = mysql_query($ge, $connection_cal);
 													if(mysql_num_rows($fes)>0){
 												?> 
-													I will bring: <br/>
+													Items: <br/>
 													<input type="text" placeholder="amt" value="0" name="amount_of_item" size="2">
 													<select name="actual_item_you_will_bring">
 												<?php
@@ -373,7 +373,7 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 									</td>
 									<td style="width: 200px; display: inline-table;">
 										<div style="width: 200px; display: inline-table; vertical-align: middle;">
-											And:<br/>
+											Guests:<br/>
 											<input type="text" placeholder="amt" value="0" name="amount_of_guests" size="2">
 											<input type="text" value="Guests" name="guests" disabled size="6">
 										<div>
