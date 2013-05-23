@@ -25,11 +25,18 @@ if(isset($_POST['edit_this_event'])){
 
 	$g = "DELETE FROM bring_to_event WHERE event_id = '".$_POST['edit_this_event']."'";
 	if(mysql_query($g, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
+	
+	//echo "number of items to bring: ".$_POST['num_of_items_to_bring'];
 
 	for($i = 1; $i <= $_POST['num_of_items_to_bring']; $i++){
-		if(isset($_POST['bring_this_item_'.strval($i)])){
-			$i_to_bring = str_replace("'", "\'", $_POST['bring_this_item_'.strval($i)]);
-			$i_quantity = str_replace("'", "\'", $_POST['bring_this_item_amount_'.strval($i)]);
+		//echo $_POST['edit_this_item_'.strval($i)]."<br/>";
+		if(isset($_POST['edit_this_item_'.strval($i)])){
+			//echo "<br/>bring item: ";
+			//echo $_POST['edit_this_item_'.strval($i)];
+			//echo " | amount: ";
+			//echo $_POST['edit_this_item_amount_'.strval($i)];
+			$i_to_bring = str_replace("'", "\'", $_POST['edit_this_item_'.strval($i)]);
+			$i_quantity = str_replace("'", "\'", $_POST['edit_this_item_amount_'.strval($i)]);
 			$q = "INSERT INTO bring_to_event SET randomPK = 0, event_id='".$_POST['edit_this_event']."', item_name = '".$i_to_bring."', quantity = '".$i_quantity."'";
 			if(mysql_query($q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
 		}
@@ -163,8 +170,8 @@ if(isset($_POST['edit_event'])){
 	$w = "SELECT * FROM bring_to_event WHERE event_id='".$e_id."'";
 	$resul = mysql_query($w, $connection_ev);
 ?>
+<form action="" method="post">
 	<table class="edit_data">
-		<form action="" method="post">
 		<tr>
 			<td>Title:</td>
 			<td colspan="2"><input type="text" name="event_title" value="<?php echo $row['event_title']; ?>"></td>
@@ -209,7 +216,7 @@ if(isset($_POST['edit_event'])){
 				<script language="JavaScript">
 					var kriaaaa = <?php echo mysql_num_rows($resul)+1;?>;
 					function add(){
-					    $('#inputList').append('<div id="item_'+ kriaaaa +'"><input placeholder="item #'+kriaaaa+'" name="bring_this_item_'+kriaaaa+'" type="text"/><input type="text" size="4" placeholder="amount" name="bring_this_item_amount_'+kriaaaa+'"/><input type="image" src="assets/images/minus-button-md.png" onclick="rem('+kriaaaa+')"/></div>');
+					    $('#inputList').append('<div id="item_'+ kriaaaa +'"><input placeholder="item #'+kriaaaa+'" name="edit_this_item_'+kriaaaa+'" type="text"/><input type="text" size="4" placeholder="amount" name="edit_this_item_amount_'+kriaaaa+'"/><input type="image" src="assets/images/minus-button-md.png" onclick="rem('+kriaaaa+')"/></div>');
 					    $('#num_of_items_to_bring').val(kriaaaa);
 					    kriaaaa++;
 					}
@@ -221,7 +228,7 @@ if(isset($_POST['edit_event'])){
 					<?php
 					$kria = 1; 
 						while($bring = mysql_fetch_array($resul)){
-							echo '<div id="item_'.strval($kria).'"><input value="'.$bring['item_name'].'" name="bring_this_item_'.strval($kria).'" type="text"/><input type="text" size="4" value="'.$bring['quantity'].'" name="bring_this_item_amount_'.strval($kria).'"/><input type="image" src="assets/images/minus-button-md.png" onclick="rem('.strval($kria).')"/></div>';
+							echo '<div id="item_'.strval($kria).'"><input value="'.$bring['item_name'].'" name="edit_this_item_'.strval($kria).'" type="text"/><input type="text" size="4" value="'.$bring['quantity'].'" name="edit_this_item_amount_'.strval($kria).'"/><input type="image" src="assets/images/minus-button-md.png" onclick="rem('.strval($kria).')"/></div>';
 							$kria++;
 						}
 					?>
@@ -236,16 +243,14 @@ if(isset($_POST['edit_event'])){
 				<input type="submit" value="Save">
 			</td>
 		</tr>
-		</form>
-		<form action="includes/generate_report.php" method="post">
-			<tr>
-				<td colspan="4">
-					<input type="hidden" name="generate_a_report" value='<?php echo $e_id; ?>'>
-					<input type="submit" value="Generate Report">
-				</td>
-			</tr>
-		</form>
 	</table>
+</form>
+<div style="text-align: left;">
+<form action="includes/generate_report.php" method="post">
+	<input type="hidden" name="generate_a_report" value='<?php echo $e_id; ?>'>
+	<input type="submit" value="Generate Report">
+</form>
+</div>
 <?php } 
 
 if(isset($_POST['create_event'])){
