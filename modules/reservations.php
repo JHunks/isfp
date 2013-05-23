@@ -53,7 +53,7 @@ while($all_events = mysql_fetch_array($result)){
 												$user['firstname']." ".$user['lastname'].
 											"</td>
 											<td style='width:165px;'>";
-												if($all_attendees['bring_item_amount'] != null || $all_attendees['bring_item_amount'] != 0){
+												if($all_attendees['bring_item_amount'] != null && $all_attendees['bring_item_amount'] != 0){
 													$p = "SELECT item_name FROM bring_to_event WHERE randomPK =".$all_attendees['bring_item_PK'];
 													$raz = mysql_query($p, $connect);
 													$answaaa = mysql_fetch_array($raz);
@@ -62,7 +62,7 @@ while($all_events = mysql_fetch_array($result)){
 													echo "<div style='font-size: 12px; padding-top: 7px;'>none</div>";
 												}
 											echo "</td><td style='width:100px;'>";
-												if($all_attendees['bring_num_guests'] != null || $all_attendees['bring_num_guests'] != 0){
+												if($all_attendees['bring_num_guests'] != null && $all_attendees['bring_num_guests'] != 0){
 													echo $all_attendees['bring_num_guests']; 
 												} else {
 													echo "<div style='font-size: 12px; padding-top: 7px;'>none</div>";
