@@ -180,10 +180,10 @@ else{
                     background: #f9f9f9;
                     color: #777;
                      ">
-              <option>Ottawa University</option>
-              <option>Carleton University</option>
-              <option>Algonquin College</option>
-              <option>Other</option>
+              <option value="Ottawa University">Ottawa University</option>
+              <option value="Carleton University">Carleton University</option>
+              <option value="Algonquin College">Algonquin College</option>
+              <option value="Other">Other</option>
             </select>
           </p>
           <p>

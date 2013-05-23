@@ -23,6 +23,28 @@ if(isset($_POST['edit_this_event'])){
 	$e_description = str_replace("'", "\'", $_POST['event_description']);
 	$errrrrrrur = false;
 
+	
+	$myq = "SELECT * from bring_to_event where event_id = '".$_POST['edit_this_event']."'";
+	$rezultat = mysql_query($myq, $connection_ev);
+
+	
+	$tt = "SELECT * FROM registered_to_event WHERE event_id ='".$_POST['edit_this_event']."'";
+	$rez = mysql_query($tt, $connection_ev);
+	$re = array();
+	while($r_t_ee = mysql_fetch_array($rez)){
+		$re[] = $r_t_ee;
+	}
+
+	while($my_infa = mysql_fetch_array($rezultat)){
+		foreach($re as $the_person){
+			if($my_infa['randomPK'] == $the_person['bring_item_PK']){
+				$my3q = "UPDATE registered_to_event SET bring_item_pk = null, bring_item_amount = null WHERE user_id='".$the_person['user_id']."'";
+				if(mysql_query($my3q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;};
+			}
+		}
+	}
+
+
 	$g = "DELETE FROM bring_to_event WHERE event_id = '".$_POST['edit_this_event']."'";
 	if(mysql_query($g, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
 	

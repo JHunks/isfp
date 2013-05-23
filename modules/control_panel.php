@@ -26,7 +26,7 @@ if($session->isAdmin()){
 	</tr>
 	<tr>
 	    <td class="alinks"><?php echo "<a href=\"index.php?op=control_panel&page=userinfo&user=$session->username\">My Account</a>"; ?></td><td> | </td>
-	    <td class="alinks"><a href="index.php?op=control_panel&page=useredit">Update Password</a></td><td> | </td>
+	    <td class="alinks"><a href="index.php?op=control_panel&page=useredit">Update Info</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel">Placeholder</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel">Placeholder</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel">Placeholder</a></td>
