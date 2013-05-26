@@ -6,3 +6,14 @@
 - email sent to users to confirm event attendance displays details about what to bring etc
 - in generated report PDF, if guests are not bringing everythng, show what still needs to be brought
 - allow users to delete their accounts and thus remove any and all information we have for them
+- pdf report generate horizontal lines between people
+- ability to bring tent / per person. or allow notes.
+- registration allows to enter food restrictions (alllergy), as well as ability to modify that in control panel
+- if bringing a car, who can take how many passengers.
+- pdf report has column "school"
+- pdf report sort by last -> first name in list
+- ability to bring extra items even if they are not needed for an event.
+- change "guests" to "children".
+- cooking page, recepies.
+- change colors on website option
+- the carousel skip to image bar looks off by 5px on some pages. on others it is fine

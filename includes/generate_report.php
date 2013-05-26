@@ -64,13 +64,13 @@ foreach($reg_info as $info){
 	
 
 	if($details['pnumber'] == null){
-		$phone = "not entered";
+		$phone = "";
 	} else {
 		$phone = $details['pnumber'];
 	}
 
 	if($info['bring_item_PK'] == null){
-		$brings = "nothing";
+		$brings = "";
 	} else {
 		$p = "SELECT item_name FROM bring_to_event WHERE randomPK =".$info['bring_item_PK'];
 		$raz = mysql_query($p, $connection);
@@ -78,7 +78,7 @@ foreach($reg_info as $info){
 		$brings = $info['bring_item_amount']." x ".$answaaa['item_name'];
 	}
 	if($info['bring_num_guests'] == null){
-		$guest_num = "no one";
+		$guest_num = "";
 	} else {
 		$guest_num = $info['bring_num_guests'];
 	}

@@ -88,7 +88,7 @@ $site_settings = mysql_fetch_array($result);
 										<li id="list_links"><a href="index.php?op=program">Program</a></li>
 										-->
 										<li id="list_links"><a href="index.php?op=useful_links">Useful Links</a></li>
-										<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>
+										<!--<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>-->
 										<!--<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>-->
 										<li id="list_links"><a href="index.php?op=contact_us">Contact Us</a></li>
 										<?php
