@@ -384,6 +384,11 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 										</div>
 									</td>
 									</tr>
+									<tr>
+										<td colspan="100%">
+											Other:&nbsp;<input type="text" placeholder="desctiprion" size="10"/>
+										</td>
+									</tr>
 									</table>
 								</form>
 							</div>

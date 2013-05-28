@@ -61,7 +61,7 @@ mysql_close($connection_gr);
 			<td><input type="text" name="s_site_url" value="<?php echo $dbarray['site_url']; ?>" size="40" ></td>
 		</tr>
 		<tr>
-			<td style="padding-left: 10px;" >Display Calendar?:</td>
+			<td style="padding-left: 10px;" >Display Calendar:</td>
 			<td>
 				<input type="radio" name="display_calendar" value="yes" <?php if($dbarray['display_calendar'] == 1){echo "checked";}?>>yes
 				<input type="radio" name="display_calendar" value="no" <?php if($dbarray['display_calendar'] == 0){echo "checked";}?>>no

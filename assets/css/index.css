@@ -16,8 +16,8 @@
 	text-shadow: 0 1px 0 rgba(255,255,255,0.8);
 	text-align: center;
 }
-#red_notification_message_box{
-	position: relative;
+#red_notification_message_box
+{	position: relative;
 	margin: 0 auto;
 	padding: 15px 15px 15px 15px;
 	font-weight: bold;
