@@ -1,17 +1,15 @@
 - attending an event requires confirmation of two policies.
+- guests -> children [ under 12 ] -> add cost per child
 - manage reservations
 - events should have attach picture option. (visible only to those who have attended)
-- admin can send out email to all attendees of a specific event, or to all registered users, or to an ndividual user.
-- admin can set how many guests per user maximum per event
+- admin can send out email to all attendees of a specific event, or to all registered users, or to an individual user.
+- admin can set how many children per guest is allowed
 - email sent to users to confirm event attendance displays details about what to bring etc
 - in generated report PDF, if guests are not bringing everythng, show what still needs to be brought
 - allow users to delete their accounts and thus remove any and all information we have for them
 - pdf report generate horizontal lines between people
-- ability to bring tent / per person. or allow notes.
-- registration allows to enter food restrictions (alllergy), as well as ability to modify that in control panel
+- registration allows to enter food restrictions (allergy), as well as ability to modify that in control panel
 - if bringing a car, who can take how many passengers.
-- pdf report has column "school"
-- pdf report sort by last -> first name in list
 - ability to bring extra items even if they are not needed for an event.
 - change "guests" to "children".
 - cooking page, recepies.

@@ -135,17 +135,17 @@ if(isset($_POST['register_attendee_now']) && $_POST['register_attendee_now'] == 
     
 	    if(mysql_query($k, $connection_gr)) {
 		    include "includes/libmail.php";
-		    $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
-		    $m->From( $site_settings['site_email'] ); // от кого Можно использовать имя, отделяется точкой с запятой
-		    $m->To( $session->userinfo['email'] );   // кому, в этом поле так же разрешено указывать имя
+		    $m= new Mail('utf-8');  
+		    $m->From( $site_settings['site_email'] );
+		    $m->To( $session->userinfo['email'] );   
 		    $m->Subject( "[ISFP: Reservation Confirmation] ".$session->userinfo['username']);
 		    $m->Body(
 				    	"Good day. \n\nIt has come to our attention that you are trying to attend an event. \nPlease click the link below to confirm that you indeed are going to attend this event\n\n"
 				    	.$site_settings['site_url']."/index.php?op=calendar&id=".$_POST['register_attendee_to_this_event'] ."&verify=".$random_n.
 				    	"\n\nThank You, ISFP."
 					);
-		    $m->Priority(4) ;   // установка приоритета
-		    $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); // используя эу команду отправка пойдет через smtp
+		    $m->Priority(4) ;   
+		    $m->smtp_on("ssl://smtp.gmail.com","kirka121@gmail.com","C45tt6KL32", 465, 10); 
 		    if($m->Send()){echo "<div id='blue_notification_message_box'>Confirmation email has been sent. Please check your inbox to confirm your attendance.</div>";}
 		} else {
 			echo"<div id='red_notification_message_box'>ERROR - Action Terminated</div>";
@@ -188,15 +188,6 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 			</td>
 		</tr>
 		<tr>
-			<?php } 
-				if(isset($infoarray['event_host']) && $infoarray['event_host']!=null){
-			?>
-			<td class="calendar_table_headers">
-				Hosted by:
-			</td>
-			<td class="calendar_table">
-				<?php echo $infoarray['event_host']; ?>
-			</td>
 			<?php } ?>
 			<td rowspan="100%">
 				<?php 
@@ -373,9 +364,9 @@ if(isset($_GET['id'])&& $_GET['id'] != null){
 									</td>
 									<td style="width: 200px; display: inline-table;">
 										<div style="width: 200px; display: inline-table; vertical-align: middle;">
-											Guests:<br/>
+											Children:<br/>
 											<input type="text" placeholder="amt" value="0" name="amount_of_guests" size="2">
-											<input type="text" value="Guests" name="guests" disabled size="6">
+											<input type="text" value="Children" name="guests" disabled size="6">
 										<div>
 									</td>
 									<td style="display: inline-table; vertical-align: middle;">

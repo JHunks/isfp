@@ -15,66 +15,23 @@ $result = mysql_query($q, $connection_ev);
 
 if(isset($_POST['edit_this_event'])){
 	$e_title = str_replace("'", "\'", $_POST['event_title']);
-	$e_host = str_replace("'", "\'", $_POST['event_host']);
 	$e_location = str_replace("'", "\'", $_POST['event_location']);
 	$s_time = str_replace("'", "\'", $_POST['start_time']);
-	$e_time = str_replace("'", "\'", $_POST['end_time']);
+	$s_hour = str_replace("'", "\'", $_POST['start_hour']);
 	$e_fee = str_replace("'", "\'", $_POST['enterance_fee']);
 	$e_description = str_replace("'", "\'", $_POST['event_description']);
 	$errrrrrrur = false;
 
-	
-	$myq = "SELECT * from bring_to_event where event_id = '".$_POST['edit_this_event']."'";
-	$rezultat = mysql_query($myq, $connection_ev);
-
-	
-	$tt = "SELECT * FROM registered_to_event WHERE event_id ='".$_POST['edit_this_event']."'";
-	$rez = mysql_query($tt, $connection_ev);
-	$re = array();
-	while($r_t_ee = mysql_fetch_array($rez)){
-		$re[] = $r_t_ee;
-	}
-
-	while($my_infa = mysql_fetch_array($rezultat)){
-		foreach($re as $the_person){
-			if($my_infa['randomPK'] == $the_person['bring_item_PK']){
-				$my3q = "UPDATE registered_to_event SET bring_item_pk = null, bring_item_amount = null WHERE user_id='".$the_person['user_id']."'";
-				if(mysql_query($my3q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;};
-			}
-		}
-	}
-
-
-	$g = "DELETE FROM bring_to_event WHERE event_id = '".$_POST['edit_this_event']."'";
-	if(mysql_query($g, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
-	
-	//echo "number of items to bring: ".$_POST['num_of_items_to_bring'];
-
-	for($i = 1; $i <= $_POST['num_of_items_to_bring']; $i++){
-		//echo $_POST['edit_this_item_'.strval($i)]."<br/>";
-		if(isset($_POST['edit_this_item_'.strval($i)])){
-			//echo "<br/>bring item: ";
-			//echo $_POST['edit_this_item_'.strval($i)];
-			//echo " | amount: ";
-			//echo $_POST['edit_this_item_amount_'.strval($i)];
-			$i_to_bring = str_replace("'", "\'", $_POST['edit_this_item_'.strval($i)]);
-			$i_quantity = str_replace("'", "\'", $_POST['edit_this_item_amount_'.strval($i)]);
-			$q = "INSERT INTO bring_to_event SET randomPK = 0, event_id='".$_POST['edit_this_event']."', item_name = '".$i_to_bring."', quantity = '".$i_quantity."'";
-			if(mysql_query($q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
-		}
-	}
-
-	$z = "UPDATE events SET event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."', start_hour = '".$_POST['start_hour']."', end_hour = '".$_POST['end_hour']."' WHERE event_id='".$_POST['edit_this_event']."'";
+	$z = "UPDATE events SET event_title = '".$e_title."', event_location = '".$e_location."', start_time = '".$s_time."', enterance_fee = '".$e_fee."', event_description = '".$e_description."', start_hour = '".$_POST['start_hour']."' WHERE event_id='".$_POST['edit_this_event']."'";
 	if(mysql_query($z, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
 	if(!$errrrrrrur){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 if(isset($_POST['create_new_event'])){
 	$e_title = str_replace("'", "\'", $_POST['event_title']);
-	$e_host = str_replace("'", "\'", $_POST['event_host']);
 	$e_location = str_replace("'", "\'", $_POST['event_location']);
 	$s_time = str_replace("'", "\'", $_POST['start_time']);
-	$e_time = str_replace("'", "\'", $_POST['end_time']);
+	$s_hour = str_replace("'", "\'", $_POST['start_hour']);
 	$e_fee = str_replace("'", "\'", $_POST['enterance_fee']);
 	$e_description = str_replace("'", "\'", $_POST['event_description']);
 
@@ -90,28 +47,9 @@ if(isset($_POST['create_new_event'])){
 */
 	$errrrrrrur = false;
 
-	$q = "INSERT INTO events SET event_id = 0, event_title = '".$e_title."', event_host = '".$e_host."', event_location = '".$e_location."', start_time = '".$s_time."', end_time = '".$e_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."', start_hour = '".$_POST['start_hour']."', end_hour = '".$_POST['end_hour']."'";
+	$q = "INSERT INTO events SET event_id = 0, event_title = '".$e_title."', event_location = '".$e_location."', start_time = '".$s_time."',enterance_fee = '".$e_fee."', event_description = '".$e_description."', start_hour = '".$s_hour."'";
 	if(mysql_query($q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
 
-	$q = "SELECT event_id FROM events WHERE event_title ='".$e_title."'";
-	
-	$resultttt = mysql_query($q,$connection_ev);
-	$event_id_selector = mysql_fetch_array($resultttt);
-	//echo "<br/>this event id is: ";
-	//echo $event_id_selector['event_id'];
-	
-	for($i = 1; $i <= $_POST['num_of_items_to_bring']; $i++){
-		if(isset($_POST['bring_this_item_'.strval($i)])){
-			//echo "<br/>bring item: ";
-			//echo $_POST['bring_this_item_'.strval($i)];
-			//echo " | amount: ";
-			//echo $_POST['bring_this_item_amount_'.strval($i)];
-			$i_to_bring = str_replace("'", "\'", $_POST['bring_this_item_'.strval($i)]);
-			$i_quantity = str_replace("'", "\'", $_POST['bring_this_item_amount_'.strval($i)]);
-			$q = "INSERT INTO bring_to_event SET randomPK = 0, event_id='".$event_id_selector['event_id']."', item_name = '".$i_to_bring."', quantity = '".$i_quantity."'";
-			if(mysql_query($q, $connection_ev)){$errrrrrrur = false;} else {$errrrrrrur = true;}
-		}
-	}
 
 	if(!$errrrrrrur){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 	
@@ -138,10 +76,8 @@ mysql_close($connection_ev);
 <table class="edit_data">
 	<tr>
 		<td>Title</td><td> | </td>
-		<td>Host</td><td> | </td>
 		<td>Location</td><td> | </td>
 		<td>Start Time</td><td> | </td>
-		<td>End Time</td><td> | </td>
 		<td width="105">Action</td>
 	</tr>
 		<?php 
@@ -153,10 +89,8 @@ mysql_close($connection_ev);
 		?>
 	<tr>
 		<td class="edit_data"><?php echo $row['event_title']; ?></td><td> | </td>
-		<td class="edit_data"><?php echo $row['event_host']; ?></td><td> | </td>
 		<td class="edit_data"><?php echo $row['event_location']; ?></td><td> | </td>
 		<td class="edit_data"><?php echo $row['start_time']; ?></td><td> | </td>
-		<td class="edit_data"><?php echo $row['end_time']; ?></td><td> | </td>
 		<td class="edit_data">
 			<form action="" method="post">
 				<input type="hidden" name="edit_event" value='<?php echo $row['event_id']; ?>'>
@@ -201,29 +135,26 @@ if(isset($_POST['edit_event'])){
 		<tr>
 			<td>Description:</td>
 			<td colspan="2">
-				<textarea name="event_description" cols="60" rows="10"><?php echo $row['event_description']; ?></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>Hosted by:</td>
-			<td colspan="2">
-				<input type="text" name="event_host" value="<?php echo $row['event_host']; ?>">
+				<textarea name="event_description"><?php echo $row['event_description']; ?></textarea>
+				<script>CKEDITOR.replace('event_description');</script>
 			</td>
 		</tr>
 		<tr>
 			<td>At location: </td>
-			<td colspan="2"><input type="text" name="event_location" value="<?php echo $row['event_location']; ?>"></td>
+			<td colspan="2"><textarea name="event_location" rows="2" cols="76" ><?php echo $row['event_location']; ?></textarea></td>
 		</tr>
 		<tr>
-			<td>Time:</td>
+			<td>Start Time:</td>
 			<td>
 				<script src="includes/datepair.js"></script>
 				<div class="example">
 					<p class="datepair" data-language="javascript">
 						<input size="10" type="text" class="date start" name="start_time" value="<?php echo $row['start_time']; ?>"/>
-						<input size="10" type="text" id="start_hour" name="start_hour" class="time start" value="<?php echo $row['start_hour']; ?>"/> to
+						<input size="10" type="text" id="start_hour" name="start_hour" class="time start" value="<?php echo $row['start_hour']; ?>"/>
+						<!-- to
 						<input size="10" type="text" id="end_hour" name="end_hour" class="time end" value="<?php echo $row['end_hour']; ?>"/>
 						<input size="10" type="text" class="date end" name="end_time" value="<?php echo $row['end_time']; ?>"/>
+					-->
 					</p>
 				</div>
 			</td>
@@ -232,6 +163,7 @@ if(isset($_POST['edit_event'])){
 			<td>Enterance fee:</td>
 			<td colspan="2"><input type="text" name="enterance_fee" value="<?php echo $row['enterance_fee']; ?>"></td>
 		</tr>
+		<!--
 		<tr>
 			<td>Bring Items:</td>
 			<td>
@@ -259,6 +191,7 @@ if(isset($_POST['edit_event'])){
 				<img type="button" src="assets/images/button_add_01.png" onclick="add()">
 			</td>
 		</tr>
+		-->
 		<tr>
 			<td colspan="4">
 				<input type="hidden" name="edit_this_event" value='<?php echo $e_id; ?>'>
@@ -286,28 +219,25 @@ if(isset($_POST['create_event'])){
 		<tr>
 			<td>Description:</td>
 			<td>
-				<textarea name="event_description" cols="60" rows="10"><?php echo $row['event_description']; ?></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>Hosted by:</td>
-			<td>
-				<input type="text" name="event_host" value="<?php echo $row['event_host']; ?>">
+				<textarea name="event_description"><?php echo $row['event_description']; ?></textarea>
+				<script>CKEDITOR.replace('event_description');</script>
 			</td>
 		</tr>
 		<tr>
 			<td>At location: </td>
-			<td><input type="text" name="event_location" value="<?php echo $row['event_location']; ?>"></td>
+			<td colspan="2"><textarea name="event_location" rows="2" cols="76" ><?php echo $row['event_location']; ?></textarea></td>
 		</tr>
 		<tr>
-			<td>Time:</td>
+			<td>Start Time:</td>
 			<td>
 				<script src="includes/datepair.js"></script>
 				<p class="datepair" data-language="javascript">
 					<input size="10" type="text" class="date start" name="start_time" value="<?php echo $row['start_time']; ?>"/>
-					<input size="10" type="text" name="start_hour" class="time start" value="<?php echo $row['start_hour']; ?>"/> to
+					<input size="10" type="text" name="start_hour" class="time start" value="<?php echo $row['start_hour']; ?>"/> 
+					<!-- to
 					<input size="10" type="text" name="end_hour" class="time end" value="<?php echo $row['end_hour']; ?>"/>
 					<input size="10" type="text" class="date end" name="end_time" value="<?php echo $row['end_time']; ?>"/>
+				-->
 				</p>
 			</td>
 		</tr>
@@ -315,6 +245,7 @@ if(isset($_POST['create_event'])){
 			<td>Enterance fee:</td>
 			<td><input type="text" name="enterance_fee" value="<?php echo $row['enterance_fee']; ?>"></td>
 		</tr>
+		<!--
 		<tr>
 			<td>Bring Items:</td>
 			<td>
@@ -335,6 +266,7 @@ if(isset($_POST['create_event'])){
 				<img type="button" src="assets/images/button_add_01.png" onclick="add()">
 			</td>
 		</tr>
+		-->
 		<tr>
 			<td colspan="2">
 				<input type="hidden" name="create_new_event" value="1">

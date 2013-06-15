@@ -11,9 +11,13 @@ if($session->isAdmin()){
 		<td class="alinks"><a href="index.php?op=control_panel&page=general">Site Settings</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel&page=stats">List Users</a></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel&page=users">Manage Users</a></td><td> | </td>
-	    <td class="alinks"><a href="index.php?op=control_panel&page=useful_links">Useful Links</a></td><td> | </td>
-	    <td class="alinks"><a href="index.php?op=control_panel&page=manage_pages">Manage Pages</a></td><td> | </td>
-	    <td class="alinks"><a href="index.php?op=control_panel&page=manage_events">Manage Events</a></td>
+	    <td class="alinks"><a href="index.php?op=control_panel&page=useful_links">Useful Links</a></td>
+	</tr>
+	<tr>
+		<td class="alinks"><a href="index.php?op=control_panel&page=manage_pages">Manage Pages</a></td><td> | </td>
+	    <td class="alinks"><a href="index.php?op=control_panel&page=manage_events">Manage Events</a></td><td> | </td>
+	    <td class="alinks"><a href="index.php?op=control_panel&page=view_reservations">View Reservations</a></td><td> | </td>
+	    <td colspan="100%">
 	</tr>
 </table>
 <br />
@@ -27,9 +31,8 @@ if($session->isAdmin()){
 	<tr>
 	    <td class="alinks"><?php echo "<a href=\"index.php?op=control_panel&page=userinfo&user=$session->username\">My Account</a>"; ?></td><td> | </td>
 	    <td class="alinks"><a href="index.php?op=control_panel&page=useredit">Update Info</a></td><td> | </td>
-	    <td class="alinks"><a href="index.php?op=control_panel&page=reservations">My Reservations</a></td><td> | </td>
-	    <td class="alinks"><a href="index.php?op=control_panel">Placeholder</a></td><td> | </td>
-	    <td class="alinks"><a href="index.php?op=control_panel">Placeholder</a></td>
+	    <td class="alinks"><a href="index.php?op=control_panel&page=reservations">My Reservations</a></td>
+	    <td colspan="100%">
 	</tr>
 </table><br/>
 <?php

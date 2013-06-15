@@ -19,7 +19,8 @@ $q = "SELECT * FROM events WHERE event_id='".$event_id."'";
 $result_event_info = mysql_query($q, $connection);
 $event_info = mysql_fetch_array($result_event_info);
 
-$q = "SELECT * FROM registered_to_event WHERE event_id='".$event_id."'";
+//$q = "select * from registered_to_event left join users on registered_to_event.user_id = users.username order by lastname, firstname where";
+$q = "select * from registered_to_event left join users on registered_to_event.user_id = users.username where event_id = '".$event_id."' order by lastname, firstname";
 $result_registered_to_event_info = mysql_query($q, $connection);
 $reg_info = array();
 while($registered_to_event_info = mysql_fetch_array($result_registered_to_event_info)){
@@ -43,24 +44,27 @@ $pdf->Ln();
 $pdf->SetFont('Arial','',14);
 $pdf->Cell(80,7,'Number of attendees: '.$total_number_of_attendees);
 $pdf->Ln();
-$pdf->Cell(80,7,'Number of guests: '.$total_number_of_guests);
+$pdf->Cell(80,7,'Number of children: '.$total_number_of_guests);
 $pdf->Ln();
 $pdf->Cell(80,7,'Total people coming: '.$total);
 $pdf->Ln();
 $pdf->Ln();
 $pdf->Cell(40,7,'Name:');
-$pdf->Cell(70,7,'E-Mail:');
+$pdf->Cell(70,7,'University:');
 $pdf->Cell(30,7,'Phone:');
 $pdf->Cell(30,7,'Brings:');
-$pdf->Cell(30,7,'Guests:');
+$pdf->Cell(30,7,'Children:');
 $pdf->Ln();
 $pdf->SetFont('Arial','',12);
+$counter = 0;
+$pdf->Line(10.0,65, 200.0, 65);
 foreach($reg_info as $info){
-	$q = "SELECT firstname, lastname, email, pnumber from users where username ='".$info['user_id']."'";
+	$q = "SELECT firstname, lastname, pnumber, school from users where username ='".$info['user_id']."'";
 	$result = mysql_query($q, $connection);
 	$details = mysql_fetch_array($result);
 	$name = $details['firstname']." ".$details['lastname'];
-	$email = $details['email'];
+	//$email = $details['email'];
+	$school = $details['school'];
 	
 
 	if($details['pnumber'] == null){
@@ -69,7 +73,7 @@ foreach($reg_info as $info){
 		$phone = $details['pnumber'];
 	}
 
-	if($info['bring_item_PK'] == null){
+	if($info['bring_item_PK'] == null || $info['bring_item_PK'] == 0){
 		$brings = "";
 	} else {
 		$p = "SELECT item_name FROM bring_to_event WHERE randomPK =".$info['bring_item_PK'];
@@ -77,18 +81,24 @@ foreach($reg_info as $info){
 		$answaaa = mysql_fetch_array($raz);
 		$brings = $info['bring_item_amount']." x ".$answaaa['item_name'];
 	}
-	if($info['bring_num_guests'] == null){
+	if($info['bring_num_guests'] == null || $info['bring_num_guests'] == 0){
 		$guest_num = "";
 	} else {
 		$guest_num = $info['bring_num_guests'];
 	}
 
 	$pdf->Cell(40,7,$name);
-	$pdf->Cell(70,7,$email);
+	$pdf->Cell(70,7,$school);
 	$pdf->Cell(30,7,$phone);
 	$pdf->Cell(30,7,$brings);
 	$pdf->Cell(30,7,$guest_num);
+	$offset = 72+($counter*7); 
+	$pdf->Line(10.0,$offset, 200.0, $offset);
 	$pdf->Ln();
+	$counter = $counter+1;
 }
 $pdf->Output('ISFP_report_for_event_'.$event_id.'.pdf', 'D');
 ?>
+
+
+select * from registered_to_event where left join users on registered_to_event.user_id = users.username order by lastname, firstname
