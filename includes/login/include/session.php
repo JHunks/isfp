@@ -1,4 +1,4 @@
-<?php
+  <?php
 /**
  * Session.php
  * 
@@ -97,9 +97,9 @@ class Session
          /* Confirm that username and userid are valid */
          if($database->confirmUserID($_SESSION['username'], $_SESSION['userid']) != 0){
             /* Variables are incorrect, user not logged in */
-            unset($_SESSION['username']);
-            unset($_SESSION['userid']);
-            return false;
+			unset($_SESSION['username']);
+			unset($_SESSION['userid']);
+			return false;
          }
 
          /* User is logged in, set class variables */
@@ -125,7 +125,7 @@ class Session
       global $database, $form;  //The database and form object
 
       /* Username error checking */
-      $field = "user";  //Use field name for username
+      $field = "username";  //Use field name for username
       if(!$subuser || strlen($subuser = trim($subuser)) == 0){
          $form->setError($field, "* Username not entered");
       }
@@ -137,7 +137,7 @@ class Session
       }
 
       /* Password error checking */
-      $field = "pass";  //Use field name for password
+      $field = "password";  //Use field name for password
       if(!$subpass){
          $form->setError($field, "* Password not entered");
       }
@@ -153,11 +153,11 @@ class Session
 
       /* Check error codes */
       if($result == 1){
-         $field = "user";
+         $field = "username";
          $form->setError($field, "* Username not found");
       }
       else if($result == 2){
-         $field = "pass";
+         $field = "password";
          $form->setError($field, "* Invalid password");
       }
       
@@ -169,7 +169,7 @@ class Session
       /* Username and password correct, register session variables */
       $this->userinfo  = $database->getUserInfo($subuser);
       $this->username  = $_SESSION['username'] = $this->userinfo['username'];
-      $this->userid    = $_SESSION['userid']   = $this->generateRandID();
+      $this->userid    = $_SESSION['userid']   = $this->userinfo['userid'];
       $this->userlevel = $this->userinfo['userlevel'];
       
       /* Insert userid into database and update active users table */
@@ -237,7 +237,7 @@ class Session
     * 1. If no errors were found, it registers the new user and
     * returns 0. Returns 2 if registration failed.
     */
-   function register($subuser, $subpass, $subemail){
+   function register($firstname, $lastname, $subuser, $subpass, $subemail, $school, $pnumber){
       global $database, $form, $mailer;  //The database, form and mailer object
       
       /* Username error checking */
@@ -271,6 +271,27 @@ class Session
             $form->setError($field, "* Username banned");
          }
       }
+      /* first name error checking */
+      $field = "firstname";
+      if (!$firstname){
+        $form->setError($field, "* First Name not entered");
+      } else {
+        $firstname = stripslashes($firstname);
+        if(strlen($firstname) < 1){
+          $form->setError($field, "* First Name too short");
+        }
+      } 
+
+      /* last name error checking */
+      $field = "lastname";
+      if (!$lastname){
+        $form->setError($field, "* Last Name not entered");
+      } else {
+        $lastname = stripslashes($lastname);
+        if(strlen($lastname) < 1){
+          $form->setError($field, "* Last Name too short");
+        }
+      }
 
       /* Password error checking */
       $field = "pass";  //Use field name for password
@@ -280,7 +301,7 @@ class Session
       else{
          /* Spruce up password and check length*/
          $subpass = stripslashes($subpass);
-         if(strlen($subpass) < 4){
+         if(strlen($subpass) < 5){
             $form->setError($field, "* Password too short");
          }
          /* Check if password is not alphanumeric */
@@ -311,15 +332,38 @@ class Session
          $subemail = stripslashes($subemail);
       }
 
+      /* phone number error checking */
+      $field = "pnumber";
+      if (!$pnumber){
+        $form->setError($field, "* Phone Number not entered");
+      } else {
+        $pnumber = stripslashes($pnumber);
+        if(strlen($pnumber) != 10){
+          $form->setError($field, "* Phone number must be 10 digits long.");
+        }
+      }
+
       /* Errors exist, have user correct them */
       if($form->num_errors > 0){
          return 1;  //Errors with form
       }
       /* No errors, add the new account to the */
       else{
-         if($database->addNewUser($subuser, md5($subpass), $subemail)){
+         if($database->addNewUser($firstname, $lastname, $subuser, md5($subpass), $subemail, $school, $pnumber)){
             if(EMAIL_WELCOME){
-               $mailer->sendWelcome($subuser,$subemail,$subpass);
+              include "../../includes/libmail.php";
+              $m= new Mail('utf-8');  // можно сразу указать кодировку, можно ничего не указывать ($m= new Mail;)
+              $m->From( EMAIL_SENT_FROM ); // от кого Можно использовать имя, отделяется точкой с запятой
+              $m->To( $subemail );   // кому, в этом поле так же разрешено указывать имя
+              $m->Subject( "[ISFP: Welcome Aboard]  ".$firstname." ".$lastname );
+              $m->Body(
+                        "Good day. \n\nThank you for registering with the International Student Friendship Program - Ottawa. \nYour account credentials are as follows:\n\nUsername: "
+                        .$subuser."\nPassword: ".$subpass."\n\nWe recomend you save these details some place safe for future reference.".
+                        "\n\nThank You, ISFP."
+                        );
+              $m->Priority(4) ;   // установка приоритета
+              $m->smtp_on(EMAIL_SSL,EMAIL_SSL_LOGIN,EMAIL_SSL_PASS, 465, 10); // используя эу команду отправка пойдет через smtp
+              $m->Send();
             }
             return 0;  //New user added succesfully
          }else{

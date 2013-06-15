@@ -1,0 +1,17 @@
+- attending an event requires confirmation of two policies.
+- guests -> children [ under 12 ] -> add cost per child
+- manage reservations
+- events should have attach picture option. (visible only to those who have attended)
+- admin can send out email to all attendees of a specific event, or to all registered users, or to an individual user.
+- admin can set how many children per guest is allowed
+- email sent to users to confirm event attendance displays details about what to bring etc
+- in generated report PDF, if guests are not bringing everythng, show what still needs to be brought
+- allow users to delete their accounts and thus remove any and all information we have for them
+- pdf report generate horizontal lines between people
+- registration allows to enter food restrictions (allergy), as well as ability to modify that in control panel
+- if bringing a car, who can take how many passengers.
+- ability to bring extra items even if they are not needed for an event.
+- change "guests" to "children".
+- cooking page, recepies.
+- change colors on website option
+- the carousel skip to image bar looks off by 5px on some pages. on others it is fine

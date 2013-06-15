@@ -1,4 +1,7 @@
 <?php
+if(!$session->isAdmin()){
+	die("<div id='red_notification_message_box'>you should not be here. ip recorded, errors logged.</div>");
+}
 function displayBannedUsers(){
 	   global $database;
 	   $q = "SELECT username,timestamp "
@@ -30,7 +33,7 @@ function displayBannedUsers(){
 <h3>Update User Level</h3>
 <?php echo $form->error("upduser"); ?>
 <table>
-	<form action="adminprocess.php" method="POST">
+	<form action="index.php?op=control_panel&page=adminprocess" method="POST">
 		<tr>
 			<td>
 				Username:<br>
@@ -58,7 +61,7 @@ function displayBannedUsers(){
 <table>
 	<tr>
 		<td>
-			<form action="adminprocess.php" method="POST">
+			<form action="index.php?op=control_panel&page=adminprocess" method="POST">
 				Username:<br>
 				<input type="text" name="deluser" maxlength="30" value="<?php echo $form->value("deluser"); ?>">
 				<input type="hidden" name="subdeluser" value="1">
@@ -72,7 +75,7 @@ function displayBannedUsers(){
 This will delete all users (not administrators), who have not logged in to the site<br>
 within a certain time period.<br><br>
 <table>
-	<form action="adminprocess.php" method="POST">
+	<form action="index.php?op=control_panel&page=adminprocess" method="POST">
 		<tr>
 			<td>
 				Days:<br>
@@ -94,12 +97,12 @@ within a certain time period.<br><br>
 	</form>
 </table>
 
-<h3>Ban User</h3>
+<h3>Ban User [PERMANENT]</h3>
 <?php echo $form->error("banuser"); ?>
 <table>
 	<tr>
 		<td>
-			<form action="adminprocess.php" method="POST">
+			<form action="index.php?op=control_panel&page=adminprocess" method="POST">
 				Username:<br>
 				<input type="text" name="banuser" maxlength="30" value="<?php echo $form->value("banuser"); ?>">
 				<input type="hidden" name="subbanuser" value="1">
@@ -119,7 +122,7 @@ within a certain time period.<br><br>
 <table>
 	<tr>
 		<td>
-			<form action="adminprocess.php" method="POST">
+			<form action="index.php?op=control_panel&page=adminprocess" method="POST">
 				Username:<br>
 				<input type="text" name="delbanuser" maxlength="30" value="<?php echo $form->value("delbanuser"); ?>">
 				<input type="hidden" name="subdelbanned" value="1">

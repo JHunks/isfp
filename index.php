@@ -5,20 +5,19 @@ $connect = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 mysql_select_db(DB_NAME, $connect) or die(mysql_error());
 $q = "SELECT * FROM settings";
 $result = mysql_query($q, $connect);
-$dbarray = mysql_fetch_array($result);
+$site_settings = mysql_fetch_array($result);
 ?>
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>International Student Friendship Program</title>
+		<title> <?php echo $site_settings['site_title'] ?></title>
 		<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"> 
 		<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon"> 
 		<link rel="stylesheet" type="text/css" media="screen" href="assets/css/index.css">
 		<link rel="stylesheet" href="includes/jQuery.isc/jQuery.isc.css" type="text/css" media="screen" charset="utf-8">
 		<link rel="stylesheet" type="text/css" media="screen" href="includes/fullcalendar/fullcalendar.css">
-		<script src="http://www.google.com/jsapi"></script>
-		<script>google.load("jquery", "1");</script>
+		<link rel="stylesheet" type="text/css" media="screen" href="assets/css/buttons.css">
 		<script type="text/javascript">
 		if (typeof jQuery == 'undefined'){
 				document.write(unescape("%3Cscript src='includes/jQuery.js' type='text/javascript'%3e%3C/script%3E"));
@@ -28,6 +27,7 @@ $dbarray = mysql_fetch_array($result);
 		<script src="includes/jQuery.isc/jquery-image-scale-carousel.js" type="text/javascript" charset="utf-8"></script>
 		<script src="includes/ckeditor/ckeditor.js" type="text/javascript" ></script>
 		<script type='text/javascript' src='includes/fullcalendar/fullcalendar.js'></script>
+		<script src="includes/jquery.validate.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			<?php
 				if ($dir = opendir('assets/carousel/')) {
@@ -59,10 +59,11 @@ $dbarray = mysql_fetch_array($result);
 	</head>
 	<body>
 		<div id="container">
+			<div id="title_logo"><a href="index.php"><img src="assets/images/logo.png"></a><h1><?php echo $site_settings['site_name']; ?></h1></div>
 			<div id="header">
 				<div id="photo_container"></div> 
 			</div>
-			<div id="content">
+			<div id="content" <?php if(isset($_GET['page'])){if($_GET['page'] == "manage_pages" || $_GET['page'] == "manage_events"){echo 'style="margin-bottom: 500px;"';}}elseif(isset($_GET['op']) && $_GET['op'] == "calendar"){echo 'style="margin-bottom: 200px;"';} ?>>
 				<table>
 					<tr>
 						<td rowspan="3">
@@ -81,16 +82,17 @@ $dbarray = mysql_fetch_array($result);
 								<div id="nav_content">
 									<ol id="list_container">
 										<li id="list_links"><a href="index.php?op=home">Home</a></li>
-										<li id="list_links"><a href="index.php?op=about">About Us</a></li>
-										<li id="list_links"><a href="index.php?op=register">Register</a></li>
+										<li id="list_links"><a href="index.php?op=about_us">About Us</a></li>
+										<!--
 										<li id="list_links"><a href="index.php?op=activities">Activities</a></li>
 										<li id="list_links"><a href="index.php?op=program">Program</a></li>
-										<li id="list_links"><a href="index.php?op=links">Useful Links</a></li>
-										<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>
-										<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>
-										<li id="list_links"><a href="index.php?op=contact">Contact Us</a></li>
+										-->
+										<li id="list_links"><a href="index.php?op=useful_links">Useful Links</a></li>
+										<!--<li id="list_links"><a href="index.php?op=reservations">Reservations</a></li>-->
+										<!--<li id="list_links"><a href="index.php?op=calendar">Calendar</a></li>-->
+										<li id="list_links"><a href="index.php?op=contact_us">Contact Us</a></li>
 										<?php
-											if($dbarray['custom_pages'] == 1){
+											if($site_settings['custom_pages'] == 1){
 												$connecti = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 												mysql_select_db(DB_NAME, $connecti) or die(mysql_error());
 												$q = "SELECT * FROM pages";
@@ -108,14 +110,30 @@ $dbarray = mysql_fetch_array($result);
 							</div>
 							<div id="cont_calendar">
 								<div id="cal_title">
-									calendar
+									Upcoming Events
 								</div>
+								<?php
+									$connecte = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
+									mysql_select_db(DB_NAME, $connecte) or die(mysql_error());
+									$q = "SELECT * FROM events order by start_time";
+									$result = mysql_query($q, $connecte);
+								?>
+								<table>
+									<?php
+									while($row = mysql_fetch_array($result)){
+										echo "<tr><td class='event_row'>[".$row['start_time']."]</td><td class='event_row'><a href='index.php?op=calendar&id=".$row['event_id']."'>".$row['event_title']."</a></td></tr>";
+									}
+									?>
+								</table>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<div id="inner_content">
+								<div id="container_title">
+							        <?php if (!isset($_GET['op']) || $_GET['op'] == ""){echo "Home";}else{echo str_replace('_', ' ', $_GET['op']);}?>
+								</div>
 								<div id="margin">
 									<?php
 										if (!isset($_GET['op'])) { 
@@ -125,7 +143,7 @@ $dbarray = mysql_fetch_array($result);
 									      	if (is_file("modules/".$op.".php")) {
 									      		include("modules/".$op.".php");
 									      	} else {	
-												echo ("<div id='error'>Module could not be found!<br/></div>");
+												echo ("<div id='red_notification_message_box'>Module could not be found.</div>");
 									      	}
 										} 
 									?>
@@ -139,7 +157,7 @@ $dbarray = mysql_fetch_array($result);
 			</div>
 		</div>
 		<div id="footer">
-			&copy; Kirill Afanasenko 2013. All Rights Reserved.
+			&copy; <?php echo $site_settings['copyright'] ?>
 		</div>
 	</body>
 </html>

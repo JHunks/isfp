@@ -57,7 +57,7 @@ class Process
    function procLogin(){
       global $session, $form;
       /* Login attempt */
-      $retval = $session->login($_POST['user'], $_POST['pass'], isset($_POST['remember']));
+      $retval = $session->login($_POST['username'], $_POST['password'], isset($_POST['remember']));
       
       /* Login successful */
       if($retval){
@@ -95,7 +95,7 @@ class Process
          $_POST['user'] = strtolower($_POST['user']);
       }
       /* Registration attempt */
-      $retval = $session->register($_POST['user'], $_POST['pass'], $_POST['email']);
+      $retval = $session->register($_POST['firstname'], $_POST['lastname'], $_POST['username'], $_POST['password'], $_POST['email'], $_POST['school'], $_POST['pnumber']);
       
       /* Registration Successful */
       if($retval == 0){
@@ -129,8 +129,7 @@ class Process
       $field = "user";  //Use field name for username
       if(!$subuser || strlen($subuser = trim($subuser)) == 0){
          $form->setError($field, "* Username not entered<br>");
-      }
-      else{
+      }else{
          /* Make sure username is in database */
          $subuser = stripslashes($subuser);
          if(strlen($subuser) < 5 || strlen($subuser) > 30 ||
@@ -144,9 +143,7 @@ class Process
       if($form->num_errors > 0){
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-      }
-      /* Generate new password and email it to user */
-      else{
+      }else{
          /* Generate new password */
          $newpass = $session->generateRandStr(8);
          
@@ -155,18 +152,26 @@ class Process
          $email  = $usrinf['email'];
          
          /* Attempt to send the email with new password */
-         if($mailer->sendNewPass($subuser,$email,$newpass)){
-            /* Email sent, update database */
-            $database->updateUserField($subuser, "password", md5($newpass));
-            $_SESSION['forgotpass'] = true;
-         }
-         /* Email failure, do not change password */
-         else{
-            $_SESSION['forgotpass'] = false;
-         }
+        include "../libmail.php";
+        $m= new Mail('utf-8');
+        $m->From( EMAIL_SENT_FROM );
+        $m->To( $email );
+        $m->Subject( "[ISFP: Password Reset]  ".$subuser );
+        $m->Body(
+                    "Good day. \n\nIt has come to our attention that you have forgotten your password and would like to reset it. \nWe have performed this task for you.\n\nYour username: "
+                    .$subuser."\nYour password: ".$newpass.
+                    "\n\nThank You, ISFP."
+                );
+        $m->Priority(4) ;
+        $m->smtp_on(EMAIL_SSL,EMAIL_SSL_LOGIN,EMAIL_SSL_PASS, 465, 10); // используя эу команду отправка пойдет через smtp
+        if ($m->Send()){
+          $database->updateUserField($subuser, "password", md5($newpass));
+          $_SESSION['forgotpass'] = true;
+        } else {
+          $_SESSION['forgotpass'] = false;
+        }
       }
-      
-      header("index.php?op=forgotpass");
+      header("Location: /index.php?op=forgotpass");
    }
    
    /**
@@ -182,13 +187,13 @@ class Process
       /* Account edit successful */
       if($retval){
          $_SESSION['useredit'] = true;
-         header("Location: ".$session->referrer."?op=useredit");
+         header("Location: ".$session->referrer."?op=control_panel&page=useredit");
       }
       /* Error found with form */
       else{
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         header("Location: ".$session->referrer."?op=useredit");
+         header("Location: ".$session->referrer."?op=control_panel&page=usereditt");
       }
    }
 };

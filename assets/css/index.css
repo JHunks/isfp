@@ -1,4 +1,39 @@
-
+#blue_notification_message_box{
+	position: relative;
+	margin: 0 auto;
+	padding: 15px 15px 15px 15px;
+	font-weight: bold;
+	font-size: 12px;
+	color: #264c72;
+	border: 1px solid #97c1da;
+	border-radius: 3px;
+	background-color: #d0e3ef;
+	background-image: -moz-linear-gradient(#d8ebf8, #d0e3ef);
+	background-image: -webkit-linear-gradient(#d8ebf8, #d0e3ef);
+	background-image: linear-gradient(#d8ebf8, #d0e3ef);
+	background-repeat: repeat-x;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+	text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+	text-align: center;
+}
+#red_notification_message_box
+{	position: relative;
+	margin: 0 auto;
+	padding: 15px 15px 15px 15px;
+	font-weight: bold;
+	font-size: 12px;
+	color: #9c2400;
+	border: 1px solid #da9797;
+	border-radius: 3px;
+	background-color: #efd0d0;
+	background-image: -moz-linear-gradient(#f8d8d8, #efd0d0);
+	background-image: -webkit-linear-gradient(#f8d8d8, #efd0d0);
+	background-image: linear-gradient(#f8d8d8, #efd0d0);
+	background-repeat: repeat-x;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+	text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+	text-align: center;
+}
 html {
 	min-width:985px;
 }
@@ -6,19 +41,19 @@ body{
 	color: #000000;
 	text-align: center;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	background-image: url("/assets/images/main-bg.jpg");
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0.09, rgb(25,74,138)),
-		color-stop(0.46, rgb(79,151,219)),
-		color-stop(0.9, rgb(14,50,97))
-	);
+	background: #a1d3fc; /* Old browsers */
+	background: -moz-linear-gradient(top,  #a1d3fc 0%, #2b4a72 36%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a1d3fc), color-stop(36%,#2b4a72)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #a1d3fc 0%,#2b4a72 36%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #a1d3fc 0%,#2b4a72 36%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #a1d3fc 0%,#2b4a72 36%); /* IE10+ */
+	background: linear-gradient(to bottom,  #a1d3fc 0%,#2b4a72 36%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a1d3fc', endColorstr='#2b4a72',GradientType=0 ); /* IE6-9 */
+	background-color: blue;
 	margin: 0px;
 	padding: 0px;
 	overflow: auto;
-	padding-bottom: 100px;
+	padding-bottom: 10px;
 }
 table{
 	border-spacing: 0px;
@@ -45,6 +80,7 @@ form{
 a:hover{
 	color: #000000;
 }
+
 #list_container{ 
 	list-style:none;
 }
@@ -71,15 +107,13 @@ a:hover{
 	border: none;
 }
 #login{
-	margin-left: auto;
-	margin-right: auto;
 	width: 200px;
 	border: 1px solid white;
     border-radius: 20px;
     background-color: #FFFFFF;
 }
 #login_title{
-	background-color: #000000;
+	background-color: #5f8433;
 	color: #FFFFFF;
 	height: 40px;
 	margin-top: 0px;
@@ -87,13 +121,19 @@ a:hover{
 	overflow: hidden;
 	font-size: small;
 	line-height: 2.8;
-	-moz-border-radius-topright: 20px;
-  	-webkit-border-top-right-radius: 20px;
-  	-moz-border-radius-topleft: 20px;
-  	-webkit-border-top-left-radius: 20px;
+	-webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;  
 }
 #login_content{
+	margin-left: 9px;
+	margin-top: 5px;
+}
+#login_content_logged_in{
 	text-align: left;
+}
+#login_button_table_cell{
+	padding-top: 2px;
 }
 #navigation{
 	margin-top: 8px;
@@ -105,7 +145,7 @@ a:hover{
     background-color: #FFFFFF;
 }
 #nav_title{
-	background-color: #000000;
+	background-color: #5f8433;
 	color: #FFFFFF;
 	height: 40px;
 	margin-top: 0px;
@@ -113,10 +153,9 @@ a:hover{
 	overflow: hidden;
 	font-size: small;
 	line-height: 2.8;
-	-moz-border-radius-topright: 20px;
-  	-webkit-border-top-right-radius: 20px;
-  	-moz-border-radius-topleft: 20px;
-  	-webkit-border-top-left-radius: 20px;
+	-webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;  
 }
 #nav_content{
 	text-align: left;
@@ -135,14 +174,15 @@ a:hover{
 	margin-left: auto;
 	margin-right: auto;
 	width: 200px;
-	height: 200px;
+	min-height: 70px;
 	border: 1px solid white;
 	border-collapse: separate;
     border-radius: 20px;
     background-color: #FFFFFF;
+    padding-bottom: 10px;
 }
 #cal_title{
-	background-color: #000000;
+	background-color: #5f8433;
 	color: #FFFFFF;
 	height: 40px;
 	margin-top: 0px;
@@ -150,13 +190,18 @@ a:hover{
 	overflow: hidden;
 	font-size: small;
 	line-height: 2.8;
-	-moz-border-radius-topright: 20px;
-  	-webkit-border-top-right-radius: 20px;
-  	-moz-border-radius-topleft: 20px;
-  	-webkit-border-top-left-radius: 20px;
+	-webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;  
+
 }
 #error{
 	color: #b56b47;
+	font-size: 12px;
+}
+#login_request label.error{
+	color: red;
+	font-size: 12px;
 }
 #footer{
 	padding: 20px;	
@@ -188,13 +233,12 @@ table.alinks {
 td.alinks{
 	text-align: center;
 	font-size: small;
-	width: 100px;
+
 }
 table.edit_data{
 	width: 700px;
+	text-align: left;
 	border: none;
-	margin-left: auto;
-	margin-right: auto;
 }
 td.edit_data{
 	font-size: small;
@@ -202,6 +246,9 @@ td.edit_data{
 }
 #align_left{
 	text-align: left;
+}
+#centered{
+	text-align: center;
 }
 #margin{
 	margin: 20px;
@@ -219,4 +266,105 @@ td.edit_data{
 }
 #t_c_page{
 	width: 100%;
+}
+#calendar_display{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+table.calendar_table{
+	width: 100%;
+}
+td.calendar_table{
+	text-align: left;
+}
+td.calendar_table_headers{
+	width: 150px;
+	text-align: left;
+	font-weight: bold;
+}
+td.celendar_table_button{
+	width: 250px;
+	margin-top: auto;
+	margin-bottom: auto;
+	vertical-align: middle;
+	text-align: center;
+}
+th.calendar_table{
+	text-decoration: underline;
+}
+table.useful_links{
+	width: 100%;
+}
+td.useful_links{
+	text-align: left;
+}
+td.useful_links_url{
+	width:150px;
+	text-align: left;
+}
+th.useful_links{
+	text-align: left;
+}
+#container_title{
+	background-color: #51702b;
+	color: #FFFFFF;
+	height: 40px;
+	margin-top: 0px;
+	text-transform: uppercase;
+	overflow: hidden;
+	font-size: small;
+	line-height: 2.8;
+	-webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;  
+}
+#title_logo{
+	width: 100%;
+	text-align: left;
+}
+#title_logo h1{
+	display: inline;
+	color: white;
+	padding-left: 120px;
+	vertical-align: middle;
+}
+#title_logo img{
+	margin: 5px;
+	padding-left: 20px;
+	height: 60px;
+	vertical-align: middle;
+}
+#login_table input[type=text], #login_table input[type=password]{
+	font-family: Calibri, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    width: 90px;
+    padding: 3px 18px 3px 10px;
+    border: none;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1), inset 0 3px 2px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    background: #f9f9f9;
+    color: #777;
+    -webkit-transition: color 0.3s ease-out;
+    -moz-transition: color 0.3s ease-out;
+    -ms-transition: color 0.3s ease-out;
+    -o-transition: color 0.3s ease-out;
+    transition: color 0.3s ease-out;
+}
+#login_table td.login_table_c_cell{
+	text-align: left;
+	padding-left: 3px;
+}
+#login_table td.login_table_password_cell{
+	margin: 5px;
+	padding-left: 20px;
+	padding-bottom: 3px;
+}
+td.event_row{
+	font-size: small;
+	text-align: left;
+	padding-top: 4px;
+	padding-left: 15px;
 }

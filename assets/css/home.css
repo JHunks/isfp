@@ -1,0 +1,15 @@
+#home_container{
+	text-align: left;
+}
+#home_container h1, h2{
+	text-align: center;
+}
+#home_container h1{
+	color: #0b612b;
+}
+#home_container h2{
+	color: #2f9172;
+}
+#home_title{
+	font-size: 20;
+}

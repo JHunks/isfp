@@ -1,5 +1,7 @@
 <?php
-   
+if(!$session->isAdmin()){
+	die("<div id='red_notification_message_box'>you should not be here. ip recorded, errors logged.</div>");
+} 
 $connection_pg = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die(mysql_error());
 mysql_select_db(DB_NAME, $connection_pg) or die(mysql_error());
 $q = "SELECT * FROM pages";
@@ -12,8 +14,12 @@ if(isset($_POST['edit_site_page'])){
 	} elseif ($_POST['page_enabled'] == "no"){
 		$vbl = 0;
 	}
-	$q = "UPDATE pages SET page_title = '".$_POST['page_title']."', page_content = '".$_POST['page_content']."', date_modified = '".date('Y-m-d h:m:s')."', modified_by = '".$session->username."', is_visible = '".$vbl."' WHERE page_id='".$_POST['edit_site_page']."'";
-	if(mysql_query($q, $connection_pg)){echo"success";} else {echo"failure";}
+
+	$p_title = str_replace("'", "\'", $_POST['page_title']);
+	$p_content = str_replace("'", "\'", $_POST['page_content']);
+
+	$q = "UPDATE pages SET page_title = '".$p_title."', page_content = '".$p_content."', date_modified = '".date('Y-m-d h:m:s')."', modified_by = '".$session->username."', is_visible = '".$vbl."' WHERE page_id='".$_POST['edit_site_page']."'";
+	if(mysql_query($q, $connection_pg)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 if(isset($_POST['add_site_page'])){
@@ -22,13 +28,17 @@ if(isset($_POST['add_site_page'])){
 	} elseif ($_POST['page_enabled'] == "no"){
 		$vbl = 0;
 	}
-	$q = "INSERT INTO pages SET page_title = '".$_POST['page_title']."', page_content = '".$_POST['page_content']."', date_created = '".date('Y-m-d h:m:s')."', author = '".$session->username."', is_visible = '".$vbl."'";
-	if(mysql_query($q, $connection_pg)){echo"success";} else {echo"failure";}
+
+	$p_title = str_replace("'", "\'", $_POST['page_title']);
+	$p_content = str_replace("'", "\'", $_POST['page_content']);
+
+	$q = "INSERT INTO pages SET page_title = '".$p_title."', page_content = '".$p_content."', date_created = '".date('Y-m-d h:m:s')."', author = '".$session->username."', is_visible = '".$vbl."'";
+	if(mysql_query($q, $connection_pg)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 if(isset($_POST['delete_this_page'])){
 	$q = "DELETE FROM pages WHERE page_id=".$_POST['delete_this_page'];
-	if(mysql_query($q, $connection_pg)){echo"success";} else {echo"failure";}
+	if(mysql_query($q, $connection_pg)){echo"<div id='blue_notification_message_box'>Success</div>";} else {echo"<div id='red_notification_message_box'>Failure</div>";}
 }
 
 mysql_close($connection_pg);

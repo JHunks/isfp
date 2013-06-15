@@ -1,5 +1,5 @@
 <?php
-if($dbarray['custom_pages'] == 0){
+if($site_settings['custom_pages'] == 0){
 	 echo "<div id='error'>custom pages are disabled</div>";
 } else {
 	if(isset($_GET['page']) && $_GET['page'] != null){
@@ -17,11 +17,13 @@ if($dbarray['custom_pages'] == 0){
 ?>
 		<div id="custom_page">
 			<table id="t_c_page">
+				<!--
 				<tr>
 					<td colspan="2" align="center">
 						<h2><?php echo $bdarray['page_title'];?></h2>
 					</td>
 				</tr>
+			-->
 				<tr>
 					<td colspan="2">
 						<?php echo $bdarray['page_content'];?>

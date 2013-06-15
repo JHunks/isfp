@@ -9,6 +9,9 @@
  */
 
 /* Requested Username error checking */
+if(!$session->logged_in){
+	die("<div id='red_notification_message_box'>you should not be here. ip recorded, errors logged.</div>");
+}
 if(isset($_GET['user'])){
 	$req_user = trim($_GET['user']);
 	if(!$req_user || strlen($req_user) == 0 || !preg_match("/^([0-9a-z])+$/i", $req_user) || !$database->usernameTaken($req_user)){
@@ -46,9 +49,6 @@ if(isset($_GET['user'])){
 	 */
 
 	/* If logged in user viewing own account, give link to edit */
-	if(strcmp($session->username,$req_user) == 0){
-	   echo "<br><a href=\"index.php?op=useredit\">Edit Account Information</a><br>";
-	}
 	} else {
 		echo("No username specified");
 	}
